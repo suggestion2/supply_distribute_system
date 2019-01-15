@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.su.supplydistributesystem.mapper.GoodsMapper">
+
+    <select id="selectById" resultType="com.su.supplydistributesystem.domain.Goods" parameterType="java.lang.Integer">
+        select * from `goods` where id= #{id} and `valid` = 1
+    </select>
+
+    <select id="select" resultType="com.su.supplydistributesystem.domain.Goods" parameterType="java.util.Map">
+        select * from `goods` where `valid` = 1
+        <if test="id!=null">
+            and `id` = #{id}
+        </if>
+    </select>
+
+    <select id="selectList" resultType="com.su.supplydistributesystem.domain.Goods" parameterType="java.util.Map">
+        select * from `goods` where `valid` = 1
+        <if test="id!=null">
+
+        </if>
+        <if test="startIndex != null and pageSize != null">
+            limit #{startIndex},#{pageSize}
+        </if>
+    </select>
+
+    <select id="selectCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+        select count(*) from `goods` where `valid` = 1
+        <if test="id!=null">
+
+        </if>
+    </select>
+
+    <insert id="insert" parameterType="com.su.supplydistributesystem.domain.Goods" useGeneratedKeys="true" keyProperty="id">
+        insert into `goods`
+        (
+        `categoryId1`,
+        `categoryId2`,
+        `categoryId3`,
+        `category1`,
+        `category2`,
+        `category3`,
+        `name`,
+        `taobaoPrice`,
+        `jdPrice`,
+        `Price`,
+        `lowSupplyPrice`,
+        `profit1`,
+        `profit2`,
+        `profit3`,
+        `salesVolume`,
+        `remarks`,
+        `createBy`,
+        `updateBy`,
+        `status`,
+        )
+        values
+        (
+        #{categoryId1},
+        #{categoryId2},
+        #{categoryId3},
+        #{category1},
+        #{category2},
+        #{category3},
+        #{name},
+        #{taobaoPrice},
+        #{jdPrice},
+        #{Price},
+        #{lowSupplyPrice},
+        #{profit1},
+        #{profit2},
+        #{profit3},
+        #{salesVolume},
+        #{remarks},
+        #{createBy},
+        #{createBy},
+        #{status},
+        )
+    </insert>
+
+    <update id="update" parameterType="com.su.supplydistributesystem.domain.Goods">
+        update `goods` set
+        `categoryId1` = #{categoryId1},
+        `categoryId2` = #{categoryId2},
+        `categoryId3` = #{categoryId3},
+        `category1` = #{category1},
+        `category2` = #{category2},
+        `category3` = #{category3},
+        `name` = #{name},
+        `taobaoPrice` = #{taobaoPrice},
+        `jdPrice` = #{jdPrice},
+        `Price` = #{Price},
+        `lowSupplyPrice` = #{lowSupplyPrice},
+        `profit1` = #{profit1},
+        `profit2` = #{profit2},
+        `profit3` = #{profit3},
+        `salesVolume` = #{salesVolume},
+        `remarks` = #{remarks},
+        `updateBy` = #{updateBy},
+        `status` = #{status},
+        `updateTime` = now()
+        where `id` = #{id}
+    </update>
+
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        update `goods` set valid = 0 where `id` = #{id}
+    </delete>
+</mapper>

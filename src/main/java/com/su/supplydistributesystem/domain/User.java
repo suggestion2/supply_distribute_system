@@ -7,7 +7,7 @@ public class User {
 
     private Integer id;
     private String name;
-    private String passwrod;
+    private String password;
     private Date createTime;
     private Date updateTime;
     private Integer createBy;
@@ -29,13 +29,15 @@ public class User {
     public void setName(String name) {
         this.name = name;
     }
-    public String getPasswrod() {
-        return passwrod;
+
+    public String getPassword() {
+        return password;
     }
 
-    public void setPasswrod(String passwrod) {
-        this.passwrod = passwrod;
+    public void setPassword(String password) {
+        this.password = password;
     }
+
     public Date getCreateTime() {
         return createTime;
     }
