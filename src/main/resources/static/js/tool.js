@@ -156,3 +156,50 @@ var customerModule = {
         showResult(settings);
     }
 };
+
+var supplierModule = {
+    create: function () {
+        var settings = {
+            type: "POST",
+            url: "/mApi/supplier/create",
+            dataType: "json",
+            data: JSON.stringify({
+                "name": $("#supplier-create-name").val()
+            })
+        };
+        showResult(settings);
+    },
+    deleteById: function () {
+        var settings = {
+            type: "DELETE",
+            url: "/mApi/supplier/delete/" + $("#supplier-delete-id").val(),
+            dataType: "json"
+        };
+        showResult(settings);
+    },
+    updateById: function () {
+        var settings = {
+            type: "PUT",
+            url: "/mApi/supplier/update",
+            dataType: "json",
+            data:JSON.stringify({
+                "id": $("#supplier-update-id").val(),
+                "name": $("#supplier-update-name").val()
+            })
+        };
+        showResult(settings);
+    },
+    list: function () {
+        var settings = {
+            type: "POST",
+            url: "/mApi/supplier/list",
+            dataType: "json",
+            data: JSON.stringify({
+                "content": $("#supplier-list-name").val(),
+                "pageIndex": $("#supplier-list-startIndex").val(),
+                "pageSize": $("#supplier-list-pageSize").val()
+            })
+        };
+        showResult(settings);
+    }
+};

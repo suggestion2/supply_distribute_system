@@ -40,6 +40,46 @@
             </div>
         </div>
     </div>
+    <div id="tabs-2" style="width: 2000px;display: block">
+        <div style="float: below; width: 400px;">
+            <h2>供应商(supplier)</h2>
+            <div>
+                <strong>[创建]</strong><br/>
+                供应商名称:<input class="textbox" type="text" id="supplier-create-name" style="width: 100px;"
+                           value="supplier"/>
+                <input type="button" value="创建" onclick="supplierModule.create()"/><br>
+            </div>
+        </div>
+            <div>
+                <strong>[删除]</strong><br/>
+                供应商id:<input class="textbox" type="text" id="supplier-delete-id" style="width: 100px;"
+                           value="1"/>
+                <input type="button" value="删除" onclick="supplierModule.deleteById()"/><br>
+            </div>
+    </div>
+        <div style="float: below; width: 400px;">
+            <div>
+                <strong>[修改]</strong><br/>
+                供应商id:<input class="textbox" type="text" id="supplier-update-id" style="width: 100px;"
+                           value="1"/>
+                名称:<input class="textbox" type="text" id="supplier-update-name" style="width: 100px;"
+                           value="1"/>
+                <input type="button" value="编辑" onclick="supplierModule.updateById()"/><br>
+            </div>
+        </div>
+        <div style="float: below; width: 400px;">
+            <div>
+                <strong>[查找]</strong><br/>
+                供应商名称:<input class="textbox" type="text" id="supplier-list-name" style="width: 100px;"
+                          value="1"/></br>
+                startIndex:<input class="textbox" type="text" id="supplier-list-startIndex" style="width: 100px;"
+                                  value="0"/>
+                pageSize:<input class="textbox" type="text" id="supplier-list-pageSize" style="width: 100px;"
+                                value="10"/> &ensp;
+                <input type="button" value="获取" onclick="supplierModule.list()"/><br>
+            </div>
+        </div>
+    </div>
 
     <div style="clear: both;"></div>
 </div>
