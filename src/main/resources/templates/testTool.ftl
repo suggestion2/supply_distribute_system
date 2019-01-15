@@ -126,6 +126,45 @@
             </div>
         </div>
     </div>
+    <div id="tabs-2" style="width: 2000px;display: block">
+        <div style="float: below; width: 400px;">
+            <h2>分销商(distibutor)</h2>
+            <div>
+                <strong>[创建]</strong><br/>
+                分销商名称:<input class="textbox" type="text" id="distributor-create-name" style="width: 100px;"
+                           value="supplier"/>
+                分销商手机:<input class="textbox" type="text" id="distributor-create-phone" style="width: 100px;"
+                           value="15059272122"/>
+                <input type="button" value="创建" onclick="distributorModule.create()"/><br>
+            </div>
+            <div>
+                <strong>[重置密码]</strong><br/>
+                分销商id:<input class="textbox" type="text" id="distributor-resetPassword-id" style="width: 100px;"
+                           value="1"/>
+                <input type="button" value="重置" onclick="distributorModule.resetPasswordById()"/><br>
+            </div>
+            <div>
+                <strong>[查找]</strong><br/>
+                分销商名称:<input class="textbox" type="text" id="distributor-list-name" style="width: 100px;"
+                          value="1"/></br>
+                startIndex:<input class="textbox" type="text" id="distributor-list-startIndex" style="width: 100px;"
+                                  value="0"/>
+                pageSize:<input class="textbox" type="text" id="distributor-list-pageSize" style="width: 100px;"
+                                value="10"/> &ensp;
+                <input type="button" value="获取" onclick="distributorModule.list()"/><br>
+            </div>
+            <div>
+                <strong>[冻结/解冻]</strong><br/>
+                id:<input class="textbox" type="text" id="distributor-m-status-id" style="width: 100px;"
+                          value=""/>
+                status:<select class="textbox" id="distributor-m-status-status" style="width: 100px;">
+                <option value="0">disable</option>
+                <option value="1">enable</option>
+            </select><br>
+                <input type="button" value="修改" onclick="distributorModule.resetStatus()"/><br>
+            </div>
+        </div>
+    </div>
 
     <div style="clear: both;"></div>
 </div>

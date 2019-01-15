@@ -10,6 +10,8 @@ public interface DistributorMapper {
 
     Distributor selectById(Integer id);
 
+    Distributor selectByName(Map<String, Object> map);
+
     Distributor select(Map<String, Object> map);
 
     List<Distributor> selectList(Map<String, Object> map);

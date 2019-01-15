@@ -11,6 +11,8 @@ import java.util.Map;
 public interface DistributorService {
     Distributor getById(Integer id);
 
+    Distributor getByName(String name);
+
     Distributor select(Map<String, Object> map);
 
     List<Distributor> selectList(Map<String, Object> map);

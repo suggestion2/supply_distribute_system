@@ -3,6 +3,7 @@ package com.su.supplydistributesystem.controller.api.management;
 import com.su.supplydistributesystem.context.SessionContext;
 import com.su.supplydistributesystem.interceptor.UserLoginRequired;
 import com.sug.core.platform.exception.ResourceNotFoundException;
+import com.sug.core.platform.web.rest.exception.InvalidRequestException;
 import com.sug.core.rest.view.ResponseView;
 import com.sug.core.rest.view.SuccessView;
 import com.su.supplydistributesystem.domain.Supplier;
@@ -48,6 +49,10 @@ public class SupplierController {
 
     @RequestMapping(value = CREATE,method = RequestMethod.POST)
     public ResponseView create(@Valid @RequestBody SupplierCreateForm form){
+        Supplier sup = supplierService.getByName(form.getName());
+        if(Objects.nonNull(sup)){
+            throw new InvalidRequestException("multipleName","supplier is exists");
+        }
         Supplier supplier = new Supplier();
         BeanUtils.copyProperties(form,supplier);
         supplier.setCreateBy(sessionContext.getUser().getId());

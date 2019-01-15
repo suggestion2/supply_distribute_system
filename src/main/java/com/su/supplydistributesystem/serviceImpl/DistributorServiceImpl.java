@@ -20,6 +20,14 @@ public class DistributorServiceImpl implements DistributorService{
     public Distributor getById(Integer id){
         return distributorMapper.selectById(id);
     }
+
+    @Override
+    public Distributor getByName(String name) {
+        Map<String,Object> query = new HashMap<>();
+        query.put("name",name);
+        return distributorMapper.selectByName(query);
+    }
+
     @Override
     public Distributor select(Map<String, Object> map){
         return distributorMapper.select(map);

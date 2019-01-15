@@ -5,6 +5,9 @@
     <select id="selectById" resultType="com.su.supplydistributesystem.domain.Distributor" parameterType="java.lang.Integer">
         select * from `distributor` where id= #{id} and `valid` = 1
     </select>
+    <select id="selectByName" resultType="com.su.supplydistributesystem.domain.Distributor" parameterType="java.util.Map">
+        select * from `distributor` where name= #{name} and `valid` = 1
+    </select>
 
     <select id="select" resultType="com.su.supplydistributesystem.domain.Distributor" parameterType="java.util.Map">
         select * from `distributor` where `valid` = 1
@@ -15,8 +18,8 @@
 
     <select id="selectList" resultType="com.su.supplydistributesystem.domain.Distributor" parameterType="java.util.Map">
         select * from `distributor` where `valid` = 1
-        <if test="id!=null">
-
+        <if test="content!=null">
+            and (`name` like concat ('%',#{content},'%'))
         </if>
         <if test="startIndex != null and pageSize != null">
             limit #{startIndex},#{pageSize}
@@ -25,8 +28,8 @@
 
     <select id="selectCount" resultType="java.lang.Integer" parameterType="java.util.Map">
         select count(*) from `distributor` where `valid` = 1
-        <if test="id!=null">
-
+        <if test="content!=null">
+            and (`name` like concat ('%',#{content},'%'))
         </if>
     </select>
 
@@ -37,8 +40,7 @@
         `phone`,
         `password`,
         `createBy`,
-        `updateBy`,
-        `status`,
+        `updateBy`
         )
         values
         (
@@ -46,8 +48,7 @@
         #{phone},
         #{password},
         #{createBy},
-        #{createBy},
-        #{status},
+        #{updateBy}
         )
     </insert>
 
@@ -55,7 +56,6 @@
         update `distributor` set
         `name` = #{name},
         `phone` = #{phone},
-        `password` = #{password},
         `updateBy` = #{updateBy},
         `status` = #{status},
         `updateTime` = now()

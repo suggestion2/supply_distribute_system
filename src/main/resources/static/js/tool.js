@@ -242,3 +242,61 @@ var supplierModule = {
         showResult(settings);
     }
 };
+var distributorModule = {
+    create: function () {
+        var settings = {
+            type: "POST",
+            url: "/mApi/distributor/create",
+            dataType: "json",
+            data: JSON.stringify({
+                "name": $("#distributor-create-name").val(),
+                "phone": $("#distributor-create-phone").val()
+            })
+        };
+        showResult(settings);
+    },
+    deleteById: function () {
+        var settings = {
+            type: "DELETE",
+            url: "/mApi/distributor/delete/" + $("#distributor-delete-id").val(),
+            dataType: "json"
+        };
+        showResult(settings);
+    },
+    resetPasswordById: function () {
+        var settings = {
+            type: "PUT",
+            url: "/mApi/distributor/password",
+            dataType: "json",
+            data:JSON.stringify({
+                "id": $("#distributor-resetPassword-id").val()
+            })
+        };
+        showResult(settings);
+    },
+    list: function () {
+        var settings = {
+            type: "POST",
+            url: "/mApi/distributor/list",
+            dataType: "json",
+            data: JSON.stringify({
+                "content": $("#distributor-list-name").val(),
+                "pageIndex": $("#distributor-list-startIndex").val(),
+                "pageSize": $("#distributor-list-pageSize").val()
+            })
+        };
+        showResult(settings);
+    },
+    resetStatus: function () {
+        var settings = {
+            type: "PUT",
+            url: "/mApi/distributor/resetStatus",
+            dataType: "json",
+            data: JSON.stringify({
+                "id": $("#distributor-m-status-id").val(),
+                "status": $("#distributor-m-status-status").val()
+            })
+        };
+        showResult(settings);
+    },
+};

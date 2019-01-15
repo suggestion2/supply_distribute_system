@@ -20,6 +20,14 @@ public class SupplierServiceImpl implements SupplierService{
     public Supplier getById(Integer id){
         return supplierMapper.selectById(id);
     }
+
+    @Override
+    public Supplier getByName(String name) {
+        Map<String,Object> query = new HashMap<>();
+        query.put("name",name);
+        return supplierMapper.selectByName(query);
+    }
+
     @Override
     public Supplier select(Map<String, Object> map){
         return supplierMapper.select(map);
