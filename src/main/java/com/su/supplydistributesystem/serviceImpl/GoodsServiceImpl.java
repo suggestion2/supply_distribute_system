@@ -1,15 +1,16 @@
 package com.su.supplydistributesystem.serviceImpl;
 
 import com.su.supplydistributesystem.domain.Goods;
+import com.su.supplydistributesystem.domain.GoodsSupply;
+import com.su.supplydistributesystem.response.GoodsDetailView;
 import com.su.supplydistributesystem.service.GoodsService;
 import com.su.supplydistributesystem.mapper.GoodsMapper;
+import com.su.supplydistributesystem.service.GoodsSupplyService;
+import com.sug.core.platform.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static com.su.supplydistributesystem.constants.GoodsConstants.ENABLE;
 
@@ -19,6 +20,9 @@ public class GoodsServiceImpl implements GoodsService{
     @Autowired
     private GoodsMapper goodsMapper;
 
+    @Autowired
+    private GoodsSupplyService goodsSupplyService;
+
     @Override
     public Goods getById(Integer id){
         return goodsMapper.selectById(id);
@@ -27,6 +31,17 @@ public class GoodsServiceImpl implements GoodsService{
     @Override
     public Goods getByName(String name) {
         return this.select(Collections.singletonMap("name",name));
+    }
+
+    @Override
+    public GoodsDetailView getDetail(Integer id) {
+        Goods goods = this.getById(id);
+        if(Objects.isNull(goods)){
+            throw new ResourceNotFoundException("goods not found");
+        }
+        List<GoodsSupply> list = goodsSupplyService.getListByGoodsId(goods.getId());
+
+        return new GoodsDetailView(goods,list);
     }
 
     @Override

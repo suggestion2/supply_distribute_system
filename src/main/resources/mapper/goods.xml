@@ -8,13 +8,13 @@
 
     <select id="select" resultType="com.su.supplydistributesystem.domain.Goods" parameterType="java.util.Map">
         select * from `goods` where `valid` = 1
-        <if test="id!=null">
-            and `id` = #{id}
+        <if test="name!=null">
+            and `name` = #{name}
         </if>
     </select>
 
     <select id="selectList" resultType="com.su.supplydistributesystem.domain.Goods" parameterType="java.util.Map">
-        select `number`,`name`,`taobaoPrice`,`jdPrice`,`price`,`lowSupplyPrice`,`profit1`,`profit2`,`profit3`,remarks from `goods` where `valid` = 1
+        select `id`,`number`,`name`,`taobaoPrice`,`jdPrice`,`price`,`lowSupplyPrice`,`profit1`,`profit2`,`profit3`,remarks,`status` from `goods` where `valid` = 1
         <if test="content!=null">
             and (`name` like concat ('%',#{content},'%') or `number` like concat ('%',#{content},'%'))
         </if>

@@ -1,6 +1,7 @@
 package com.su.supplydistributesystem.service;
 
 import com.su.supplydistributesystem.domain.Goods;
+import com.su.supplydistributesystem.response.GoodsDetailView;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -12,6 +13,8 @@ public interface GoodsService {
     Goods getById(Integer id);
 
     Goods getByName(String name);
+
+    GoodsDetailView getDetail(Integer id);
 
     Goods select(Map<String, Object> map);
 

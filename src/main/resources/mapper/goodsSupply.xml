@@ -44,12 +44,12 @@
         values
         <foreach item="item" index="index" collection="list" separator=",">
             (
-            #{supplierId},
-            #{supplierName},
-            #{goodsId},
-            #{supplyPrice},
-            #{createBy},
-            #{createBy}
+            #{item.supplierId},
+            #{item.supplierName},
+            #{item.goodsId},
+            #{item.supplyPrice},
+            #{item.createBy},
+            #{item.createBy}
             )
         </foreach>
     </insert>

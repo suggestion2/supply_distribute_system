@@ -26,6 +26,7 @@ public class GoodsUpdateForm {
     private String category3;
     @NotEmpty
     @Pattern(regexp = RegexUtils.REGEX_CHINESE_ENG_NUM,message = RegexUtils.REGEX_CHINESE_ENG_NUM_MESSAGE)
+    @Size(min = 1,max = 64,message = "size between 1 and 64")
     private String name;
     @NotNull
     @Digits(integer = 8,fraction = 2,message = "invalid digits")
@@ -36,12 +37,11 @@ public class GoodsUpdateForm {
     @NotNull
     @Digits(integer = 8,fraction = 2,message = "invalid digits")
     private BigDecimal price;
-    @NotEmpty
-    @Pattern(regexp = RegexUtils.REGEX_CHINESE_ENG_NUM,message = RegexUtils.REGEX_CHINESE_ENG_NUM_MESSAGE)
+
     private String remarks;
 
     @NotNull
-    @Min(value = 1,message = "at least 1 item")
+    @Size(min = 1,message = "at least 1 item")
     @Valid
     private List<GoodsSupplyForm> goodsSupplyList;
 
