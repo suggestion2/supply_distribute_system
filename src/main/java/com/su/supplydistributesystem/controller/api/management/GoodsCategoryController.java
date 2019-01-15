@@ -4,6 +4,7 @@ import com.su.supplydistributesystem.context.SessionContext;
 import com.su.supplydistributesystem.domain.Goods;
 import com.su.supplydistributesystem.interceptor.UserLoginRequired;
 import com.su.supplydistributesystem.request.GoodsCategoryStatusForm;
+import com.su.supplydistributesystem.service.GoodsService;
 import com.sug.core.platform.exception.ResourceNotFoundException;
 import com.sug.core.platform.web.rest.exception.InvalidRequestException;
 import com.sug.core.rest.view.ResponseView;
@@ -40,6 +41,9 @@ public class GoodsCategoryController {
 
     @Autowired
     private SessionContext sessionContext;
+
+    @Autowired
+    private GoodsService goodsService;
 
     @RequestMapping(value = LIST, method = RequestMethod.GET)
     public GoodsCategoryListView list() {
@@ -84,7 +88,9 @@ public class GoodsCategoryController {
         if (!form.getStatus().equals(ENABLE) && !form.getStatus().equals(DISABLE)){
             throw new InvalidRequestException("invalidStatus","invalid status");
         }
-        // TODO: if disable this category,check any goods which is enabled use it
+        if(form.getStatus().equals(DISABLE) && goodsService.selectCountByCategoryId(goodsCategory.getId()) > 0){
+            throw new InvalidRequestException("goodsExists","goods which use this category exists");
+        }
         if (!goodsCategory.getStatus().equals(form.getStatus())){
             goodsCategory.setStatus(form.getStatus());
             goodsCategory.setUpdateBy(sessionContext.getUser().getId());

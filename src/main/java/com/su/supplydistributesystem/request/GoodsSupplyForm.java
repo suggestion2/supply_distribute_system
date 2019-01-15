@@ -2,21 +2,22 @@ package com.su.supplydistributesystem.request;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-public class GoodsSupplyUpdateForm {
+public class GoodsSupplyForm {
 
-    @NotNull
     private Integer id;
     @NotNull
     private Integer supplierId;
     @NotEmpty
     private String supplierName;
-    @NotNull
     private Integer goodsId;
     @NotNull
+    @Digits(integer = 8,fraction = 2,message = "invalid digits")
     private BigDecimal supplyPrice;
+    private Integer createBy;
 
     public Integer getId() {
     return id;
@@ -54,4 +55,11 @@ public class GoodsSupplyUpdateForm {
     this.supplyPrice = supplyPrice;
     }
 
+    public Integer getCreateBy() {
+        return createBy;
+    }
+
+    public void setCreateBy(Integer createBy) {
+        this.createBy = createBy;
+    }
 }

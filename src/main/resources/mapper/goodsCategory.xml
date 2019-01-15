@@ -13,6 +13,15 @@
         </if>
     </select>
     
+    <select id="selectListByGoodsId" resultType="com.su.supplydistributesystem.domain.GoodsCategory" parameterType="java.util.Map">
+        select `c`.id,`c`.status
+        from `goods_category` `c` left join `goods` g on `c`.id = g.categoryId1 or `c`.id = g.categoryId2 or `c`.id = g.categoryId3
+        where `c`.`valid` = 1
+        <if test="goodsId!=null">
+            and `goodsId` = #{goodsId}
+        </if>
+    </select>
+    
     <resultMap id="CategoryView" type="com.su.supplydistributesystem.response.GoodsCategoryListItemView">
         <id property="id" column="category_id"/>
         <result property="name" column="category_name"/>

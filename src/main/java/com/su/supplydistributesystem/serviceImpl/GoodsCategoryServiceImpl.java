@@ -33,6 +33,11 @@ public class GoodsCategoryServiceImpl implements GoodsCategoryService{
     }
 
     @Override
+    public List<GoodsCategory> getListByGoodsId(Integer goodsId) {
+        return goodsCategoryMapper.selectListByGoodsId(goodsId);
+    }
+
+    @Override
     public List<GoodsCategoryListItemView> selectListView(Map<String, Object> map) {
         return goodsCategoryMapper.selectListView(map);
     }

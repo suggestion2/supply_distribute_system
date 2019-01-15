@@ -6,9 +6,12 @@ import com.su.supplydistributesystem.mapper.GoodsMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static com.su.supplydistributesystem.constants.GoodsConstants.ENABLE;
 
 @Service
 public class GoodsServiceImpl implements GoodsService{
@@ -20,6 +23,12 @@ public class GoodsServiceImpl implements GoodsService{
     public Goods getById(Integer id){
         return goodsMapper.selectById(id);
     }
+
+    @Override
+    public Goods getByName(String name) {
+        return this.select(Collections.singletonMap("name",name));
+    }
+
     @Override
     public Goods select(Map<String, Object> map){
         return goodsMapper.select(map);
@@ -36,6 +45,14 @@ public class GoodsServiceImpl implements GoodsService{
     }
 
     @Override
+    public int selectCountByCategoryId(Integer categoryId) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("categoryId",categoryId);
+        map.put("status",ENABLE);
+        return goodsMapper.selectCount(map);
+    }
+
+    @Override
     public int create(Goods goods){
         return goodsMapper.insert(goods);
     }
@@ -43,6 +60,11 @@ public class GoodsServiceImpl implements GoodsService{
     @Override
     public int update(Goods goods){
         return goodsMapper.update(goods);
+    }
+
+    @Override
+    public int updateStatus(Goods goods) {
+        return goodsMapper.updateStatus(goods);
     }
 
     @Override

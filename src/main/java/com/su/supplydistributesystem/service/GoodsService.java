@@ -11,15 +11,21 @@ import java.util.Map;
 public interface GoodsService {
     Goods getById(Integer id);
 
+    Goods getByName(String name);
+
     Goods select(Map<String, Object> map);
 
     List<Goods> selectList(Map<String, Object> map);
 
     int selectCount(Map<String, Object> map);
 
+    int selectCountByCategoryId(Integer categoryId);
+
     int create(Goods goods);
 
     int update(Goods goods);
+
+    int updateStatus(Goods goods);
 
     int deleteById(Integer id);
 }

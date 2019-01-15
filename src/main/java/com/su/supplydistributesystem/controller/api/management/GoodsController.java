@@ -1,60 +1,192 @@
 package com.su.supplydistributesystem.controller.api.management;
 
+import com.su.supplydistributesystem.constants.CategoryConstants;
+import com.su.supplydistributesystem.context.SessionContext;
+import com.su.supplydistributesystem.domain.*;
+import com.su.supplydistributesystem.interceptor.UserLoginRequired;
+import com.su.supplydistributesystem.mapper.GoodsSupplyUpdateParams;
+import com.su.supplydistributesystem.request.*;
+import com.su.supplydistributesystem.response.GoodsDetailView;
+import com.su.supplydistributesystem.service.GoodsCategoryService;
+import com.su.supplydistributesystem.service.GoodsSupplyService;
 import com.sug.core.platform.exception.ResourceNotFoundException;
+import com.sug.core.platform.web.rest.exception.InvalidRequestException;
+import com.sug.core.rest.view.ResponseView;
 import com.sug.core.rest.view.SuccessView;
-import com.su.supplydistributesystem.domain.Goods;
 import com.su.supplydistributesystem.service.GoodsService;
-import com.su.supplydistributesystem.request.GoodsCreateForm;
-import com.su.supplydistributesystem.request.GoodsUpdateForm;
-import com.su.supplydistributesystem.request.GoodsListForm;
 import com.su.supplydistributesystem.response.GoodsListView;
+import com.sug.core.util.BigDecimalUtils;
+import com.sug.core.util.SequenceNumUtils;
+import com.sug.core.util.UUIDUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import static com.su.supplydistributesystem.constants.CommonConstants.*;
+import static com.su.supplydistributesystem.constants.GoodsConstants.*;
 
-@RestController
-@RequestMapping(value = "/goods")
+@RestController("goodsManagementApiController")
+@RequestMapping(value = "/mApi/goods")
+@UserLoginRequired
 public class GoodsController {
 
     private static final Logger logger = LoggerFactory.getLogger(GoodsController.class);
 
     @Autowired
+    private GoodsCategoryService goodsCategoryService;
+
+    @Autowired
     private GoodsService goodsService;
+
+    @Autowired
+    private GoodsSupplyService goodsSupplyService;
+
+    @Autowired
+    private SessionContext sessionContext;
 
     @RequestMapping(value = LIST,method = RequestMethod.POST)
     public GoodsListView list(@Valid @RequestBody GoodsListForm form){
-        return new GoodsListView(goodsService.selectList(form.getQueryMap()));
+        return new GoodsListView(goodsService.selectList(form.getQueryMap()),goodsService.selectCount(form.getQueryMap()));
     }
 
     @RequestMapping(value = DETAIL,method = RequestMethod.GET)
-    public Goods detail(@PathVariable Integer id){
-        return goodsService.getById(id);
+    public GoodsDetailView detail(@PathVariable Integer id){
+        Goods goods = goodsService.getById(id);
+        if(Objects.isNull(goods)){
+            throw new ResourceNotFoundException("goods not found");
+        }
+        List<GoodsSupply> list = goodsSupplyService.getListByGoodsId(goods.getId());
+
+        return new GoodsDetailView(goods,list);
     }
 
     @RequestMapping(value = CREATE,method = RequestMethod.POST)
-    public SuccessView create(@Valid @RequestBody GoodsCreateForm form){
+    @Transactional
+    public ResponseView create(@Valid @RequestBody GoodsCreateForm form){
         Goods goods = new Goods();
+        if(Objects.nonNull(goodsService.getByName(form.getName()))){
+            throw new InvalidRequestException("duplicateName","duplicate goods name");
+        }
         BeanUtils.copyProperties(form,goods);
+        goods.setNumber(UUIDUtils.random());
+        goods.setProfit1(BigDecimalUtils.subtract(goods.getPrice(),goods.getLowSupplyPrice()));
+        goods.setProfit2(BigDecimalUtils.subtract(goods.getTaobaoPrice(),goods.getPrice()));
+        goods.setProfit3(BigDecimalUtils.subtract(goods.getJdPrice(),goods.getPrice()));
+
+        List<GoodsSupplyForm> goodsSupplyList = form.getGoodsSupplyList();
+        goodsSupplyList.forEach(g->goods.setLowSupplyPrice(Objects.isNull(goods.getLowSupplyPrice()) || goods.getLowSupplyPrice().compareTo(g.getSupplyPrice()) > 0 ? g.getSupplyPrice() : goods.getLowSupplyPrice()));
+
+        User current = sessionContext.getUser();
+        goods.setCreateBy(current.getId());
+
         goodsService.create(goods);
-        return new SuccessView();
+
+        goodsSupplyList.forEach(g->{
+            g.setGoodsId(goods.getId());
+            g.setCreateBy(current.getId());
+        });
+
+        goodsSupplyService.batchCreate(goodsSupplyList);
+
+        return new ResponseView();
     }
 
     @RequestMapping(value = UPDATE,method = RequestMethod.PUT)
-    public SuccessView update(@Valid @RequestBody GoodsUpdateForm form){
+    @Transactional
+    public ResponseView update(@Valid @RequestBody GoodsUpdateForm form){
         Goods goods = goodsService.getById(form.getId());
         if(Objects.isNull(goods)){
             throw new ResourceNotFoundException("goods not exists");
         }
+        if(goods.getStatus().equals(ENABLE)){
+            throw new InvalidRequestException("invalidStatus","invalid status");
+        }
         BeanUtils.copyProperties(form,goods);
+        goods.setProfit1(BigDecimalUtils.subtract(goods.getPrice(),goods.getLowSupplyPrice()));
+        goods.setProfit2(BigDecimalUtils.subtract(goods.getTaobaoPrice(),goods.getPrice()));
+        goods.setProfit3(BigDecimalUtils.subtract(goods.getJdPrice(),goods.getPrice()));
+
+        User current = sessionContext.getUser();
+
+        List<GoodsSupplyForm> goodsSupplyList = form.getGoodsSupplyList();
+        goodsSupplyList.forEach(g->{
+            goods.setLowSupplyPrice(Objects.isNull(goods.getLowSupplyPrice()) || goods.getLowSupplyPrice().compareTo(g.getSupplyPrice()) > 0 ? g.getSupplyPrice() : goods.getLowSupplyPrice());
+            g.setGoodsId(goods.getId());
+            g.setCreateBy(current.getId());
+        });
+
+
+        goods.setUpdateBy(current.getId());
+
+        List<GoodsSupplyForm> createList = new ArrayList<>();
+        List<GoodsSupplyForm> updateList = new ArrayList<>();
+
+        for(GoodsSupplyForm goodsSupplyForm : goodsSupplyList){
+            if(Objects.nonNull(goodsSupplyForm.getId())){
+                updateList.add(goodsSupplyForm);
+            }else {
+                createList.add(goodsSupplyForm);
+            }
+        }
+
+        GoodsSupplyUpdateParams params = new GoodsSupplyUpdateParams(goods.getId(),current.getId(),updateList);
+
         goodsService.update(goods);
-        return new SuccessView();
+        goodsSupplyService.batchCreate(createList);
+        goodsSupplyService.batchUpdate(params);
+
+        return new ResponseView();
+    }
+
+    @RequestMapping(value = "/resetStatus",method = RequestMethod.PUT)
+    public ResponseView resetStatus(@Valid @RequestBody GoodsStatusForm form){
+        Goods goods = goodsService.getById(form.getId());
+        if(Objects.isNull(goods)){
+            throw new ResourceNotFoundException("goods not exists");
+        }
+        if(!form.getStatus().equals(ENABLE) && !form.getStatus().equals(DISABLE)){
+            throw new InvalidRequestException("invalidStatus","invalid status");
+        }
+        if(form.getStatus().equals(ENABLE)){
+            List<GoodsCategory> categoryList = goodsCategoryService.getListByGoodsId(goods.getId());
+            categoryList.forEach(c->{
+                if(c.getStatus().equals(CategoryConstants.DISABLE)){
+                    throw new InvalidRequestException("invalidCategoryStatus","goods category is disabled");
+                }
+            });
+        }
+
+        if(!goods.getStatus().equals(form.getStatus())){
+            goods.setStatus(form.getStatus());
+            goods.setUpdateBy(sessionContext.getUser().getId());
+            goodsService.updateStatus(goods);
+        }
+        return new ResponseView();
+    }
+
+    @RequestMapping(value = DELETE_BY_ID,method = RequestMethod.DELETE)
+    @Transactional
+    public ResponseView deleteById(@PathVariable Integer id){
+        Goods goods = goodsService.getById(id);
+        if(Objects.isNull(goods)){
+            throw new ResourceNotFoundException("goods not exists");
+        }
+        if(!goods.getStatus().equals(DISABLE)){
+            throw new InvalidRequestException("invalidStatus","invalid status");
+        }
+        goodsService.deleteById(goods.getId());
+        goodsSupplyService.deleteByGoodsId(goods.getId());
+        return new ResponseView();
     }
 }
