@@ -1,3 +1,4 @@
+TEST LOGIN redirectUrl = ${redirectUrl}
 <#include "common/header_base.ftl">
 <body class="hold-transition login-page" style="position: relative;height: 100%;background:#2f4050">
 <style type="text/css">
@@ -9,29 +10,29 @@
     <div class="login-box">
         <div class="login-box-body" style="border-radius: 4px;">
             <div class="login-logo">
-                <p style="font-size: 22px;font-weight: 500;color:#2f4050;margin-bottom: 0;padding-top: 20px;">è®¢å•ç®¡ç†ç³»ç»Ÿ</p>
+                <p style="font-size: 22px;font-weight: 500;color:#2f4050;margin-bottom: 0;padding-top: 20px;">¶©µ¥¹ÜÀíÏµÍ³</p>
                 <p style="font-size: 16px;font-weight: 500;font-style: italic;color:#2f4050">Management System</p>
             </div>
 
 
             <div class="form-group has-feedback">
                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
-                <input type="text" name="username" class="form-control" placeholder="å¸å·">
+                <input type="text" name="username" class="form-control" placeholder="ÕÊºÅ">
             </div>
 
             <div class="form-group has-feedback">
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-                <input type="password" name="password" class="form-control" placeholder="å¯†ç ">
+                <input type="password" name="password" class="form-control" placeholder="ÃÜÂë">
             </div>
             <div class="row">
                 <div class="col-xs-12">
-                    <button id="submit" class="btn btn-block bg-eg btn-flat" style="height: 40px;font-size: 16px;border-radius: 3px;">ç™» å½•</button>
+                    <button id="submit" class="btn btn-block bg-eg btn-flat" style="height: 40px;font-size: 16px;border-radius: 3px;">µÇ Â¼</button>
                 </div>
             </div>
 
             <div class="social-auth-links text-center" style="font-size: 12px;color:#2f4050;">
                 <p>- IF -</p>
-                <p>å¦‚æœå¿˜è®°äº†ç”¨æˆ·åå’Œå¯†ç ï¼Œè¯·è”ç³»ç®¡ç†å‘˜å¤„ç†</p>
+                <p>Èç¹ûÍü¼ÇÁËÓÃ»§ÃûºÍÃÜÂë£¬ÇëÁªÏµ¹ÜÀíÔ±´¦Àí</p>
             </div>
         </div>
     </div>
@@ -45,12 +46,12 @@
 <script>
     $(function () {
 
-        //åŠ¨æ€èƒŒæ™¯
+        //¶¯Ì¬±³¾°
         $('#particles').particleground({
             dotColor: 'rgba(255,255,255,.2)',
             lineColor: 'rgba(255,255,255,.2)'
         });
-        //ç™»å½•éªŒè¯
+        //µÇÂ¼ÑéÖ¤
         $(document).keyup(function(event){
             if(event.keyCode ==13){
                 $("#submit").trigger("click");
@@ -60,15 +61,15 @@
             var username = $("input[name='username']");
             var password = $("input[name='password']");
             if(username.val()==""){
-                $.smallTips("ç”¨æˆ·åä¸èƒ½ä¸ºç©ºï¼",true,1000);
+                $.smallTips("ÓÃ»§Ãû²»ÄÜÎª¿Õ£¡",true,1000);
                 return false;
             }else if(password.val()==""){
-                $.smallTips("å¯†ç ä¸èƒ½ä¸ºç©ºï¼",true,1000);
+                $.smallTips("ÃÜÂë²»ÄÜÎª¿Õ£¡",true,1000);
                 return false;
             }
             $.ydcAjax('POST','/mApi/login',JSON.stringify({"name": username.val(),"password": password.val()}),'json','application/json',function(msg){
                 if(msg.response=="successfully")
-                    $.smallTips("ç™»å½•æˆåŠŸï¼è‡ªåŠ¨è·³è½¬ä¸­...",true,1000);
+                    $.smallTips("µÇÂ¼³É¹¦£¡×Ô¶¯Ìø×ªÖĞ...",true,1000);
                 setTimeout(function(){
                     window.location.href= $("#redirectUrl").val();
                     //window.location.href="/management/";
@@ -78,7 +79,7 @@
                     var errorMsg = JSON.parse(error.responseText);
                     $.smallTips(errorMsg.message,true,1000);
                 }else{
-                    $.smallTips("å¸å·æˆ–å¯†ç é”™è¯¯ï¼Œè¯·æ ¸å¯¹åé‡æ–°ç™»å½•ï¼",true,1000);
+                    $.smallTips("ÕÊºÅ»òÃÜÂë´íÎó£¬ÇëºË¶ÔºóÖØĞÂµÇÂ¼£¡",true,1000);
                 }
                 return false;
             });
