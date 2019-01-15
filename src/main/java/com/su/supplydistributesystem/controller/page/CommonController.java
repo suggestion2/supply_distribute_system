@@ -26,11 +26,16 @@ import static com.su.supplydistributesystem.constants.CommonConstants.*;
 @Controller("commonManagementController")
 @RequestMapping(value = "/management")
 public class CommonController {
-    @Autowired
-    private UserService userService;
 
     @Autowired
     private SessionContext sessionContext;
+
+    @RequestMapping(value = "/user", method = RequestMethod.GET)
+    @UserLoginRequired
+    public String user(ModelMap modelMap) {
+        modelMap.put("user",sessionContext.getUser());
+        return "management/login";
+    }
 
     @RequestMapping(value = LOGIN, method = RequestMethod.GET)
     public String login(@RequestParam(required = false) String redirectUrl,ModelMap modelMap) {

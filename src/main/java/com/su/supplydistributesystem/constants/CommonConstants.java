@@ -14,6 +14,7 @@ public class CommonConstants {
     public static final String CURRENT = "/current";
     public static final String CHECK = "/check";
     public static final String CANCEL = "/cancel";
+    public static final String DETAIL_ID = "/detail/{id}";
 
     public static final String LOGIN = "/login";
     public static final String LOGOUT = "/logout";
