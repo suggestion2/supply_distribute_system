@@ -15,6 +15,8 @@ public interface GoodsCategoryMapper {
 
     List<GoodsCategory> selectList(Map<String, Object> map);
 
+    List<GoodsCategory> selectListByGoodsId(Integer goodsId);
+
     List<GoodsCategoryListItemView> selectListView(Map<String, Object> map);
 
     int selectCount(Map<String, Object> map);

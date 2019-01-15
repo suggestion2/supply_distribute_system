@@ -14,10 +14,23 @@
     </select>
 
     <select id="selectList" resultType="com.su.supplydistributesystem.domain.Goods" parameterType="java.util.Map">
-        select * from `goods` where `valid` = 1
-        <if test="id!=null">
-
+        select `number`,`name`,`taobaoPrice`,`jdPrice`,`price`,`lowSupplyPrice`,`profit1`,`profit2`,`profit3`,remarks from `goods` where `valid` = 1
+        <if test="content!=null">
+            and (`name` like concat ('%',#{content},'%') or `number` like concat ('%',#{content},'%'))
         </if>
+        <if test="categoryId1!=null">
+            and categoryId1 = #{categoryId1}
+        </if>
+        <if test="categoryId2!=null">
+            and categoryId2 = #{categoryId2}
+        </if>
+        <if test="categoryId3!=null">
+            and categoryId3 = #{categoryId3}
+        </if>
+        <if test="status!=null">
+            and status = #{status}
+        </if>
+        order by updateTime
         <if test="startIndex != null and pageSize != null">
             limit #{startIndex},#{pageSize}
         </if>
@@ -25,8 +38,23 @@
 
     <select id="selectCount" resultType="java.lang.Integer" parameterType="java.util.Map">
         select count(*) from `goods` where `valid` = 1
-        <if test="id!=null">
-
+        <if test="content!=null">
+            and (`name` like concat ('%',#{content},'%') or `number` like concat ('%',#{content},'%'))
+        </if>
+        <if test="categoryId!=null">
+            and (categoryId1 = #{categoryId} or categoryId2 = #{categoryId} or categoryId3 = #{categoryId})
+        </if>
+        <if test="categoryId1!=null">
+            and categoryId1 = #{categoryId1}
+        </if>
+        <if test="categoryId2!=null">
+            and categoryId2 = #{categoryId2}
+        </if>
+        <if test="categoryId3!=null">
+            and categoryId3 = #{categoryId3}
+        </if>
+        <if test="status!=null">
+            and status = #{status}
         </if>
     </select>
 
@@ -51,8 +79,7 @@
         `salesVolume`,
         `remarks`,
         `createBy`,
-        `updateBy`,
-        `status`,
+        `updateBy`
         )
         values
         (
@@ -71,17 +98,15 @@
         #{profit1},
         #{profit2},
         #{profit3},
-        #{salesVolume},
+        0,
         #{remarks},
         #{createBy},
-        #{createBy},
-        #{status},
+        #{createBy}
         )
     </insert>
 
     <update id="update" parameterType="com.su.supplydistributesystem.domain.Goods">
         update `goods` set
-        `number` = #{number},
         `categoryId1` = #{categoryId1},
         `categoryId2` = #{categoryId2},
         `categoryId3` = #{categoryId3},
@@ -96,14 +121,20 @@
         `profit1` = #{profit1},
         `profit2` = #{profit2},
         `profit3` = #{profit3},
-        `salesVolume` = #{salesVolume},
         `remarks` = #{remarks},
         `updateBy` = #{updateBy},
-        `status` = #{status},
         `updateTime` = now()
         where `id` = #{id}
     </update>
-
+    
+    <update id="updateStatus" parameterType="com.su.supplydistributesystem.domain.Goods">
+        update `goods` set
+        `status` = #{status},
+        `updateBy` = #{updateBy},
+        `updateTime` = now()
+        where `id` = #{id}
+    </update>
+    
     <delete id="deleteById" parameterType="java.lang.Integer">
         update `goods` set valid = 0 where `id` = #{id}
     </delete>

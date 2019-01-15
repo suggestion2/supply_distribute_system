@@ -1,6 +1,8 @@
 package com.su.supplydistributesystem.service;
 
 import com.su.supplydistributesystem.domain.GoodsSupply;
+import com.su.supplydistributesystem.mapper.GoodsSupplyUpdateParams;
+import com.su.supplydistributesystem.request.GoodsSupplyForm;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -15,11 +17,14 @@ public interface GoodsSupplyService {
 
     List<GoodsSupply> selectList(Map<String, Object> map);
 
+    List<GoodsSupply> getListByGoodsId(Integer goodsId);
+
     int selectCount(Map<String, Object> map);
 
-    int create(GoodsSupply goodsSupply);
+    int batchCreate(List<GoodsSupplyForm> list);
 
-    int update(GoodsSupply goodsSupply);
+    int batchUpdate(GoodsSupplyUpdateParams params);
 
-    int deleteById(Integer id);
+    int deleteByGoodsId(Integer goodsId);
+
 }

@@ -1,6 +1,7 @@
 package com.su.supplydistributesystem.mapper;
 
 import com.su.supplydistributesystem.domain.GoodsSupply;
+import com.su.supplydistributesystem.request.GoodsSupplyForm;
 
 import java.util.HashMap;
 import java.util.List;
@@ -16,9 +17,9 @@ public interface GoodsSupplyMapper {
 
     int selectCount(Map<String, Object> map);
 
-    int insert(GoodsSupply goodsSupply);
+    int batchInsert(List<GoodsSupplyForm> list);
 
-    int update(GoodsSupply goodsSupply);
+    int batchUpdate(GoodsSupplyUpdateParams params);
 
-    int deleteById(Integer id);
+    int deleteByGoodsId(Integer goodsId);
 }

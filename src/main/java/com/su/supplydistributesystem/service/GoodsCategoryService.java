@@ -16,6 +16,8 @@ public interface GoodsCategoryService {
 
     List<GoodsCategory> selectList(Map<String, Object> map);
 
+    List<GoodsCategory> getListByGoodsId(Integer goodsId);
+
     List<GoodsCategoryListItemView> selectListView(Map<String, Object> map);
 
     List<GoodsCategoryListItemView> getAllListView();

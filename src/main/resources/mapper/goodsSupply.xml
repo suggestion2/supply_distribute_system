@@ -12,11 +12,11 @@
             and `id` = #{id}
         </if>
     </select>
-
+    
     <select id="selectList" resultType="com.su.supplydistributesystem.domain.GoodsSupply" parameterType="java.util.Map">
         select * from `goods_supply` where `valid` = 1
-        <if test="id!=null">
-
+        <if test="goodsId!=null">
+            and `goodsId` = #{goodsId}
         </if>
         <if test="startIndex != null and pageSize != null">
             limit #{startIndex},#{pageSize}
@@ -29,8 +29,9 @@
 
         </if>
     </select>
-
-    <insert id="insert" parameterType="com.su.supplydistributesystem.domain.GoodsSupply" useGeneratedKeys="true" keyProperty="id">
+    
+    <insert id="batchInsert" parameterType="com.su.supplydistributesystem.request.GoodsSupplyForm" useGeneratedKeys="true"
+            keyProperty="id">
         insert into `goods_supply`
         (
         `supplierId`,
@@ -38,34 +39,56 @@
         `goodsId`,
         `supplyPrice`,
         `createBy`,
-        `updateBy`,
-        `status`,
+        `updateBy`
         )
         values
-        (
-        #{supplierId},
-        #{supplierName},
-        #{goodsId},
-        #{supplyPrice},
-        #{createBy},
-        #{createBy},
-        #{status},
-        )
+        <foreach item="item" index="index" collection="list" separator=",">
+            (
+            #{supplierId},
+            #{supplierName},
+            #{goodsId},
+            #{supplyPrice},
+            #{createBy},
+            #{createBy}
+            )
+        </foreach>
     </insert>
-
-    <update id="update" parameterType="com.su.supplydistributesystem.domain.GoodsSupply">
-        update `goods_supply` set
-        `supplierId` = #{supplierId},
-        `supplierName` = #{supplierName},
-        `goodsId` = #{goodsId},
-        `supplyPrice` = #{supplyPrice},
-        `updateBy` = #{updateBy},
-        `status` = #{status},
-        `updateTime` = now()
-        where `id` = #{id}
+    
+    <update id="batchUpdate" parameterType="com.su.supplydistributesystem.mapper.GoodsSupplyUpdateParams">
+        update `goods_supply` set `supplierId` =
+        CASE
+        <foreach item="item" index="index" collection="list" >
+            WHEN id = #{item.id} THEN #{item.supplierId}
+        </foreach>
+        ELSE `supplierId`
+        END,
+        `supplierName` =
+        CASE
+        <foreach item="item" index="index" collection="list" >
+            WHEN id = #{item.id} THEN #{item.supplierName}
+        </foreach>
+        ELSE `supplierName`
+        END,
+        `supplyPrice` =
+        CASE
+        <foreach item="item" index="index" collection="list" >
+            WHEN id = #{item.id} THEN #{item.supplyPrice}
+        </foreach>
+        ELSE `supplyPrice`
+        END,
+        `valid` =
+        CASE
+        <foreach item="item" index="index" collection="list" >
+            WHEN id = #{item.id} THEN 1
+        </foreach>
+        ELSE 0
+        END,
+        `updateTime` = now(),
+        `updateBy` = #{updateBy}
+        where `goodsId` = #{goodsId} and valid = 1
     </update>
-
-    <delete id="deleteById" parameterType="java.lang.Integer">
-        update `goods_supply` set valid = 0 where `id` = #{id}
+    
+    <delete id="deleteByGoodsId" parameterType="java.lang.Integer">
+        update `goods_supply` set valid = 0 where `goodsId` = #{goodsId}
     </delete>
 </mapper>
