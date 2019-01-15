@@ -9,6 +9,8 @@ public class GoodsUpdateForm {
 
     @NotNull
     private Integer id;
+    @NotEmpty
+    private String number;
     @NotNull
     private Integer categoryId1;
     @NotNull
@@ -48,6 +50,13 @@ public class GoodsUpdateForm {
 
     public void setId(Integer id) {
     this.id = id;
+    }
+    public String getNumber() {
+    return number;
+    }
+
+    public void setNumber(String number) {
+    this.number = number;
     }
     public Integer getCategoryId1() {
     return categoryId1;

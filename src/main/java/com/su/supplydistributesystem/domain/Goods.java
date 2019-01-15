@@ -6,6 +6,7 @@ import java.util.Date;
 public class Goods {
 
     private Integer id;
+    private String number;
     private Integer categoryId1;
     private Integer categoryId2;
     private Integer categoryId3;
@@ -35,6 +36,13 @@ public class Goods {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
     }
     public Integer getCategoryId1() {
         return categoryId1;

@@ -7,6 +7,8 @@ import javax.validation.constraints.NotNull;
 
 public class GoodsCreateForm {
 
+    @NotEmpty
+    private String number;
     @NotNull
     private Integer categoryId1;
     @NotNull
@@ -40,6 +42,13 @@ public class GoodsCreateForm {
     @NotEmpty
     private String remarks;
 
+    public String getNumber() {
+    return number;
+    }
+
+    public void setNumber(String number) {
+    this.number = number;
+    }
     public Integer getCategoryId1() {
     return categoryId1;
     }

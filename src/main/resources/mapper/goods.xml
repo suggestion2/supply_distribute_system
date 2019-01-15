@@ -33,6 +33,7 @@
     <insert id="insert" parameterType="com.su.supplydistributesystem.domain.Goods" useGeneratedKeys="true" keyProperty="id">
         insert into `goods`
         (
+        `number`,
         `categoryId1`,
         `categoryId2`,
         `categoryId3`,
@@ -55,6 +56,7 @@
         )
         values
         (
+        #{number},
         #{categoryId1},
         #{categoryId2},
         #{categoryId3},
@@ -79,6 +81,7 @@
 
     <update id="update" parameterType="com.su.supplydistributesystem.domain.Goods">
         update `goods` set
+        `number` = #{number},
         `categoryId1` = #{categoryId1},
         `categoryId2` = #{categoryId2},
         `categoryId3` = #{categoryId3},
