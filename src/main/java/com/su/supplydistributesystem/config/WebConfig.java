@@ -1,5 +1,6 @@
 package com.su.supplydistributesystem.config;
 
+import com.su.supplydistributesystem.interceptor.PageInterceptor;
 import com.su.supplydistributesystem.interceptor.SessionInterceptor;
 import com.su.supplydistributesystem.registrar.MyErrorPageRegistrar;
 import com.sug.core.platform.web.filter.PlatformFilter;
@@ -65,8 +66,11 @@ public class WebConfig implements WebMvcConfigurer{
 
         registry.addInterceptor(sessionInterceptor())
                 .addPathPatterns("/**")
-                .excludePathPatterns("/resources/**","/test/**","/404","/500");
+                .excludePathPatterns("/management/**","/resources/**","/test/**","/404","/500");
 
+        registry.addInterceptor(pageInterceptor())
+                .addPathPatterns("/management/**")
+                .excludePathPatterns("/resources/**","/test/**","/404","/500");
     }
 
     @Bean
@@ -74,4 +78,8 @@ public class WebConfig implements WebMvcConfigurer{
         return new SessionInterceptor();
     }
 
+    @Bean
+    public PageInterceptor pageInterceptor(){
+        return new PageInterceptor();
+    }
 }
