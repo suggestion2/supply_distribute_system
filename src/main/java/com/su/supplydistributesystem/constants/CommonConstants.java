@@ -14,6 +14,7 @@ public class CommonConstants {
     public static final String CURRENT = "/current";
     public static final String CHECK = "/check";
     public static final String CANCEL = "/cancel";
+    public static final String DETAIL_ID = "/detail/{id}";
 
     public static final String LOGIN = "/login";
     public static final String LOGOUT = "/logout";
@@ -24,6 +25,8 @@ public class CommonConstants {
     public static final String CAPTCHA_REGISTER = "/captcha/register";
     public static final String CAPTCHA_RESETPASSWORD = "/captcha/resetPassword";
     public static final String CHECK_PHONE = "/check/phone";
+
+    public static final String INDEX = "/index";
 
     //params
     public static final String MD5_SALT = "sd_system";

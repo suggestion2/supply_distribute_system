@@ -1,6 +1,7 @@
 package com.su.supplydistributesystem.mapper;
 
 import com.su.supplydistributesystem.domain.GoodsCategory;
+import com.su.supplydistributesystem.response.GoodsCategoryListItemView;
 
 import java.util.HashMap;
 import java.util.List;
@@ -13,6 +14,8 @@ public interface GoodsCategoryMapper {
     GoodsCategory select(Map<String, Object> map);
 
     List<GoodsCategory> selectList(Map<String, Object> map);
+
+    List<GoodsCategoryListItemView> selectListView(Map<String, Object> map);
 
     int selectCount(Map<String, Object> map);
 

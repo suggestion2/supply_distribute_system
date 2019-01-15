@@ -51,10 +51,7 @@
 
     <update id="update" parameterType="com.su.supplydistributesystem.domain.User">
         update `user` set
-        `name` = #{name},
         `password` = #{password},
-        `updateBy` = #{updateBy},
-        `status` = #{status},
         `updateTime` = now()
         where `id` = #{id}
     </update>

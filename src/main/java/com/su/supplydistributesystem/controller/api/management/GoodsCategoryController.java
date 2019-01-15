@@ -1,6 +1,12 @@
 package com.su.supplydistributesystem.controller.api.management;
 
+import com.su.supplydistributesystem.context.SessionContext;
+import com.su.supplydistributesystem.domain.Goods;
+import com.su.supplydistributesystem.interceptor.UserLoginRequired;
+import com.su.supplydistributesystem.request.GoodsCategoryStatusForm;
 import com.sug.core.platform.exception.ResourceNotFoundException;
+import com.sug.core.platform.web.rest.exception.InvalidRequestException;
+import com.sug.core.rest.view.ResponseView;
 import com.sug.core.rest.view.SuccessView;
 import com.su.supplydistributesystem.domain.GoodsCategory;
 import com.su.supplydistributesystem.service.GoodsCategoryService;
@@ -15,13 +21,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.xml.ws.Response;
 
 import java.util.Objects;
 
+import static com.su.supplydistributesystem.constants.CategoryConstants.*;
 import static com.su.supplydistributesystem.constants.CommonConstants.*;
 
-@RestController
-@RequestMapping(value = "/goodsCategory")
+@RestController("categoryManagementApiController")
+@RequestMapping(value = "/mApi/category")
+@UserLoginRequired
 public class GoodsCategoryController {
 
     private static final Logger logger = LoggerFactory.getLogger(GoodsCategoryController.class);
@@ -29,32 +38,71 @@ public class GoodsCategoryController {
     @Autowired
     private GoodsCategoryService goodsCategoryService;
 
-    @RequestMapping(value = LIST,method = RequestMethod.POST)
-    public GoodsCategoryListView list(@Valid @RequestBody GoodsCategoryListForm form){
-        return new GoodsCategoryListView(goodsCategoryService.selectList(form.getQueryMap()));
+    @Autowired
+    private SessionContext sessionContext;
+
+    @RequestMapping(value = LIST, method = RequestMethod.GET)
+    public GoodsCategoryListView list() {
+        return new GoodsCategoryListView(goodsCategoryService.getAllListView());
     }
 
-    @RequestMapping(value = DETAIL,method = RequestMethod.GET)
-    public GoodsCategory detail(@PathVariable Integer id){
-        return goodsCategoryService.getById(id);
-    }
-
-    @RequestMapping(value = CREATE,method = RequestMethod.POST)
-    public SuccessView create(@Valid @RequestBody GoodsCategoryCreateForm form){
+    @RequestMapping(value = CREATE, method = RequestMethod.POST)
+    public ResponseView create(@Valid @RequestBody GoodsCategoryCreateForm form) {
+        GoodsCategory parentCategory = form.getParentId().equals(NOT_PARENT_ID) ? new GoodsCategory() : goodsCategoryService.getById(form.getParentId());
+        if (Objects.isNull(parentCategory)) {
+            throw new InvalidRequestException("invalidParentId", "parent category not found");
+        }
+        if (Objects.nonNull(parentCategory.getLevel()) && parentCategory.getLevel().equals(MAX_LEVEL)){
+            throw new InvalidRequestException("invalidLevel", "parent category is max level");
+        }
         GoodsCategory goodsCategory = new GoodsCategory();
-        BeanUtils.copyProperties(form,goodsCategory);
+        BeanUtils.copyProperties(form, goodsCategory);
+        goodsCategory.setLevel(Objects.isNull(parentCategory.getLevel()) ? INIT_LEVEL : parentCategory.getLevel() + 1);
+        goodsCategory.setCreateBy(sessionContext.getUser().getId());
         goodsCategoryService.create(goodsCategory);
-        return new SuccessView();
+        return new ResponseView();
     }
 
-    @RequestMapping(value = UPDATE,method = RequestMethod.PUT)
-    public SuccessView update(@Valid @RequestBody GoodsCategoryUpdateForm form){
+    @RequestMapping(value = UPDATE, method = RequestMethod.PUT)
+    public ResponseView update(@Valid @RequestBody GoodsCategoryUpdateForm form) {
         GoodsCategory goodsCategory = goodsCategoryService.getById(form.getId());
-        if(Objects.isNull(goodsCategory)){
+        if (Objects.isNull(goodsCategory)) {
             throw new ResourceNotFoundException("goodsCategory not exists");
         }
-        BeanUtils.copyProperties(form,goodsCategory);
+        BeanUtils.copyProperties(form, goodsCategory);
+        goodsCategory.setUpdateBy(sessionContext.getUser().getId());
         goodsCategoryService.update(goodsCategory);
-        return new SuccessView();
+        return new ResponseView();
+    }
+
+    @RequestMapping(value = "/resetStatus", method = RequestMethod.PUT)
+    public ResponseView resetStatus(@Valid @RequestBody GoodsCategoryStatusForm form) {
+        GoodsCategory goodsCategory = goodsCategoryService.getById(form.getId());
+        if (Objects.isNull(goodsCategory)) {
+            throw new ResourceNotFoundException("goodsCategory not exists");
+        }
+        if (!form.getStatus().equals(ENABLE) && !form.getStatus().equals(DISABLE)){
+            throw new InvalidRequestException("invalidStatus","invalid status");
+        }
+        // TODO: if disable this category,check any goods which is enabled use it
+        if (!goodsCategory.getStatus().equals(form.getStatus())){
+            goodsCategory.setStatus(form.getStatus());
+            goodsCategory.setUpdateBy(sessionContext.getUser().getId());
+            goodsCategoryService.update(goodsCategory);
+        }
+        return new ResponseView();
+    }
+
+    @RequestMapping(value = DELETE_BY_ID, method = RequestMethod.DELETE)
+    public ResponseView deleteById(@PathVariable Integer id) {
+        GoodsCategory goodsCategory = goodsCategoryService.getById(id);
+        if (Objects.isNull(goodsCategory)) {
+            throw new ResourceNotFoundException("goodsCategory not exists");
+        }
+        if (goodsCategory.getStatus().equals(ENABLE)){
+            throw new InvalidRequestException("invalidStatus","invalid status");
+        }
+        goodsCategoryService.deleteById(id);
+        return new ResponseView();
     }
 }

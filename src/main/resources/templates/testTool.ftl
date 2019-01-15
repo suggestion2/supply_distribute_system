@@ -24,11 +24,19 @@
             <h2>管理员(user)</h2>
             <div>
                 <strong>[登录]</strong><br/>
-                管理员:<input class="textbox" type="text" id="login-name" style="width: 100px;"
+                管理员:<input class="textbox" type="text" id="login-m-name" style="width: 100px;"
                            value="admin"/>
-                密码:<input class="textbox" type="text" id="login-password" style="width: 100px;"
+                密码:<input class="textbox" type="text" id="login-m-password" style="width: 100px;"
                           value="123456"/>
                 <input type="button" value="登录" onclick="commonModule.login()"/><br>
+            </div>
+            <div>
+                <strong>[修改密码]</strong><br/>
+                旧密码:<input class="textbox" type="text" id="resetPwd-m-originPwd" style="width: 100px;"
+                           value=""/>
+                新密码:<input class="textbox" type="text" id="resetPwd-m-newPwd" style="width: 100px;"
+                          value=""/>
+                <input type="button" value="修改" onclick="commonModule.resetPwd()"/><br>
             </div>
             <div>
                 <strong>[当前管理员]</strong><br/>
@@ -37,6 +45,44 @@
             <div>
                 <strong>[登出]</strong><br/>
                 <input type="button" value="登出" onclick="commonModule.logout()"/><br>
+            </div>
+
+            <h2>商品品类(category)</h2>
+            <div>
+                <strong>[列表]</strong><br/>
+                <input type="button" value="列表" onclick="categoryModule.list()"/><br>
+            </div>
+            <div>
+                <strong>[创建]</strong><br/>
+                name:<input class="textbox" type="text" id="category-m-create-name" style="width: 100px;"
+                            value=""/>
+                parentId(0 if no parent):<input class="textbox" type="text" id="category-m-create-parentId" style="width: 100px;"
+                                                value=""/>
+                <input type="button" value="创建" onclick="categoryModule.create()"/><br>
+            </div>
+            <div>
+                <strong>[修改]</strong><br/>
+                id:<input class="textbox" type="text" id="category-m-update-id" style="width: 100px;"
+                          value=""/>
+                name:<input class="textbox" type="text" id="category-m-update-name" style="width: 100px;"
+                            value=""/>
+                <input type="button" value="修改" onclick="categoryModule.update()"/><br>
+            </div>
+            <div>
+                <strong>[上架/下架]</strong><br/>
+                id:<input class="textbox" type="text" id="category-m-status-id" style="width: 100px;"
+                          value=""/>
+                status:<select class="textbox" id="category-m-status-status" style="width: 100px;">
+                <option value="0">disable</option>
+                <option value="1">enable</option>
+            </select><br>
+                <input type="button" value="修改" onclick="categoryModule.resetStatus()"/><br>
+            </div>
+            <div>
+                <strong>[删除]</strong><br/>
+                id:<input class="textbox" type="text" id="category-m-delete-id" style="width: 100px;"
+                          value=""/>
+                <input type="button" value="删除" onclick="categoryModule.deleteById()"/><br>
             </div>
         </div>
     </div>
