@@ -22,7 +22,7 @@ import java.util.Objects;
 import static com.su.supplydistributesystem.constants.CommonConstants.*;
 
 
-@RestController("CommonManagementApiController")
+@RestController("commonManagementApiController")
 @RequestMapping(value = "/mApi")
 public class CommonController {
     @Autowired

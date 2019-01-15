@@ -5,14 +5,14 @@ import java.util.Date;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-public class DistributorCreateForm {
+public class GoodsCategoryCreateForm {
 
     @NotEmpty
     private String name;
-    @NotEmpty
-    private String phone;
-    @NotEmpty
-    private String password;
+    @NotNull
+    private Integer level;
+    @NotNull
+    private Integer parentId;
 
     public String getName() {
     return name;
@@ -21,19 +21,19 @@ public class DistributorCreateForm {
     public void setName(String name) {
     this.name = name;
     }
-    public String getPhone() {
-    return phone;
+    public Integer getLevel() {
+    return level;
     }
 
-    public void setPhone(String phone) {
-    this.phone = phone;
+    public void setLevel(Integer level) {
+    this.level = level;
     }
-    public String getPassword() {
-    return password;
+    public Integer getParentId() {
+    return parentId;
     }
 
-    public void setPassword(String password) {
-    this.password = password;
+    public void setParentId(Integer parentId) {
+    this.parentId = parentId;
     }
 
 }

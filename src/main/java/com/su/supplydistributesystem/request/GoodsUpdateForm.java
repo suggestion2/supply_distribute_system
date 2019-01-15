@@ -28,7 +28,7 @@ public class GoodsUpdateForm {
     @NotNull
     private BigDecimal jdPrice;
     @NotNull
-    private BigDecimal Price;
+    private BigDecimal price;
     @NotNull
     private BigDecimal lowSupplyPrice;
     @NotNull
@@ -113,11 +113,11 @@ public class GoodsUpdateForm {
     this.jdPrice = jdPrice;
     }
     public BigDecimal getPrice() {
-    return Price;
+    return price;
     }
 
-    public void setPrice(BigDecimal Price) {
-    this.Price = Price;
+    public void setPrice(BigDecimal price) {
+    this.price = price;
     }
     public BigDecimal getLowSupplyPrice() {
     return lowSupplyPrice;

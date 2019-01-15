@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.su.supplydistributesystem.mapper.OrderMapper">
+
+    <select id="selectById" resultType="com.su.supplydistributesystem.domain.Order" parameterType="java.lang.Integer">
+        select * from `order` where id= #{id} and `valid` = 1
+    </select>
+
+    <select id="select" resultType="com.su.supplydistributesystem.domain.Order" parameterType="java.util.Map">
+        select * from `order` where `valid` = 1
+        <if test="id!=null">
+            and `id` = #{id}
+        </if>
+    </select>
+
+    <select id="selectList" resultType="com.su.supplydistributesystem.domain.Order" parameterType="java.util.Map">
+        select * from `order` where `valid` = 1
+        <if test="id!=null">
+
+        </if>
+        <if test="startIndex != null and pageSize != null">
+            limit #{startIndex},#{pageSize}
+        </if>
+    </select>
+
+    <select id="selectCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+        select count(*) from `order` where `valid` = 1
+        <if test="id!=null">
+
+        </if>
+    </select>
+
+    <insert id="insert" parameterType="com.su.supplydistributesystem.domain.Order" useGeneratedKeys="true" keyProperty="id">
+        insert into `order`
+        (
+        `number`,
+        `distributorId`,
+        `distributorName`,
+        `distributorPhone`,
+        `cancelReason`,
+        `customerName`,
+        `customerAddress`,
+        `customerPhone`,
+        `dispatchCompany`,
+        `dispatchNumber`,
+        `count`,
+        `amount`,
+        `profit1`,
+        `profit2`,
+        `profit3`,
+        `createBy`,
+        `updateBy`,
+        `status`,
+        )
+        values
+        (
+        #{number},
+        #{distributorId},
+        #{distributorName},
+        #{distributorPhone},
+        #{cancelReason},
+        #{customerName},
+        #{customerAddress},
+        #{customerPhone},
+        #{dispatchCompany},
+        #{dispatchNumber},
+        #{count},
+        #{amount},
+        #{profit1},
+        #{profit2},
+        #{profit3},
+        #{createBy},
+        #{createBy},
+        #{status},
+        )
+    </insert>
+
+    <update id="update" parameterType="com.su.supplydistributesystem.domain.Order">
+        update `order` set
+        `number` = #{number},
+        `distributorId` = #{distributorId},
+        `distributorName` = #{distributorName},
+        `distributorPhone` = #{distributorPhone},
+        `cancelReason` = #{cancelReason},
+        `customerName` = #{customerName},
+        `customerAddress` = #{customerAddress},
+        `customerPhone` = #{customerPhone},
+        `dispatchCompany` = #{dispatchCompany},
+        `dispatchNumber` = #{dispatchNumber},
+        `count` = #{count},
+        `amount` = #{amount},
+        `profit1` = #{profit1},
+        `profit2` = #{profit2},
+        `profit3` = #{profit3},
+        `updateBy` = #{updateBy},
+        `status` = #{status},
+        `updateTime` = now()
+        where `id` = #{id}
+    </update>
+
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        update `order` set valid = 0 where `id` = #{id}
+    </delete>
+</mapper>

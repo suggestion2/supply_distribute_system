@@ -3,12 +3,13 @@ package com.su.supplydistributesystem.domain;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class Distributor {
+public class GoodsSuppliy {
 
     private Integer id;
-    private String name;
-    private String phone;
-    private String password;
+    private Integer supplierId;
+    private String supplierName;
+    private Integer goodsId;
+    private BigDecimal supplyPrice;
     private Date createTime;
     private Date updateTime;
     private Integer createBy;
@@ -23,26 +24,33 @@ public class Distributor {
     public void setId(Integer id) {
         this.id = id;
     }
-    public String getName() {
-        return name;
+    public Integer getSupplierId() {
+        return supplierId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setSupplierId(Integer supplierId) {
+        this.supplierId = supplierId;
     }
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-    public String getPassword() {
-        return password;
+    public String getSupplierName() {
+        return supplierName;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setSupplierName(String supplierName) {
+        this.supplierName = supplierName;
+    }
+    public Integer getGoodsId() {
+        return goodsId;
+    }
+
+    public void setGoodsId(Integer goodsId) {
+        this.goodsId = goodsId;
+    }
+    public BigDecimal getSupplyPrice() {
+        return supplyPrice;
+    }
+
+    public void setSupplyPrice(BigDecimal supplyPrice) {
+        this.supplyPrice = supplyPrice;
     }
     public Date getCreateTime() {
         return createTime;

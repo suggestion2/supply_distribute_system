@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.su.supplydistributesystem.mapper.SupplierMapper">
+
+    <select id="selectById" resultType="com.su.supplydistributesystem.domain.Supplier" parameterType="java.lang.Integer">
+        select * from `supplier` where id= #{id} and `valid` = 1
+    </select>
+
+    <select id="select" resultType="com.su.supplydistributesystem.domain.Supplier" parameterType="java.util.Map">
+        select * from `supplier` where `valid` = 1
+        <if test="id!=null">
+            and `id` = #{id}
+        </if>
+    </select>
+
+    <select id="selectList" resultType="com.su.supplydistributesystem.domain.Supplier" parameterType="java.util.Map">
+        select * from `supplier` where `valid` = 1
+        <if test="id!=null">
+
+        </if>
+        <if test="startIndex != null and pageSize != null">
+            limit #{startIndex},#{pageSize}
+        </if>
+    </select>
+
+    <select id="selectCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+        select count(*) from `supplier` where `valid` = 1
+        <if test="id!=null">
+
+        </if>
+    </select>
+
+    <insert id="insert" parameterType="com.su.supplydistributesystem.domain.Supplier" useGeneratedKeys="true" keyProperty="id">
+        insert into `supplier`
+        (
+        `name`,
+        `createBy`,
+        `updateBy`,
+        `status`,
+        )
+        values
+        (
+        #{name},
+        #{createBy},
+        #{createBy},
+        #{status},
+        )
+    </insert>
+
+    <update id="update" parameterType="com.su.supplydistributesystem.domain.Supplier">
+        update `supplier` set
+        `name` = #{name},
+        `updateBy` = #{updateBy},
+        `status` = #{status},
+        `updateTime` = now()
+        where `id` = #{id}
+    </update>
+
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        update `supplier` set valid = 0 where `id` = #{id}
+    </delete>
+</mapper>
