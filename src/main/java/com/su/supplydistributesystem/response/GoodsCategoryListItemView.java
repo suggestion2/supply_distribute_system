@@ -1,29 +1,22 @@
-package com.su.supplydistributesystem.domain;
+package com.su.supplydistributesystem.response;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.su.supplydistributesystem.domain.GoodsCategory;
 import com.sug.core.util.jsonFormat.SimpleDateTimeSerializer;
 
-import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
-public class GoodsCategory {
-
+public class GoodsCategoryListItemView {
     private Integer id;
     private String name;
     private Integer level;
     private Integer parentId;
     @JsonSerialize(using = SimpleDateTimeSerializer.class)
     private Date createTime;
-    @JsonIgnore
-    private Date updateTime;
-    @JsonIgnore
-    private Integer createBy;
-    @JsonIgnore
-    private Integer updateBy;
     private Integer status;
-    @JsonIgnore
-    private Integer valid;
+
+    private List<GoodsCategoryListItemView> list;
 
     public Integer getId() {
         return id;
@@ -32,6 +25,7 @@ public class GoodsCategory {
     public void setId(Integer id) {
         this.id = id;
     }
+
     public String getName() {
         return name;
     }
@@ -39,6 +33,7 @@ public class GoodsCategory {
     public void setName(String name) {
         this.name = name;
     }
+
     public Integer getLevel() {
         return level;
     }
@@ -46,6 +41,7 @@ public class GoodsCategory {
     public void setLevel(Integer level) {
         this.level = level;
     }
+
     public Integer getParentId() {
         return parentId;
     }
@@ -53,6 +49,7 @@ public class GoodsCategory {
     public void setParentId(Integer parentId) {
         this.parentId = parentId;
     }
+
     public Date getCreateTime() {
         return createTime;
     }
@@ -60,27 +57,7 @@ public class GoodsCategory {
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
-    public Date getUpdateTime() {
-        return updateTime;
-    }
 
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-    public Integer getCreateBy() {
-        return createBy;
-    }
-
-    public void setCreateBy(Integer createBy) {
-        this.createBy = createBy;
-    }
-    public Integer getUpdateBy() {
-        return updateBy;
-    }
-
-    public void setUpdateBy(Integer updateBy) {
-        this.updateBy = updateBy;
-    }
     public Integer getStatus() {
         return status;
     }
@@ -88,12 +65,12 @@ public class GoodsCategory {
     public void setStatus(Integer status) {
         this.status = status;
     }
-    public Integer getValid() {
-        return valid;
+
+    public List<GoodsCategoryListItemView> getList() {
+        return list;
     }
 
-    public void setValid(Integer valid) {
-        this.valid = valid;
+    public void setList(List<GoodsCategoryListItemView> list) {
+        this.list = list;
     }
-
 }

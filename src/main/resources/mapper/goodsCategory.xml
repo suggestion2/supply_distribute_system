@@ -12,11 +12,52 @@
             and `id` = #{id}
         </if>
     </select>
-
-    <select id="selectList" resultType="com.su.supplydistributesystem.domain.GoodsCategory" parameterType="java.util.Map">
-        select * from `goods_category` where `valid` = 1
-        <if test="id!=null">
-
+    
+    <resultMap id="CategoryView" type="com.su.supplydistributesystem.response.GoodsCategoryListItemView">
+        <id property="id" column="category_id"/>
+        <result property="name" column="category_name"/>
+        <result property="level" column="category_level"/>
+        <result property="parentId" column="category_parentId"/>
+        <result property="createTime" column="category_createTime"/>
+        <result property="status" column="category_status"/>
+        <collection property="list" javaType="ArrayList" ofType="com.su.supplydistributesystem.response.GoodsCategoryListItemView"
+                    resultMap="CategoryView" columnPrefix="sub_"/>
+    </resultMap>
+    
+    <select id="selectListView" resultMap="CategoryView" parameterType="java.util.Map">
+        select
+        c1.id as category_id,
+        c1.name as `category_name`,
+        c1.level as `category_level`,
+        c1.parentId as `category_parentId`,
+        c1.createTime as `category_createTime`,
+        c1.status as `category_status`,
+        
+        c2.id as sub_category_id,
+        c2.name as `sub_category_name`,
+        c2.level as `sub_category_level`,
+        c2.parentId as `sub_category_parentId`,
+        c2.createTime as `sub_category_createTime`,
+        c2.status as `sub_category_status`,
+    
+        c3.id as sub_sub_category_id,
+        c3.name as `sub_sub_category_name`,
+        c3.level as `sub_sub_category_level`,
+        c3.parentId as `sub_sub_category_parentId`,
+        c3.createTime as `sub_sub_category_createTime`,
+        c3.status as `sub_sub_category_status`
+        from `goods_category` c1
+        left join `goods_category` c2 on c1.id = c2.parentId and c2.level = 2 and c2.valid = 1
+        <if test="addGoods!=null">
+            and c2.status = 1
+        </if>
+        left join `goods_category` c3 on c2.id = c3.parentId and c3.level = 3 and c3.valid = 1
+        <if test="addGoods!=null">
+            and c3.status = 1
+        </if>
+        where c1.`valid` = 1 and c1.level = 1
+        <if test="addGoods!=null">
+            and c1.status = 1
         </if>
         <if test="startIndex != null and pageSize != null">
             limit #{startIndex},#{pageSize}
@@ -37,8 +78,7 @@
         `level`,
         `parentId`,
         `createBy`,
-        `updateBy`,
-        `status`,
+        `updateBy`
         )
         values
         (
@@ -46,16 +86,13 @@
         #{level},
         #{parentId},
         #{createBy},
-        #{createBy},
-        #{status},
+        #{createBy}
         )
     </insert>
 
     <update id="update" parameterType="com.su.supplydistributesystem.domain.GoodsCategory">
         update `goods_category` set
         `name` = #{name},
-        `level` = #{level},
-        `parentId` = #{parentId},
         `updateBy` = #{updateBy},
         `status` = #{status},
         `updateTime` = now()

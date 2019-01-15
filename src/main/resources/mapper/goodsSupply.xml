@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.su.supplydistributesystem.mapper.GoodsSuppliyMapper">
+<mapper namespace="com.su.supplydistributesystem.mapper.GoodsSupplyMapper">
 
-    <select id="selectById" resultType="com.su.supplydistributesystem.domain.GoodsSuppliy" parameterType="java.lang.Integer">
-        select * from `goods_suppliy` where id= #{id} and `valid` = 1
+    <select id="selectById" resultType="com.su.supplydistributesystem.domain.GoodsSupply" parameterType="java.lang.Integer">
+        select * from `goods_supply` where id= #{id} and `valid` = 1
     </select>
 
-    <select id="select" resultType="com.su.supplydistributesystem.domain.GoodsSuppliy" parameterType="java.util.Map">
-        select * from `goods_suppliy` where `valid` = 1
+    <select id="select" resultType="com.su.supplydistributesystem.domain.GoodsSupply" parameterType="java.util.Map">
+        select * from `goods_supply` where `valid` = 1
         <if test="id!=null">
             and `id` = #{id}
         </if>
     </select>
 
-    <select id="selectList" resultType="com.su.supplydistributesystem.domain.GoodsSuppliy" parameterType="java.util.Map">
-        select * from `goods_suppliy` where `valid` = 1
+    <select id="selectList" resultType="com.su.supplydistributesystem.domain.GoodsSupply" parameterType="java.util.Map">
+        select * from `goods_supply` where `valid` = 1
         <if test="id!=null">
 
         </if>
@@ -24,14 +24,14 @@
     </select>
 
     <select id="selectCount" resultType="java.lang.Integer" parameterType="java.util.Map">
-        select count(*) from `goods_suppliy` where `valid` = 1
+        select count(*) from `goods_supply` where `valid` = 1
         <if test="id!=null">
 
         </if>
     </select>
 
-    <insert id="insert" parameterType="com.su.supplydistributesystem.domain.GoodsSuppliy" useGeneratedKeys="true" keyProperty="id">
-        insert into `goods_suppliy`
+    <insert id="insert" parameterType="com.su.supplydistributesystem.domain.GoodsSupply" useGeneratedKeys="true" keyProperty="id">
+        insert into `goods_supply`
         (
         `supplierId`,
         `supplierName`,
@@ -53,8 +53,8 @@
         )
     </insert>
 
-    <update id="update" parameterType="com.su.supplydistributesystem.domain.GoodsSuppliy">
-        update `goods_suppliy` set
+    <update id="update" parameterType="com.su.supplydistributesystem.domain.GoodsSupply">
+        update `goods_supply` set
         `supplierId` = #{supplierId},
         `supplierName` = #{supplierName},
         `goodsId` = #{goodsId},
@@ -66,6 +66,6 @@
     </update>
 
     <delete id="deleteById" parameterType="java.lang.Integer">
-        update `goods_suppliy` set valid = 0 where `id` = #{id}
+        update `goods_supply` set valid = 0 where `id` = #{id}
     </delete>
 </mapper>

@@ -5,7 +5,7 @@ import java.util.Date;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-public class GoodsSuppliyCreateForm {
+public class GoodsSupplyCreateForm {
 
     @NotNull
     private Integer supplierId;

@@ -141,29 +141,56 @@ var commonModule = {
     }
 };
 
-var customerModule = {
+var categoryModule = {
     list: function () {
         var settings = {
+            type: "GET",
+            url: "/mApi/category/list",
+            dataType: "json"
+        };
+        showResult(settings);
+    },
+    create: function () {
+        var settings = {
             type: "POST",
-            url: "/mApi/customer/list",
+            url: "/mApi/category/create",
             dataType: "json",
             data: JSON.stringify({
-                "content": $("#customer-list-content").val(),
-                "pageIndex": $("#customer-list-pageIndex").val(),
-                "pageSize": $("#customer-list-pageSize").val()
+                "name": $("#category-m-create-name").val(),
+                "parentId": $("#category-m-create-parentId").val()
             })
         };
         showResult(settings);
     },
-    status: function () {
+    update: function () {
         var settings = {
             type: "PUT",
-            url: "/management/customer/status",
+            url: "/mApi/category/update",
             dataType: "json",
             data: JSON.stringify({
-                "id": $("#customer-status-id").val(),
-                "status": $("#customer-status-status").val()
+                "id": $("#category-m-update-id").val(),
+                "name": $("#category-m-update-name").val()
             })
+        };
+        showResult(settings);
+    },
+    resetStatus: function () {
+        var settings = {
+            type: "PUT",
+            url: "/mApi/category/resetStatus",
+            dataType: "json",
+            data: JSON.stringify({
+                "id": $("#category-m-status-id").val(),
+                "status": $("#category-m-status-status").val()
+            })
+        };
+        showResult(settings);
+    },
+    deleteById: function () {
+        var settings = {
+            type: "DELETE",
+            url: "/mApi/category/delete/" + $("#category-m-delete-id").val(),
+            dataType: "json"
         };
         showResult(settings);
     }

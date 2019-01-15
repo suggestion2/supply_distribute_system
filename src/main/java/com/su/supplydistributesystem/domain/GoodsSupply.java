@@ -3,7 +3,7 @@ package com.su.supplydistributesystem.domain;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class GoodsSuppliy {
+public class GoodsSupply {
 
     private Integer id;
     private Integer supplierId;

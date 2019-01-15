@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.Collections;
+
 import static com.su.supplydistributesystem.constants.CommonConstants.*;
 
 @Controller("categoryManagementController")
@@ -22,7 +24,7 @@ public class CategoryController {
 
     @RequestMapping(value = LIST, method = RequestMethod.GET)
     public String list(ModelMap modelMap) {
-        modelMap.put("list", null);
+        modelMap.put("list", goodsCategoryService.getListViewForCreateGoods());
         return "management/categoryList";
     }
 }
