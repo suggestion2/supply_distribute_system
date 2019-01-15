@@ -105,8 +105,20 @@ var commonModule = {
             url: "/mApi/login",
             dataType: "json",
             data: JSON.stringify({
-                "name": $("#login-name").val(),
-                "password": $("#login-password").val()
+                "name": $("#login-m-name").val(),
+                "password": $("#login-m-password").val()
+            })
+        };
+        showResult(settings);
+    },
+    resetPwd: function () {
+        var settings = {
+            type: "PUT",
+            url: "/mApi/password",
+            dataType: "json",
+            data: JSON.stringify({
+                "originPassword": $("#resetPwd-m-originPwd").val(),
+                "newPassword": $("#resetPwd-m-newPwd").val()
             })
         };
         showResult(settings);

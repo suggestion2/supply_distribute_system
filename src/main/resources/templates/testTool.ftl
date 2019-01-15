@@ -24,11 +24,19 @@
             <h2>管理员(user)</h2>
             <div>
                 <strong>[登录]</strong><br/>
-                管理员:<input class="textbox" type="text" id="login-name" style="width: 100px;"
+                管理员:<input class="textbox" type="text" id="login-m-name" style="width: 100px;"
                            value="admin"/>
-                密码:<input class="textbox" type="text" id="login-password" style="width: 100px;"
+                密码:<input class="textbox" type="text" id="login-m-password" style="width: 100px;"
                           value="123456"/>
                 <input type="button" value="登录" onclick="commonModule.login()"/><br>
+            </div>
+            <div>
+                <strong>[修改密码]</strong><br/>
+                旧密码:<input class="textbox" type="text" id="resetPwd-m-originPwd" style="width: 100px;"
+                           value=""/>
+                新密码:<input class="textbox" type="text" id="resetPwd-m-newPwd" style="width: 100px;"
+                          value=""/>
+                <input type="button" value="修改" onclick="commonModule.resetPwd()"/><br>
             </div>
             <div>
                 <strong>[当前管理员]</strong><br/>
