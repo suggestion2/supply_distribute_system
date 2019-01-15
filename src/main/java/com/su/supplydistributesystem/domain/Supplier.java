@@ -1,5 +1,8 @@
 package com.su.supplydistributesystem.domain;
 
+import com.sug.core.util.RegexUtils;
+
+import javax.validation.constraints.Pattern;
 import java.math.BigDecimal;
 import java.util.Date;
 

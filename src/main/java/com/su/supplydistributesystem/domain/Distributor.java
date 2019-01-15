@@ -1,13 +1,23 @@
 package com.su.supplydistributesystem.domain;
 
+import com.sug.core.util.RegexUtils;
+
+import javax.validation.constraints.Pattern;
 import java.math.BigDecimal;
 import java.util.Date;
+
+import static com.sug.core.util.RegexUtils.REGEX_PASSWORD_MESSAGE;
 
 public class Distributor {
 
     private Integer id;
+
     private String name;
+
+    @Pattern(regexp=RegexUtils.REGEX_PHONE,message ="must be a phone"  )
     private String phone;
+
+    @Pattern(regexp=RegexUtils.REGEX_PASSWORD,message =RegexUtils.REGEX_PASSWORD_MESSAGE )
     private String password;
     private Date createTime;
     private Date updateTime;

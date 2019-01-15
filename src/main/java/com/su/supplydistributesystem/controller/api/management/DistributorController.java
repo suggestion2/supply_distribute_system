@@ -20,8 +20,8 @@ import java.util.Objects;
 
 import static com.su.supplydistributesystem.constants.CommonConstants.*;
 
-@RestController
-@RequestMapping(value = "/distributor")
+@RestController("distributorController")
+@RequestMapping(value = "/mApi/distributor")
 public class DistributorController {
 
     private static final Logger logger = LoggerFactory.getLogger(DistributorController.class);
