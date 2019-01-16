@@ -60,15 +60,9 @@ public class GoodsController {
         return new GoodsListView(goodsService.selectList(form.getQueryMap()),goodsService.selectCount(form.getQueryMap()));
     }
 
-    @RequestMapping(value = DETAIL,method = RequestMethod.GET)
+    @RequestMapping(value = DETAIL_ID,method = RequestMethod.GET)
     public GoodsDetailView detail(@PathVariable Integer id){
-        Goods goods = goodsService.getById(id);
-        if(Objects.isNull(goods)){
-            throw new ResourceNotFoundException("goods not found");
-        }
-        List<GoodsSupply> list = goodsSupplyService.getListByGoodsId(goods.getId());
-
-        return new GoodsDetailView(goods,list);
+        return goodsService.getDetail(id);
     }
 
     @RequestMapping(value = CREATE,method = RequestMethod.POST)
@@ -80,12 +74,13 @@ public class GoodsController {
         }
         BeanUtils.copyProperties(form,goods);
         goods.setNumber(UUIDUtils.random());
-        goods.setProfit1(BigDecimalUtils.subtract(goods.getPrice(),goods.getLowSupplyPrice()));
-        goods.setProfit2(BigDecimalUtils.subtract(goods.getTaobaoPrice(),goods.getPrice()));
-        goods.setProfit3(BigDecimalUtils.subtract(goods.getJdPrice(),goods.getPrice()));
 
         List<GoodsSupplyForm> goodsSupplyList = form.getGoodsSupplyList();
         goodsSupplyList.forEach(g->goods.setLowSupplyPrice(Objects.isNull(goods.getLowSupplyPrice()) || goods.getLowSupplyPrice().compareTo(g.getSupplyPrice()) > 0 ? g.getSupplyPrice() : goods.getLowSupplyPrice()));
+
+        goods.setProfit1(BigDecimalUtils.subtract(goods.getPrice(),goods.getLowSupplyPrice()));
+        goods.setProfit2(BigDecimalUtils.subtract(goods.getTaobaoPrice(),goods.getPrice()));
+        goods.setProfit3(BigDecimalUtils.subtract(goods.getJdPrice(),goods.getPrice()));
 
         User current = sessionContext.getUser();
         goods.setCreateBy(current.getId());
@@ -106,16 +101,16 @@ public class GoodsController {
     @Transactional
     public ResponseView update(@Valid @RequestBody GoodsUpdateForm form){
         Goods goods = goodsService.getById(form.getId());
+        Goods existGoods;
+        if(Objects.nonNull(existGoods = goodsService.getByName(form.getName())) && !existGoods.getId().equals(form.getId())){
+            throw new InvalidRequestException("duplicateName","duplicate goods name");
+        }
         if(Objects.isNull(goods)){
             throw new ResourceNotFoundException("goods not exists");
         }
         if(goods.getStatus().equals(ENABLE)){
             throw new InvalidRequestException("invalidStatus","invalid status");
         }
-        BeanUtils.copyProperties(form,goods);
-        goods.setProfit1(BigDecimalUtils.subtract(goods.getPrice(),goods.getLowSupplyPrice()));
-        goods.setProfit2(BigDecimalUtils.subtract(goods.getTaobaoPrice(),goods.getPrice()));
-        goods.setProfit3(BigDecimalUtils.subtract(goods.getJdPrice(),goods.getPrice()));
 
         User current = sessionContext.getUser();
 
@@ -126,7 +121,10 @@ public class GoodsController {
             g.setCreateBy(current.getId());
         });
 
-
+        BeanUtils.copyProperties(form,goods);
+        goods.setProfit1(BigDecimalUtils.subtract(goods.getPrice(),goods.getLowSupplyPrice()));
+        goods.setProfit2(BigDecimalUtils.subtract(goods.getTaobaoPrice(),goods.getPrice()));
+        goods.setProfit3(BigDecimalUtils.subtract(goods.getJdPrice(),goods.getPrice()));
         goods.setUpdateBy(current.getId());
 
         List<GoodsSupplyForm> createList = new ArrayList<>();
@@ -143,8 +141,8 @@ public class GoodsController {
         GoodsSupplyUpdateParams params = new GoodsSupplyUpdateParams(goods.getId(),current.getId(),updateList);
 
         goodsService.update(goods);
-        goodsSupplyService.batchCreate(createList);
         goodsSupplyService.batchUpdate(params);
+        goodsSupplyService.batchCreate(createList);
 
         return new ResponseView();
     }
@@ -160,9 +158,12 @@ public class GoodsController {
         }
         if(form.getStatus().equals(ENABLE)){
             List<GoodsCategory> categoryList = goodsCategoryService.getListByGoodsId(goods.getId());
+            if(categoryList.size() < 3){
+                throw new InvalidRequestException("invalidCategory","goods category not found");
+            }
             categoryList.forEach(c->{
                 if(c.getStatus().equals(CategoryConstants.DISABLE)){
-                    throw new InvalidRequestException("invalidCategoryStatus","goods category is disabled");
+                    throw new InvalidRequestException("invalidCategory","goods category is disabled");
                 }
             });
         }

@@ -27,7 +27,7 @@ public class SessionContext {
     }
 
     public Distributor getDistributor(){
-        return httpSession.getAttribute("user") == null ? null : (Distributor)httpSession.getAttribute("distributor");
+        return httpSession.getAttribute("distributor") == null ? null : (Distributor)httpSession.getAttribute("distributor");
     }
 
     public void logout(){

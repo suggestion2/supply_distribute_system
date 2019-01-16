@@ -34,6 +34,24 @@ public class Distributor {
     private Integer status;
     @JsonIgnore
     private Integer valid;
+    private String contact;
+    private String account;
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
+
+    public String getAccount() {
+        return account;
+    }
+
+    public void setAccount(String account) {
+        this.account = account;
+    }
 
     public Integer getId() {
         return id;

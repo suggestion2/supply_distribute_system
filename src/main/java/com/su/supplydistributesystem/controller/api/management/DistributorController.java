@@ -28,7 +28,7 @@ import static com.su.supplydistributesystem.constants.CategoryConstants.DISABLE;
 import static com.su.supplydistributesystem.constants.CategoryConstants.ENABLE;
 import static com.su.supplydistributesystem.constants.CommonConstants.*;
 
-@RestController("distributorController")
+@RestController("distributorApiController")
 @RequestMapping(value = "/mApi/distributor")
 @UserLoginRequired
 public class DistributorController {
@@ -77,7 +77,6 @@ public class DistributorController {
         if (!form.getStatus().equals(ENABLE) && !form.getStatus().equals(DISABLE)){
             throw new InvalidRequestException("invalidStatus","invalid status");
         }
-        // TODO: 判断order有没有分销商
         if (!distributor.getStatus().equals(form.getStatus())){
             distributor.setStatus(form.getStatus());
             distributor.setUpdateBy(sessionContext.getUser().getId());
@@ -111,9 +110,10 @@ public class DistributorController {
         return new SuccessView();
     }
 
+
     @RequestMapping(value = DELETE_BY_ID, method = RequestMethod.DELETE)
     public ResponseView deleteById(@PathVariable Integer id) {
-        //检查order是否有此账号
+        //TODO:检查order是否有此账号
         distributorService.deleteById(id);
         return new ResponseView();
     }

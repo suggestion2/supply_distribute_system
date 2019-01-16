@@ -40,7 +40,9 @@
         `phone`,
         `password`,
         `createBy`,
-        `updateBy`
+        `updateBy`,
+        `contact`,
+        `account`
         )
         values
         (
@@ -48,7 +50,9 @@
         #{phone},
         #{password},
         #{createBy},
-        #{updateBy}
+        #{updateBy},
+        #{contact},
+        #{account}
         )
     </insert>
 

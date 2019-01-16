@@ -18,6 +18,9 @@
         <if test="goodsId!=null">
             and `goodsId` = #{goodsId}
         </if>
+        <if test="supplierId!=null">
+            and `supplierId` = #{supplierId}
+        </if>
         <if test="startIndex != null and pageSize != null">
             limit #{startIndex},#{pageSize}
         </if>
@@ -44,12 +47,12 @@
         values
         <foreach item="item" index="index" collection="list" separator=",">
             (
-            #{supplierId},
-            #{supplierName},
-            #{goodsId},
-            #{supplyPrice},
-            #{createBy},
-            #{createBy}
+            #{item.supplierId},
+            #{item.supplierName},
+            #{item.goodsId},
+            #{item.supplyPrice},
+            #{item.createBy},
+            #{item.createBy}
             )
         </foreach>
     </insert>

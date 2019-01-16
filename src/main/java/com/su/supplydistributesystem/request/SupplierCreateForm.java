@@ -12,9 +12,32 @@ import javax.validation.constraints.Size;
 public class SupplierCreateForm {
 
     @NotEmpty
-    @Pattern(regexp=RegexUtils.REGEX_CHINESE_ENG_NUM  ,message = "Must be an alphanumeric character"  )
+    @Pattern(regexp=RegexUtils.REGEX_CHINESE_ENG_NUM  ,message = RegexUtils.REGEX_CHINESE_ENG_NUM_MESSAGE  )
     @Size(min=1,max = 32)
     private String name;
+    @NotEmpty
+    @Pattern(regexp=RegexUtils.REGEX_PHONE_LAMDLINE  ,message = RegexUtils.REGEX_PHONE_LAMDLINE_MESSAGE  )
+    private String phone;
+    @NotEmpty
+    @Pattern(regexp=RegexUtils.REGEX_CHINESE_ENG_NUM  ,message = RegexUtils.REGEX_CHINESE_ENG_NUM_MESSAGE  )
+    @Size(min=1,max = 32)
+    private String contact;
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
 
     public String getName() {
     return name;

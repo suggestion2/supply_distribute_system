@@ -18,6 +18,9 @@
         <if test="id!=null">
 
         </if>
+        <if test="supplierName!=null">
+            and `supplierName` = #{supplierName}
+        </if>
         <if test="startIndex != null and pageSize != null">
             limit #{startIndex},#{pageSize}
         </if>

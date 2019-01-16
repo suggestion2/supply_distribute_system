@@ -1,6 +1,9 @@
 package com.su.supplydistributesystem.serviceImpl;
 
+import com.su.supplydistributesystem.domain.Goods;
+import com.su.supplydistributesystem.domain.GoodsSupply;
 import com.su.supplydistributesystem.domain.Supplier;
+import com.su.supplydistributesystem.service.GoodsSupplyService;
 import com.su.supplydistributesystem.service.SupplierService;
 import com.su.supplydistributesystem.mapper.SupplierMapper;
 import org.springframework.stereotype.Service;
@@ -16,6 +19,7 @@ public class SupplierServiceImpl implements SupplierService{
     @Autowired
     private SupplierMapper supplierMapper;
 
+
     @Override
     public Supplier getById(Integer id){
         return supplierMapper.selectById(id);
@@ -27,6 +31,7 @@ public class SupplierServiceImpl implements SupplierService{
         query.put("name",name);
         return supplierMapper.selectByName(query);
     }
+
 
     @Override
     public Supplier select(Map<String, Object> map){
