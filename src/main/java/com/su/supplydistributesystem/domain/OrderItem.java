@@ -1,5 +1,9 @@
 package com.su.supplydistributesystem.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.sug.core.util.jsonFormat.SimpleDateTimeSerializer;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -8,7 +12,7 @@ public class OrderItem {
     private Integer id;
     private Integer orderId;
     private Integer goodsId;
-    private Integer goodSuppliyId;
+    private Integer goodSupplyId;
     private String goodsName;
     private BigDecimal taobaoPrice;
     private BigDecimal jdPrice;
@@ -19,12 +23,18 @@ public class OrderItem {
     private BigDecimal profit1;
     private BigDecimal profit2;
     private BigDecimal profit3;
+    @JsonSerialize(using = SimpleDateTimeSerializer.class)
     private Date createTime;
+    @JsonIgnore
     private Date updateTime;
+    @JsonIgnore
     private Integer createBy;
+    @JsonIgnore
     private Integer updateBy;
     private Integer status;
+    @JsonIgnore
     private Integer valid;
+    private String supplierName;
 
     public Integer getId() {
         return id;
@@ -47,12 +57,12 @@ public class OrderItem {
     public void setGoodsId(Integer goodsId) {
         this.goodsId = goodsId;
     }
-    public Integer getGoodSuppliyId() {
-        return goodSuppliyId;
+    public Integer getGoodSupplyId() {
+        return goodSupplyId;
     }
 
-    public void setGoodSuppliyId(Integer goodSuppliyId) {
-        this.goodSuppliyId = goodSuppliyId;
+    public void setGoodSupplyId(Integer goodSupplyId) {
+        this.goodSupplyId = goodSupplyId;
     }
     public String getGoodsName() {
         return goodsName;
@@ -165,6 +175,13 @@ public class OrderItem {
 
     public void setValid(Integer valid) {
         this.valid = valid;
+    }
+    public String getSupplierName() {
+        return supplierName;
+    }
+
+    public void setSupplierName(String supplierName) {
+        this.supplierName = supplierName;
     }
 
 }

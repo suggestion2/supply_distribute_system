@@ -13,7 +13,7 @@
         </if>
     </select>
     
-    <resultMap id="GoodsExcelResult" type="com.su.supplydistributesystem.service.excel.GoodsExcelParams">
+    <resultMap id="GoodsDetailResult" type="com.su.supplydistributesystem.service.GoodsDetailParams">
         <id column="goods_id"/>
         <association property="goods" javaType="com.su.supplydistributesystem.domain.Goods">
             <id property="id" column="goods_id"/>
@@ -40,7 +40,7 @@
         </collection>
     </resultMap>
     
-    <select id="selectExcelParamsList" resultMap="GoodsExcelResult" parameterType="java.util.Map">
+    <select id="selectGoodsDetailParamsList" resultMap="GoodsDetailResult" parameterType="java.util.Map">
         select 
         g.`id` as goods_id ,
         g.`number` as goods_number,
@@ -62,6 +62,9 @@
         gs.`supplierName` as goodsSupply_supplierName,
         gs.`supplyPrice` as goodsSupply_supplyPrice
         from `goods` g LEFT join goods_supply gs on g.id = gs.goodsId and gs.valid = 1
+        <if test="status!=null">
+            and g.status = #{status}
+        </if>
         where g.`valid` = 1
     </select>
     

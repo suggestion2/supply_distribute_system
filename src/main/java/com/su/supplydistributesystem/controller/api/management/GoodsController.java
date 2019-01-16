@@ -141,11 +141,13 @@ public class GoodsController {
             }
         }
 
-        GoodsSupplyUpdateParams params = new GoodsSupplyUpdateParams(goods.getId(),current.getId(),updateList);
-
         goodsService.update(goods);
-        goodsSupplyService.batchUpdate(params);
-        goodsSupplyService.batchCreate(createList);
+        if(updateList.size() > 0){
+            goodsSupplyService.batchUpdate(new GoodsSupplyUpdateParams(goods.getId(),current.getId(),updateList));
+        }
+        if(createList.size() > 0){
+            goodsSupplyService.batchCreate(createList);
+        }
 
         return new ResponseView();
     }

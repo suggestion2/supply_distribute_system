@@ -1,11 +1,11 @@
-package com.su.supplydistributesystem.service.excel;
+package com.su.supplydistributesystem.service;
 
 import com.su.supplydistributesystem.domain.Goods;
 import com.su.supplydistributesystem.domain.GoodsSupply;
 
 import java.util.List;
 
-public class GoodsExcelParams {
+public class GoodsDetailParams {
     private Goods goods;
 
     private List<GoodsSupply> list;
