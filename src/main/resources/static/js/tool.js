@@ -359,5 +359,8 @@ var goodsModule = {
             dataType: "json"
         };
         showResult(settings);
+    },
+    excel: function(){
+        window.open('/management/excel/goods');
     }
 };

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+import org.springframework.web.servlet.resource.ResourceHttpRequestHandler;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,6 +33,10 @@ public class PageInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         logger.debug("PageInterceptor ----------preHandle------------, URI=" + request.getRequestURI());
+
+        if (handler instanceof ResourceHttpRequestHandler) {
+            return true;
+        }
 
         if ((((HandlerMethod) handler).getMethod().isAnnotationPresent(UserLoginRequired.class)
                 || ((HandlerMethod) handler).getBeanType().isAnnotationPresent(UserLoginRequired.class))

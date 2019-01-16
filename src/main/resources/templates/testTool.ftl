@@ -252,6 +252,10 @@
                              value="1"/>
                 <input type="button" value="删除" onclick="goodsModule.deleteById()"/><br>
             </div>
+            <div>
+                <strong>[导出excel]</strong><br/>
+                <input type="button" value="导出" onclick="goodsModule.excel()"/><br>
+            </div>
         </div>
     </div>
 

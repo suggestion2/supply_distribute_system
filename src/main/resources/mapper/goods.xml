@@ -12,7 +12,59 @@
             and `name` = #{name}
         </if>
     </select>
-
+    
+    <resultMap id="GoodsExcelResult" type="com.su.supplydistributesystem.service.excel.GoodsExcelParams">
+        <id column="goods_id"/>
+        <association property="goods" javaType="com.su.supplydistributesystem.domain.Goods">
+            <id property="id" column="goods_id"/>
+            <result property="number" column="goods_number"/>
+            <result property="category1" column="goods_category1"/>
+            <result property="category2" column="goods_category2"/>
+            <result property="category3" column="goods_category3"/>
+            <result property="name" column="goods_name"/>
+            <result property="taobaoPrice" column="goods_taobaoPrice"/>
+            <result property="jdPrice" column="goods_jdPrice"/>
+            <result property="price" column="goods_price"/>
+            <result property="lowSupplyPrice" column="goods_lowSupplyPrice"/>
+            <result property="profit1" column="goods_profit1"/>
+            <result property="profit2" column="goods_profit2"/>
+            <result property="profit3" column="goods_profit3"/>
+            <result property="colour" column="goods_colour"/>
+            <result property="salesVolume" column="goods_salesVolume"/>
+            <result property="remarks" column="goods_remarks"/>
+        </association>
+        <collection property="list" javaType="ArrayList" ofType="com.su.supplydistributesystem.domain.GoodsSupply">
+            <id property="id" column="goodsSupply_id"/>
+            <result property="supplierName" column="goodsSupply_supplierName"/>
+            <result property="supplyPrice" column="goodsSupply_supplyPrice"/>
+        </collection>
+    </resultMap>
+    
+    <select id="selectExcelParamsList" resultMap="GoodsExcelResult" parameterType="java.util.Map">
+        select 
+        g.`id` as goods_id ,
+        g.`number` as goods_number,
+        g.`category1` as goods_category1,
+        g.`category2` as goods_category2,
+        g.`category3` as goods_category3,
+        g.`name` as goods_name,
+        g.`taobaoPrice` as goods_taobaoPrice,
+        g.`jdPrice` as goods_jdPrice,
+        g.`price` as goods_price,
+        g.`lowSupplyPrice` as goods_lowSupplyPrice,
+        g.`profit1` as goods_profit1,
+        g.`profit2` as goods_profit2,
+        g.`profit3` as goods_profit3,
+        g.`colour` as goods_colour,
+        g.`salesVolume` as goods_salesVolume,
+        g.`remarks` as goods_remarks,
+        gs.`id` as goodsSupply_id,
+        gs.`supplierName` as goodsSupply_supplierName,
+        gs.`supplyPrice` as goodsSupply_supplyPrice
+        from `goods` g LEFT join goods_supply gs on g.id = gs.goodsId and gs.valid = 1
+        where g.`valid` = 1
+    </select>
+    
     <select id="selectList" resultType="com.su.supplydistributesystem.domain.Goods" parameterType="java.util.Map">
         select `id`,`number`,`name`,`taobaoPrice`,`jdPrice`,`price`,`lowSupplyPrice`,`profit1`,`profit2`,`profit3`,remarks,`status` from `goods` where `valid` = 1
         <if test="content!=null">
