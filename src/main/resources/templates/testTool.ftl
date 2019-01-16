@@ -167,7 +167,9 @@
                 jdPrice:<input class="textbox" type="text" id="goods-m-create-jdPrice" style="width: 100px;"
                                    value=""/><br>
                 price:<input class="textbox" type="text" id="goods-m-create-price" style="width: 100px;"
-                                   value=""/>
+                                   value=""/><br>
+                colour:<input class="textbox" type="text" id="goods-m-create-colour" style="width: 100px;"
+                               value=""/>
                 remarks:<input class="textbox" type="text" id="goods-m-create-remarks" style="width: 100px;"
                              value=""/><br>
                 
@@ -210,7 +212,9 @@
                 jdPrice:<input class="textbox" type="text" id="goods-m-update-jdPrice" style="width: 100px;"
                                value=""/><br>
                 price:<input class="textbox" type="text" id="goods-m-update-price" style="width: 100px;"
-                             value=""/>
+                             value=""/><br>
+                colour:<input class="textbox" type="text" id="goods-m-update-colour" style="width: 100px;"
+                              value=""/>
                 remarks:<input class="textbox" type="text" id="goods-m-update-remarks" style="width: 100px;"
                                value=""/><br>
 

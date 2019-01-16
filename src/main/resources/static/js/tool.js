@@ -287,6 +287,7 @@ var goodsModule = {
                 "jdPrice": $("#goods-m-create-jdPrice").val(),
                 "price": $("#goods-m-create-price").val(),
                 "remarks": $("#goods-m-create-remarks").val(),
+                "colour": $("#goods-m-create-colour").val(),
                 "goodsSupplyList": [
                     {
                         "supplierId": $("#goods-m-create-supplierId1").val(),
@@ -321,6 +322,7 @@ var goodsModule = {
                 "jdPrice": $("#goods-m-update-jdPrice").val(),
                 "price": $("#goods-m-update-price").val(),
                 "remarks": $("#goods-m-update-remarks").val(),
+                "colour": $("#goods-m-update-colour").val(),
                 "goodsSupplyList": [
                     {
                         "id": $("#goods-m-update-gsId1").val(),

@@ -77,6 +77,7 @@
         `profit2`,
         `profit3`,
         `salesVolume`,
+        `colour`,
         `remarks`,
         `createBy`,
         `updateBy`
@@ -99,6 +100,7 @@
         #{profit2},
         #{profit3},
         0,
+        #{colour},
         #{remarks},
         #{createBy},
         #{createBy}
@@ -121,6 +123,7 @@
         `profit1` = #{profit1},
         `profit2` = #{profit2},
         `profit3` = #{profit3},
+        `colour` = #{colour},
         `remarks` = #{remarks},
         `updateBy` = #{updateBy},
         `updateTime` = now()
