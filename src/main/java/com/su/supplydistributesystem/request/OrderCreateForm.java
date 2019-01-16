@@ -1,14 +1,18 @@
 package com.su.supplydistributesystem.request;
 
+import com.sug.core.util.RegexUtils;
+
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
+import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 public class OrderCreateForm {
 
-    @NotEmpty
-    private String number;
     @NotNull
     private Integer distributorId;
     @NotEmpty
@@ -16,132 +20,119 @@ public class OrderCreateForm {
     @NotEmpty
     private String distributorPhone;
     @NotEmpty
-    private String cancelReason;
-    @NotEmpty
+    @Pattern(regexp = RegexUtils.REGEX_CHINESE_ENG_NUM,message = RegexUtils.REGEX_CHINESE_ENG_NUM_MESSAGE)
+    @Size(min = 1,max = 32,message = "size between 1 and 32")
     private String customerName;
     @NotEmpty
+    @Pattern(regexp = RegexUtils.REGEX_CHINESE_ENG_NUM,message = RegexUtils.REGEX_CHINESE_ENG_NUM_MESSAGE)
+    @Size(min = 1,max = 256,message = "size between 1 and 256")
     private String customerAddress;
     @NotEmpty
+    @Pattern(regexp = RegexUtils.REGEX_MOBILE,message = RegexUtils.REGEX_MOBILE_MESSAGE)
     private String customerPhone;
     @NotEmpty
+    @Pattern(regexp = RegexUtils.REGEX_CHINESE_ENG_NUM,message = RegexUtils.REGEX_CHINESE_ENG_NUM_MESSAGE)
+    @Size(min = 1,max = 256,message = "size between 1 and 256")
     private String dispatchCompany;
     @NotEmpty
+    @Pattern(regexp = RegexUtils.REGEX_ENGNNUM,message = RegexUtils.REGEX_ENGNNUM_MESSAGE)
+    @Size(min = 1,max = 256,message = "size between 1 and 256")
     private String dispatchNumber;
     @NotNull
-    private Integer count;
-    @NotNull
-    private BigDecimal amount;
-    @NotNull
-    private BigDecimal profit1;
-    @NotNull
-    private BigDecimal profit2;
-    @NotNull
-    private BigDecimal profit3;
+    private Integer status;
 
-    public String getNumber() {
-    return number;
-    }
+    private String remarks;
 
-    public void setNumber(String number) {
-    this.number = number;
-    }
+    @NotNull
+    @Size(min = 1,message = "at least 1 item")
+    @Valid
+    private List<OrderItemForm> list;
+
     public Integer getDistributorId() {
-    return distributorId;
+        return distributorId;
     }
 
     public void setDistributorId(Integer distributorId) {
-    this.distributorId = distributorId;
+        this.distributorId = distributorId;
     }
+
     public String getDistributorName() {
-    return distributorName;
+        return distributorName;
     }
 
     public void setDistributorName(String distributorName) {
-    this.distributorName = distributorName;
+        this.distributorName = distributorName;
     }
+
     public String getDistributorPhone() {
-    return distributorPhone;
+        return distributorPhone;
     }
 
     public void setDistributorPhone(String distributorPhone) {
-    this.distributorPhone = distributorPhone;
-    }
-    public String getCancelReason() {
-    return cancelReason;
+        this.distributorPhone = distributorPhone;
     }
 
-    public void setCancelReason(String cancelReason) {
-    this.cancelReason = cancelReason;
-    }
     public String getCustomerName() {
-    return customerName;
+        return customerName;
     }
 
     public void setCustomerName(String customerName) {
-    this.customerName = customerName;
+        this.customerName = customerName;
     }
+
     public String getCustomerAddress() {
-    return customerAddress;
+        return customerAddress;
     }
 
     public void setCustomerAddress(String customerAddress) {
-    this.customerAddress = customerAddress;
+        this.customerAddress = customerAddress;
     }
+
     public String getCustomerPhone() {
-    return customerPhone;
+        return customerPhone;
     }
 
     public void setCustomerPhone(String customerPhone) {
-    this.customerPhone = customerPhone;
+        this.customerPhone = customerPhone;
     }
+
     public String getDispatchCompany() {
-    return dispatchCompany;
+        return dispatchCompany;
     }
 
     public void setDispatchCompany(String dispatchCompany) {
-    this.dispatchCompany = dispatchCompany;
+        this.dispatchCompany = dispatchCompany;
     }
+
     public String getDispatchNumber() {
-    return dispatchNumber;
+        return dispatchNumber;
     }
 
     public void setDispatchNumber(String dispatchNumber) {
-    this.dispatchNumber = dispatchNumber;
-    }
-    public Integer getCount() {
-    return count;
+        this.dispatchNumber = dispatchNumber;
     }
 
-    public void setCount(Integer count) {
-    this.count = count;
-    }
-    public BigDecimal getAmount() {
-    return amount;
+    public Integer getStatus() {
+        return status;
     }
 
-    public void setAmount(BigDecimal amount) {
-    this.amount = amount;
-    }
-    public BigDecimal getProfit1() {
-    return profit1;
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
-    public void setProfit1(BigDecimal profit1) {
-    this.profit1 = profit1;
-    }
-    public BigDecimal getProfit2() {
-    return profit2;
+    public String getRemarks() {
+        return remarks;
     }
 
-    public void setProfit2(BigDecimal profit2) {
-    this.profit2 = profit2;
-    }
-    public BigDecimal getProfit3() {
-    return profit3;
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
     }
 
-    public void setProfit3(BigDecimal profit3) {
-    this.profit3 = profit3;
+    public List<OrderItemForm> getList() {
+        return list;
     }
 
+    public void setList(List<OrderItemForm> list) {
+        this.list = list;
+    }
 }

@@ -132,7 +132,7 @@
                 <input type="button" value="删除" onclick="supplierModule.deleteById()"/><br>
             </div>
         </div>
-        <div style="float: left; width: 400px;">
+        <div style="float: left; width: 500px;">
             <h2>商品品类(category)</h2>
             <div>
                 <strong>[列表]</strong><br/>
@@ -144,7 +144,7 @@
                             value=""/>
                 parentId(0 if no parent):<input class="textbox" type="text" id="category-m-create-parentId"
                                                 style="width: 100px;"
-                                                value=""/>
+                                                value=""/><br>
                 <input type="button" value="创建" onclick="categoryModule.create()"/><br>
             </div>
             <div>
@@ -369,6 +369,219 @@
                 <option value="1">enable</option>
             </select><br>
                 <input type="button" value="修改" onclick="distributorModule.resetStatus()"/><br>
+            </div>
+        </div>
+        <div style="float: left; width: 500px;">
+            <h2>订单(order)</h2>
+            <div>
+                <strong>[列表]</strong><br/>
+                content:<input class="textbox" type="text" id="order-m-list-content" style="width: 100px;"
+                               value=""/>
+                date:<input class="textbox" type="text" id="order-m-list-date" style="width: 100px;"
+                                   value="" placeholder="2018-12-12"/></br>
+                status:<select class="textbox" id="order-m-list-status" style="width: 100px;">
+                <option value="">all</option>
+                <option value="0">取消</option>
+                <option value="1">创建</option>
+                <option value="2">成功下单</option>
+                <option value="3">提交供应商</option>
+                <option value="4">已结算</option>
+                <option value="5">已发货</option>
+                <option value="6">已收货</option>
+                <option value="7">售后</option>
+            </select><br>
+                startIndex:<input class="textbox" type="text" id="order-m-list-startIndex" style="width: 100px;"
+                                  value="0"/>
+                pageSize:<input class="textbox" type="text" id="order-m-list-pageSize" style="width: 100px;"
+                                value="10"/><br>
+                <input type="button" value="列表" onclick="orderModule.list()"/><br>
+            </div>
+            <div>
+                <strong>[详情]</strong><br/>
+                id:<input class="textbox" type="text" id="order-m-detail-id" style="width: 100px;"
+                          value=""/>
+                <input type="button" value="详情" onclick="orderModule.detail()"/><br>
+            </div>
+            <div>
+                <strong>[创建]</strong><br/>
+                distributorId:<input class="textbox" type="text" id="order-m-create-distributorId" style="width: 100px;"
+                            value=""/>
+                distributorName:<input class="textbox" type="text" id="order-m-create-distributorName" style="width: 100px;"
+                                   value=""/></br>
+                distributorPhone:<input class="textbox" type="text" id="order-m-create-distributorPhone" style="width: 100px;"
+                                 value=""/>
+                customerName:<input class="textbox" type="text" id="order-m-create-customerName" style="width: 100px;"
+                                   value=""/></br>
+                customerAddress:<input class="textbox" type="text" id="order-m-create-customerAddress" style="width: 100px;"
+                                 value=""/>
+                customerPhone:<input class="textbox" type="text" id="order-m-create-customerPhone" style="width: 100px;"
+                                   value=""/></br>
+                dispatchCompany:<input class="textbox" type="text" id="order-m-create-dispatchCompany" style="width: 100px;"
+                                 value=""/>
+                dispatchNumber:<input class="textbox" type="text" id="order-m-create-dispatchNumber" style="width: 100px;"
+                                   value=""/></br>
+                status:<select class="textbox" id="order-m-create-status" style="width: 100px;">
+                <option value="0">取消</option>
+                <option value="1" selected>创建</option>
+                <option value="2">成功下单</option>
+                <option value="3">提交供应商</option>
+                <option value="4">已结算</option>
+                <option value="5">已发货</option>
+                <option value="6">已收货</option>
+                <option value="7">售后</option>
+            </select>
+                remarks:<input class="textbox" type="text" id="order-m-create-remarks" style="width: 100px;"
+                               value=""/><br>
+
+                orderItem1:<br>
+                goodsId:<input class="textbox" type="text" id="order-m-create-goodsId1" style="width: 100px;"
+                                  value=""/>
+                goodSupplyId:<input class="textbox" type="text" id="order-m-create-goodSupplyId1" style="width: 100px;"
+                                    value=""/></br>
+                goodsName:<input class="textbox" type="text" id="order-m-create-goodsName1" style="width: 100px;"
+                                   value=""/>
+                supplierName:<input class="textbox" type="text" id="order-m-create-supplierName1" style="width: 100px;"
+                                   value=""/></br>
+                taobaoPrice:<input class="textbox" type="text" id="order-m-create-taobaoPrice1" style="width: 100px;"
+                                 value=""/>
+                jdPrice:<input class="textbox" type="text" id="order-m-create-jdPrice1" style="width: 100px;"
+                                 value=""/></br>
+                price:<input class="textbox" type="text" id="order-m-create-price1" style="width: 100px;"
+                                   value=""/>
+                supplyPrice:<input class="textbox" type="text" id="order-m-create-supplyPrice1" style="width: 100px;"
+                                 value=""/></br>
+                count:<input class="textbox" type="text" id="order-m-create-count1" style="width: 100px;"
+                                   value=""/></br>
+                orderItem2:<br>
+                goodsId:<input class="textbox" type="text" id="order-m-create-goodsId2" style="width: 100px;"
+                               value=""/>
+                goodSupplyId:<input class="textbox" type="text" id="order-m-create-goodSupplyId2" style="width: 100px;"
+                                    value=""/></br>
+                goodsName:<input class="textbox" type="text" id="order-m-create-goodsName2" style="width: 100px;"
+                                 value=""/>
+                supplierName:<input class="textbox" type="text" id="order-m-create-supplierName2" style="width: 100px;"
+                                    value=""/></br>
+                taobaoPrice:<input class="textbox" type="text" id="order-m-create-taobaoPrice2" style="width: 100px;"
+                                   value=""/>
+                jdPrice:<input class="textbox" type="text" id="order-m-create-jdPrice2" style="width: 100px;"
+                               value=""/></br>
+                price:<input class="textbox" type="text" id="order-m-create-price2" style="width: 100px;"
+                             value=""/>
+                supplyPrice:<input class="textbox" type="text" id="order-m-create-supplyPrice2" style="width: 100px;"
+                                   value=""/></br>
+                count:<input class="textbox" type="text" id="order-m-create-count2" style="width: 100px;"
+                             value=""/></br>
+                <input type="button" value="创建" onclick="orderModule.create()"/><br>
+            </div>
+            <div>
+                <strong>[修改]</strong><br/>
+                id:<input class="textbox" type="text" id="order-m-update-id" style="width: 100px;"
+                          value=""/></br>
+                distributorId:<input class="textbox" type="text" id="order-m-update-distributorId" style="width: 100px;"
+                                     value=""/>
+                distributorName:<input class="textbox" type="text" id="order-m-update-distributorName" style="width: 100px;"
+                                       value=""/></br>
+                distributorPhone:<input class="textbox" type="text" id="order-m-update-distributorPhone" style="width: 100px;"
+                                        value=""/>
+                customerName:<input class="textbox" type="text" id="order-m-update-customerName" style="width: 100px;"
+                                    value=""/></br>
+                customerAddress:<input class="textbox" type="text" id="order-m-update-customerAddress" style="width: 100px;"
+                                       value=""/>
+                customerPhone:<input class="textbox" type="text" id="order-m-update-customerPhone" style="width: 100px;"
+                                     value=""/></br>
+                dispatchCompany:<input class="textbox" type="text" id="order-m-update-dispatchCompany" style="width: 100px;"
+                                       value=""/>
+                dispatchNumber:<input class="textbox" type="text" id="order-m-update-dispatchNumber" style="width: 100px;"
+                                      value=""/></br>
+                remarks:<input class="textbox" type="text" id="order-m-update-remarks" style="width: 100px;"
+                               value=""/><br>
+
+                orderItem1:
+                id:<input class="textbox" type="text" id="order-m-update-id1" style="width: 100px;"
+                               value=""/></br>
+                goodsId:<input class="textbox" type="text" id="order-m-update-goodsId1" style="width: 100px;"
+                               value=""/>
+                goodSupplyId:<input class="textbox" type="text" id="order-m-update-goodSupplyId1" style="width: 100px;"
+                                    value=""/></br>
+                goodsName:<input class="textbox" type="text" id="order-m-update-goodsName1" style="width: 100px;"
+                                 value=""/>
+                supplierName:<input class="textbox" type="text" id="order-m-update-supplierName1" style="width: 100px;"
+                                    value=""/></br>
+                taobaoPrice:<input class="textbox" type="text" id="order-m-update-taobaoPrice1" style="width: 100px;"
+                                   value=""/>
+                jdPrice:<input class="textbox" type="text" id="order-m-update-jdPrice1" style="width: 100px;"
+                               value=""/></br>
+                price:<input class="textbox" type="text" id="order-m-update-price1" style="width: 100px;"
+                             value=""/>
+                supplyPrice:<input class="textbox" type="text" id="order-m-update-supplyPrice1" style="width: 100px;"
+                                   value=""/></br>
+                count:<input class="textbox" type="text" id="order-m-update-count1" style="width: 100px;"
+                             value=""/></br>
+                orderItem2:
+                goodsId:<input class="textbox" type="text" id="order-m-update-goodsId2" style="width: 100px;"
+                               value=""/>
+                goodSupplyId:<input class="textbox" type="text" id="order-m-update-goodSupplyId2" style="width: 100px;"
+                                    value=""/></br>
+                goodsName:<input class="textbox" type="text" id="order-m-update-goodsName2" style="width: 100px;"
+                                 value=""/>
+                supplierName:<input class="textbox" type="text" id="order-m-update-supplierName2" style="width: 100px;"
+                                    value=""/></br>
+                taobaoPrice:<input class="textbox" type="text" id="order-m-update-taobaoPrice2" style="width: 100px;"
+                                   value=""/>
+                jdPrice:<input class="textbox" type="text" id="order-m-update-jdPrice2" style="width: 100px;"
+                               value=""/></br>
+                price:<input class="textbox" type="text" id="order-m-update-price2" style="width: 100px;"
+                             value=""/>
+                supplyPrice:<input class="textbox" type="text" id="order-m-update-supplyPrice2" style="width: 100px;"
+                                   value=""/></br>
+                count:<input class="textbox" type="text" id="order-m-update-count2" style="width: 100px;"
+                             value=""/></br>
+                <input type="button" value="修改" onclick="orderModule.update()"/><br>
+            </div>
+            <div>
+                <strong>[改变状态]</strong><br/>
+                id:<input class="textbox" type="text" id="order-m-status-id" style="width: 100px;"
+                          value=""/>
+                status:<select class="textbox" id="order-m-status-status" style="width: 100px;">
+                <option value="0">取消</option>
+                <option value="1" selected>创建</option>
+                <option value="2">成功下单</option>
+                <option value="3">提交供应商</option>
+                <option value="4">已结算</option>
+                <option value="5">已发货</option>
+                <option value="6">已收货</option>
+                <option value="7">售后</option>
+            </select><br>
+                cancelReason:<input class="textbox" type="text" id="order-m-status-cancelReason" style="width: 100px;"
+                          value=""/>
+                remarks:<input class="textbox" type="text" id="order-m-status-remarks" style="width: 100px;"
+                          value=""/>
+                <input type="button" value="修改" onclick="orderModule.resetStatus()"/><br>
+            </div>
+            <div>
+                <strong>[删除]</strong><br/>
+                id:<input class="textbox" type="text" id="order-m-delete-id" style="width: 100px;"
+                          value=""/>
+                <input type="button" value="删除" onclick="orderModule.deleteById()"/><br>
+            </div>
+            <div>
+                <strong>[导出excel]</strong><br/>
+                content:<input class="textbox" type="text" id="order-m-excel-content" style="width: 100px;"
+                          value=""/>
+                date:<input class="textbox" type="text" id="order-m-excel-date" style="width: 100px;"
+                               value="" placeholder="2018-12-12"/><br>
+                status:<select class="textbox" id="order-m-excel-status" style="width: 100px;">
+                <option value="" selected>all</option>
+                <option value="0">取消</option>
+                <option value="1">创建</option>
+                <option value="2">成功下单</option>
+                <option value="3">提交供应商</option>
+                <option value="4">已结算</option>
+                <option value="5">已发货</option>
+                <option value="6">已收货</option>
+                <option value="7">售后</option>
+            </select><br>
+                <input type="button" value="导出" onclick="orderModule.excel()"/><br>
             </div>
         </div>
     </div>

@@ -16,9 +16,9 @@ public interface OrderItemMapper {
 
     int selectCount(Map<String, Object> map);
 
-    int insert(OrderItem orderItem);
+    int batchInsert(List<OrderItem> list);
 
-    int update(OrderItem orderItem);
+    int batchUpdate(OrderItemUpdateParams params);
 
-    int deleteById(Integer id);
+    int deleteByOrderId(Integer id);
 }

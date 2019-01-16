@@ -3,14 +3,14 @@ package com.su.supplydistributesystem.serviceImpl;
 import com.su.supplydistributesystem.domain.Goods;
 import com.su.supplydistributesystem.domain.GoodsSupply;
 import com.su.supplydistributesystem.domain.Order;
-import com.su.supplydistributesystem.service.excel.ExcelService;
-import com.su.supplydistributesystem.service.excel.GoodsExcelParams;
-import com.su.supplydistributesystem.service.excel.OrderExcelParams;
+import com.su.supplydistributesystem.domain.OrderItem;
+import com.su.supplydistributesystem.service.ExcelService;
+import com.su.supplydistributesystem.service.GoodsDetailParams;
+import com.su.supplydistributesystem.service.OrderDetailParams;
 import com.sug.core.platform.web.rest.exception.InvalidRequestException;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -28,7 +28,7 @@ import java.util.List;
 public class ExcelServiceImpl implements ExcelService{
 
     @Override
-    public HSSFWorkbook generateGoodsExcel(List<GoodsExcelParams> list) throws IOException {
+    public HSSFWorkbook generateGoodsExcel(List<GoodsDetailParams> list) throws IOException {
         InputStream inputStream = this.getClass().getResourceAsStream("/templates/excelTemplate/goodsTemplate.xls");
 
         HSSFWorkbook hssfWorkbook = new HSSFWorkbook(inputStream);
@@ -42,7 +42,7 @@ public class ExcelServiceImpl implements ExcelService{
         return hssfWorkbook;
     }
 
-    private void setGoodsCells(GoodsExcelParams params,Sheet sheet,int currentRow) {
+    private void setGoodsCells(GoodsDetailParams params,Sheet sheet,int currentRow) {
         Row row = sheet.getRow(currentRow);
         DecimalFormat decimalFormat = new DecimalFormat("#.##");
         if(row == null){
@@ -59,7 +59,7 @@ public class ExcelServiceImpl implements ExcelService{
         }
     }
 
-    private List<String> generateGoodsCellList(DecimalFormat decimalFormat,GoodsExcelParams params) {
+    private List<String> generateGoodsCellList(DecimalFormat decimalFormat,GoodsDetailParams params) {
         Goods goods = params.getGoods();
         List<String> list = new ArrayList<>();
         list.add(goods.getNumber());
@@ -89,65 +89,93 @@ public class ExcelServiceImpl implements ExcelService{
 
 
     @Override
-    public HSSFWorkbook generateOrderExcel(List<OrderExcelParams> list) {
-        /*InputStream inputStream = this.getClass().getResourceAsStream("/templates/excelTemplate/orderTemplate.xls");
+    public HSSFWorkbook generateOrderExcel(List<OrderDetailParams> list) throws IOException {
+        InputStream inputStream = this.getClass().getResourceAsStream("/templates/excelTemplate/orderTemplate.xls");
 
         HSSFWorkbook hssfWorkbook = new HSSFWorkbook(inputStream);
 
         Sheet sheet = hssfWorkbook.getSheetAt(0);
 
-        Row row = sheet.getRow(0);
+        int currentRow = 3;
 
-        int first = row.getFirstCellNum();
-        int last = row.getLastCellNum();
-
-        if(first == last){
-            throw new InvalidRequestException("ExcelTemplateError","excel模板为空");
+        for (OrderDetailParams params : list) {
+            currentRow = setOrderCells(params, sheet, currentRow);
         }
 
-        for(int i = 0;i < list.size();i ++){
-            row = sheet.getRow(i + 1);
-            if(row == null){
-                sheet.createRow(i + 1);
-                row = sheet.getRow(i + 1);
-            }
-//            setOrderCells(list.get(i),first,last,row);
-        }
-
-        return hssfWorkbook;*/
-        return null;
+        return hssfWorkbook;
     }
 
-    /*private void setOrderCells(Order order,Integer first,Integer last,Row row) throws Exception {
-        List<String> list = generateOrderCellList(order);
-        for(int i = first;i < last; i ++){
+    private int setOrderCells(OrderDetailParams params,Sheet sheet,int currentRow) {
+        DecimalFormat decimalFormat = new DecimalFormat("#.##");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        Row row = sheet.getRow(currentRow);
+        if(row == null){
+            sheet.createRow(currentRow);
+            row = sheet.getRow(currentRow);
+        }
+        List<String> list = generateOrderCellList(simpleDateFormat,decimalFormat,params.getOrder());
+        for(int i = 0;i < list.size(); i ++){
             Cell cell = row.getCell(i);
             if(cell == null){
                 cell = row.createCell(i);
             }
             cell.setCellValue(list.get(i));
         }
+        for(int i = 0;i < params.getList().size(); i ++){
+            currentRow ++;
+            row = sheet.getRow(currentRow);
+            if(row == null){
+                sheet.createRow(currentRow);
+                row = sheet.getRow(currentRow);
+            }
+            List<String> itemList = generateOrderItemCellList(decimalFormat,params.getList().get(i));
+            for(int j = 0;j < itemList.size(); j ++){
+                Cell cell = row.getCell(j);
+                if(cell == null){
+                    cell = row.createCell(j);
+                }
+                cell.setCellValue(j==0? String.valueOf(i + 1) : itemList.get(j));
+            }
+        }
+        
+        return currentRow + 2;
     }
 
-    private List<String> generateOrderCellList(Order order) throws Exception {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        DecimalFormat decimalFormat = new DecimalFormat("#.##");
-
+    private List<String> generateOrderCellList(SimpleDateFormat simpleDateFormat,DecimalFormat decimalFormat,Order order) {
         List<String> list = new ArrayList<>();
         list.add(order.getNumber());
-        list.add(order.getOwnerName());
-        list.add(order.getOwnerPhone());
-        list.add(order.getOriProvince());
-        list.add(order.getOriCity());
-        list.add(order.getOriCounty());
-        list.add(order.getArrProvince());
-        list.add(order.getArrCity());
-        list.add(order.getArrCounty());
-        list.add(simpleDateFormat.format(order.getLoadTime()));
-        list.add(decimalFormat.format(order.getCargoValue()) + "元");
-        list.add(decimalFormat.format(order.getOwnerFreight()) + "元");
+        list.add(order.getGoodsNames());
+        list.add(order.getDistributorName());
+        list.add(order.getDistributorPhone());
+        list.add(order.getCustomerName());
+        list.add(order.getCustomerAddress());
+        list.add(order.getCustomerPhone());
+        list.add(order.getDispatchCompany());
+        list.add(order.getDispatchNumber());
+        list.add(String.valueOf(order.getCount().intValue()));
+        list.add(decimalFormat.format(order.getAmount()));
+        list.add(decimalFormat.format(order.getProfit1()));
+        list.add(decimalFormat.format(order.getProfit2()));
+        list.add(decimalFormat.format(order.getProfit3()));
         list.add(simpleDateFormat.format(order.getCreateTime()));
-
+        list.add(StringUtils.hasText(order.getRemarks()) ? order.getRemarks() : "");
         return list;
-    }*/
+    }
+
+    private List<String> generateOrderItemCellList(DecimalFormat decimalFormat,OrderItem orderItem) {
+        List<String> list = new ArrayList<>();
+        list.add("");
+        list.add(orderItem.getGoodsName());
+        list.add(orderItem.getSupplierName());
+        list.add(decimalFormat.format(orderItem.getTaobaoPrice()));
+        list.add(decimalFormat.format(orderItem.getJdPrice()));
+        list.add(decimalFormat.format(orderItem.getPrice()));
+        list.add(decimalFormat.format(orderItem.getSupplyPrice()));
+        list.add(String.valueOf(orderItem.getCount().intValue()));
+        list.add(decimalFormat.format(orderItem.getAmount()));
+        list.add(decimalFormat.format(orderItem.getProfit1()));
+        list.add(decimalFormat.format(orderItem.getProfit2()));
+        list.add(decimalFormat.format(orderItem.getProfit3()));
+        return list;
+    }
 }

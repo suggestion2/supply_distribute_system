@@ -4,10 +4,10 @@ import com.su.supplydistributesystem.domain.Goods;
 import com.su.supplydistributesystem.domain.GoodsSupply;
 import com.su.supplydistributesystem.response.GoodsDetailView;
 import com.su.supplydistributesystem.response.GoodsDistributeView;
+import com.su.supplydistributesystem.service.GoodsDetailParams;
 import com.su.supplydistributesystem.service.GoodsService;
 import com.su.supplydistributesystem.mapper.GoodsMapper;
 import com.su.supplydistributesystem.service.GoodsSupplyService;
-import com.su.supplydistributesystem.service.excel.GoodsExcelParams;
 import com.sug.core.platform.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,14 +58,19 @@ public class GoodsServiceImpl implements GoodsService{
     }
 
     @Override
+	@Override
     public List<GoodsDistributeView> selectViewList(Map<String, Object> map){
         return goodsMapper.selectViewList(map);
+
+	@Override
+    public List<GoodsDetailParams> getDetailParamsList(Map<String, Object> map) {
+        return goodsMapper.selectGoodsDetailParamsList(map);
+
     }
 
-
     @Override
-    public List<GoodsExcelParams> getExcelList(Map<String, Object> map) {
-        return goodsMapper.selectExcelParamsList(map);
+    public List<GoodsDetailParams> getAllEnabledList(Map<String, Object> map) {
+        return this.getDetailParamsList(Collections.singletonMap("status",ENABLE));
     }
 
     @Override
