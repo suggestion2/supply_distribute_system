@@ -524,6 +524,7 @@ a:focus {
 .sidebar-menu > li > a {
     padding:15px;text-align: center;
     display: block;
+    padding-left:10px;
 }
 .sidebar-menu > li > a > .fa,
 .sidebar-menu > li > a > .glyphicon,
