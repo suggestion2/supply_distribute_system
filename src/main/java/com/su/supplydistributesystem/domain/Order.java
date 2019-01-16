@@ -23,8 +23,11 @@ public class Order {
     private String dispatchNumber;
     private Integer count;
     private BigDecimal amount;
+    @JsonIgnore
     private BigDecimal profit1;
+    @JsonIgnore
     private BigDecimal profit2;
+    @JsonIgnore
     private BigDecimal profit3;
     @JsonSerialize(using = SimpleDateTimeSerializer.class)
     private Date createTime;
