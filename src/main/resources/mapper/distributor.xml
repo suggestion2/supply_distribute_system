@@ -26,6 +26,9 @@
         <if test="content!=null">
             and (`name` like concat ('%',#{content},'%'))
         </if>
+        <if test="status!=null">
+            and `status` = #{status}
+        </if>
         <if test="startIndex != null and pageSize != null">
             limit #{startIndex},#{pageSize}
         </if>
@@ -35,6 +38,9 @@
         select count(*) from `distributor` where `valid` = 1
         <if test="content!=null">
             and (`name` like concat ('%',#{content},'%'))
+        </if>
+        <if test="status!=null">
+            and `status` = #{status}
         </if>
     </select>
 

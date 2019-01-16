@@ -20,6 +20,8 @@ public interface DistributorService {
 
     List<Distributor> selectList(Map<String, Object> map);
 
+    List<Distributor> getAllEnabledList();
+
     int selectCount(Map<String, Object> map);
 
     int create(Distributor distributor);

@@ -61,7 +61,7 @@ public class GoodsServiceImpl implements GoodsService{
     }
 
     @Override
-    public List<GoodsDetailParams> getAllEnabledList(Map<String, Object> map) {
+    public List<GoodsDetailParams> getAllEnabledList() {
         return this.getDetailParamsList(Collections.singletonMap("status",ENABLE));
     }
 

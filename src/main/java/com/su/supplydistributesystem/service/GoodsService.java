@@ -22,7 +22,7 @@ public interface GoodsService {
 
     List<GoodsDetailParams> getDetailParamsList(Map<String, Object> map);
 
-    List<GoodsDetailParams> getAllEnabledList(Map<String, Object> map);
+    List<GoodsDetailParams> getAllEnabledList();
 
     int selectCount(Map<String, Object> map);
 

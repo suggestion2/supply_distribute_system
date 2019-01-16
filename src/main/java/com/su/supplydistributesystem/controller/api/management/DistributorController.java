@@ -27,8 +27,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import static com.su.supplydistributesystem.constants.CategoryConstants.DISABLE;
-import static com.su.supplydistributesystem.constants.CategoryConstants.ENABLE;
+import static com.su.supplydistributesystem.constants.DistributorConstants.*;
 import static com.su.supplydistributesystem.constants.CommonConstants.*;
 
 @RestController("distributorApiController")

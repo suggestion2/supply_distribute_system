@@ -7,9 +7,12 @@ import com.su.supplydistributesystem.mapper.DistributorMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static com.su.supplydistributesystem.constants.DistributorConstants.ENABLE;
 
 @Service
 public class DistributorServiceImpl implements DistributorService{
@@ -42,6 +45,11 @@ public class DistributorServiceImpl implements DistributorService{
     @Override
     public List<Distributor> selectList(Map<String, Object> map){
         return distributorMapper.selectList(map);
+    }
+
+    @Override
+    public List<Distributor> getAllEnabledList() {
+        return distributorMapper.selectList(Collections.singletonMap("status",ENABLE));
     }
 
     @Override
