@@ -5,8 +5,13 @@
     <select id="selectById" resultType="com.su.supplydistributesystem.domain.Distributor" parameterType="java.lang.Integer">
         select * from `distributor` where id= #{id} and `valid` = 1
     </select>
-    <select id="selectByName" resultType="com.su.supplydistributesystem.domain.Distributor" parameterType="java.util.Map">
-        select * from `distributor` where name= #{name} and `valid` = 1
+
+    <select id="selectByNameOrAccount" resultType="com.su.supplydistributesystem.domain.Distributor" parameterType="java.util.Map">
+        select * from `distributor` where (name= #{name} or account=#{account} or phone=#{phone}) and `valid` = 1
+    </select>
+
+    <select id="selectByAccount" resultType="com.su.supplydistributesystem.domain.Distributor" parameterType="java.util.Map">
+        select * from `distributor` where  account=#{account}  and `valid` = 1
     </select>
 
     <select id="select" resultType="com.su.supplydistributesystem.domain.Distributor" parameterType="java.util.Map">
@@ -62,7 +67,9 @@
         `phone` = #{phone},
         `updateBy` = #{updateBy},
         `status` = #{status},
-        `updateTime` = now()
+        `updateTime` = now(),
+        `contact`= #{contact},
+        `account`= #{account}
         where `id` = #{id}
     </update>
 

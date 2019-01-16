@@ -20,8 +20,8 @@
         <h2>分销商(distributor)</h2>
         <div>
             <strong>[登录]</strong><br/>
-            分销商:<input class="textbox" type="text" id="login-d-name" style="width: 100px;"
-                       value="admin"/>
+            分销商:<input class="textbox" type="text" id="login-d-account" style="width: 100px;"
+                       value="supplier"/>
             密码:<input class="textbox" type="text" id="login-d-password" style="width: 100px;"
                       value="123456"/>
             <input type="button" value="登录" onclick="distributeDistributorModule.login()"/><br>
@@ -317,12 +317,26 @@
                 分销商名称:<input class="textbox" type="text" id="distributor-create-name" style="width: 100px;"
                            value="supplier"/>
                 分销商手机:<input class="textbox" type="text" id="distributor-create-phone" style="width: 100px;"
-                           value="15059272122"/>
+                           value="15059272122"/></br>
                 分销商账号:<input class="textbox" type="text" id="distributor-create-account" style="width: 100px;"
                            value="15059222222"/>
                 分销商联系人:<input class="textbox" type="text" id="distributor-create-contact" style="width: 100px;"
                            value="王"/>
                 <input type="button" value="创建" onclick="distributorModule.create()"/><br>
+            </div>
+            <div>
+                <strong>[修改]</strong><br/>
+                分销商id:<input class="textbox" type="text" id="distributor-update-id" style="width: 100px;"
+                             value="1"/></br>
+                分销商名称:<input class="textbox" type="text" id="distributor-update-name" style="width: 100px;"
+                             value="1"/></br>
+                分销商联系方式（座机加上区号或手机号码）:<input class="textbox" type="text" id="distributor-update-phone" style="width: 100px;"
+                                            value="1"/></br>
+                分销商联系人:<input class="textbox" type="text" id="distributor-update-contact" style="width: 100px;"
+                              value="1"/></br>
+                分销商账号:<input class="textbox" type="text" id="distributor-update-account" style="width: 100px;"
+                              value="1"/></br>
+                <input type="button" value="编辑" onclick="distributorModule.updateById()"/><br>
             </div>
             <div>
                 <strong>[删除]</strong><br/>

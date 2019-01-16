@@ -4,6 +4,7 @@ package com.su.supplydistributesystem.controller.api.distribute;
 import com.su.supplydistributesystem.context.SessionContext;
 import com.su.supplydistributesystem.domain.Distributor;
 import com.su.supplydistributesystem.interceptor.DistributorLoginRequired;
+import com.su.supplydistributesystem.request.DistributorLoginForm;
 import com.su.supplydistributesystem.request.LoginForm;
 import com.su.supplydistributesystem.request.ResetPasswordForm;
 import com.su.supplydistributesystem.service.DistributorService;
@@ -38,8 +39,8 @@ public class DistributorController {
     private SessionContext sessionContext;
 
     @RequestMapping(value = LOGIN, method = RequestMethod.POST)
-    public ResponseView login(@Valid @RequestBody LoginForm form) {
-        Distributor distributor = distributorService.getByName(form.getName());
+    public ResponseView login(@Valid @RequestBody DistributorLoginForm form) {
+        Distributor distributor = distributorService.getByAccount(form.getAccount());
         if(Objects.isNull(distributor) ||
                 !MD5.encrypt(form.getPassword() + MD5_SALT).equalsIgnoreCase(distributor.getPassword())){
             throw new ResourceNotFoundException("distributor not found");

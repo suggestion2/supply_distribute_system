@@ -22,6 +22,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import static com.su.supplydistributesystem.constants.CategoryConstants.DISABLE;
@@ -53,10 +56,14 @@ public class DistributorController {
 
     @RequestMapping(value = CREATE,method = RequestMethod.POST)
     public ResponseView create(@Valid @RequestBody DistributorCreateForm form){
-        Distributor dis = distributorService.getByName(form.getName());
-        //判断添加的用户名是否重复
-        if(Objects.nonNull(dis)){
-            throw new InvalidRequestException("multipleName","supplier is exists");
+        Map<String,Object> query = new HashMap<>();
+        query.put("account",form.getAccount());
+        query.put("name",form.getName());
+        query.put("phone",form.getPhone());
+        List<Distributor> disList = distributorService.getByNameOrAccount(query);
+        //判断添加的用户名/账号/手机是否存在
+        if(disList.size()>0){
+            throw new InvalidRequestException("multipleName","supplier or account or phone exists");
         }
         Distributor distributor = new Distributor();
         //设置默认123456密码
@@ -104,8 +111,17 @@ public class DistributorController {
         if(Objects.isNull(distributor)){
             throw new ResourceNotFoundException("distributor not exists");
         }
+        //TODO:判断order里面是否有这个分销商账号
+        Map<String,Object> query = new HashMap<>();
+        query.put("account",form.getAccount());
+        query.put("name",form.getName());
+        query.put("phone",form.getPhone());
+        List<Distributor> disList = distributorService.getByNameOrAccount(query);
+        //判断修改的用户名/账号/手机是否存在
+        if(disList.size()>0){
+            throw new InvalidRequestException("multipleName","supplier or account or phone exists");
+        }
         BeanUtils.copyProperties(form,distributor);
-
         distributorService.update(distributor);
         return new SuccessView();
     }
@@ -117,4 +133,5 @@ public class DistributorController {
         distributorService.deleteById(id);
         return new ResponseView();
     }
+
 }
