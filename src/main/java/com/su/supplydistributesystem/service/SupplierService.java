@@ -11,6 +11,8 @@ import java.util.Map;
 public interface SupplierService {
     Supplier getById(Integer id);
 
+    Supplier getByName(String name);
+
     Supplier select(Map<String, Object> map);
 
     List<Supplier> selectList(Map<String, Object> map);

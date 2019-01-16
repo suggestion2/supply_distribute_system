@@ -12,6 +12,9 @@ public class ResetPasswordForm {
     @NotEmpty
     @Pattern(regexp = RegexUtils.REGEX_PASSWORD,message = RegexUtils.REGEX_PASSWORD_MESSAGE)
     private String newPassword;
+    @NotEmpty
+    @Pattern(regexp = RegexUtils.REGEX_PASSWORD,message = RegexUtils.REGEX_PASSWORD_MESSAGE)
+    private String repeatPassword;
 
     public String getOriginPassword() {
         return originPassword;
@@ -27,5 +30,13 @@ public class ResetPasswordForm {
 
     public void setNewPassword(String newPassword) {
         this.newPassword = newPassword;
+    }
+
+    public String getRepeatPassword() {
+        return repeatPassword;
+    }
+
+    public void setRepeatPassword(String repeatPassword) {
+        this.repeatPassword = repeatPassword;
     }
 }

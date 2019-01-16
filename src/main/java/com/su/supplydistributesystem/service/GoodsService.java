@@ -2,6 +2,8 @@ package com.su.supplydistributesystem.service;
 
 import com.su.supplydistributesystem.domain.Goods;
 import com.su.supplydistributesystem.response.GoodsDetailView;
+import com.su.supplydistributesystem.response.GoodsDistributeView;
+import com.su.supplydistributesystem.service.GoodsDetailParams;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -19,6 +21,12 @@ public interface GoodsService {
     Goods select(Map<String, Object> map);
 
     List<Goods> selectList(Map<String, Object> map);
+
+    List<GoodsDistributeView> selectViewList(Map<String, Object> map);
+
+    List<GoodsDetailParams> getDetailParamsList(Map<String, Object> map);
+
+    List<GoodsDetailParams> getAllEnabledList();
 
     int selectCount(Map<String, Object> map);
 

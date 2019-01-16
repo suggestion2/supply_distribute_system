@@ -5,6 +5,9 @@
     <select id="selectById" resultType="com.su.supplydistributesystem.domain.Supplier" parameterType="java.lang.Integer">
         select * from `supplier` where id= #{id} and `valid` = 1
     </select>
+    <select id="selectByName" resultType="com.su.supplydistributesystem.domain.Supplier" parameterType="java.util.Map">
+        select * from `supplier` where name= #{name} and `valid` = 1
+    </select>
 
     <select id="select" resultType="com.su.supplydistributesystem.domain.Supplier" parameterType="java.util.Map">
         select * from `supplier` where `valid` = 1
@@ -35,13 +38,17 @@
         (
         `name`,
         `createBy`,
-        `updateBy`
+        `updateBy`,
+        `contact`,
+        `phone`
         )
         values
         (
         #{name},
         #{createBy},
-        #{createBy}
+        #{createBy},
+        #{contact},
+        #{phone}
         )
     </insert>
 
@@ -49,6 +56,8 @@
         update `supplier` set
         `name` = #{name},
         `updateBy` = #{updateBy},
+        `contact`= #{contact},
+        `phone`= #{phone},
         `status` = #{status},
         `updateTime` = now()
         where `id` = #{id}

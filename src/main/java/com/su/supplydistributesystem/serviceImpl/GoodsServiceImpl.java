@@ -3,6 +3,8 @@ package com.su.supplydistributesystem.serviceImpl;
 import com.su.supplydistributesystem.domain.Goods;
 import com.su.supplydistributesystem.domain.GoodsSupply;
 import com.su.supplydistributesystem.response.GoodsDetailView;
+import com.su.supplydistributesystem.response.GoodsDistributeView;
+import com.su.supplydistributesystem.service.GoodsDetailParams;
 import com.su.supplydistributesystem.service.GoodsService;
 import com.su.supplydistributesystem.mapper.GoodsMapper;
 import com.su.supplydistributesystem.service.GoodsSupplyService;
@@ -44,6 +46,7 @@ public class GoodsServiceImpl implements GoodsService{
         return new GoodsDetailView(goods,list);
     }
 
+
     @Override
     public Goods select(Map<String, Object> map){
         return goodsMapper.select(map);
@@ -52,6 +55,21 @@ public class GoodsServiceImpl implements GoodsService{
     @Override
     public List<Goods> selectList(Map<String, Object> map){
         return goodsMapper.selectList(map);
+    }
+
+    @Override
+    public List<GoodsDistributeView> selectViewList(Map<String, Object> map) {
+        return goodsMapper.selectViewList(map);
+    }
+
+	@Override
+    public List<GoodsDetailParams> getDetailParamsList(Map<String, Object> map) {
+        return goodsMapper.selectGoodsDetailParamsList(map);
+    }
+
+    @Override
+    public List<GoodsDetailParams> getAllEnabledList() {
+        return this.getDetailParamsList(Collections.singletonMap("status",ENABLE));
     }
 
     @Override

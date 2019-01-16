@@ -1,6 +1,9 @@
 package com.su.supplydistributesystem.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.sug.core.util.RegexUtils;
+import com.sug.core.util.jsonFormat.SimpleDateTimeSerializer;
 
 import javax.validation.constraints.Pattern;
 import java.math.BigDecimal;
@@ -10,12 +13,35 @@ public class Supplier {
 
     private Integer id;
     private String name;
+    @JsonSerialize(using = SimpleDateTimeSerializer.class)
     private Date createTime;
+    @JsonIgnore
     private Date updateTime;
+    @JsonIgnore
     private Integer createBy;
+    @JsonIgnore
     private Integer updateBy;
     private Integer status;
+    @JsonIgnore
     private Integer valid;
+    private String phone;
+    private String contact;
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
 
     public Integer getId() {
         return id;

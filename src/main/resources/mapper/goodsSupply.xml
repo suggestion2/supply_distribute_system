@@ -18,10 +18,14 @@
         <if test="goodsId!=null">
             and `goodsId` = #{goodsId}
         </if>
+        <if test="supplierId!=null">
+            and `supplierId` = #{supplierId}
+        </if>
         <if test="startIndex != null and pageSize != null">
             limit #{startIndex},#{pageSize}
         </if>
     </select>
+
 
     <select id="selectCount" resultType="java.lang.Integer" parameterType="java.util.Map">
         select count(*) from `goods_supply` where `valid` = 1

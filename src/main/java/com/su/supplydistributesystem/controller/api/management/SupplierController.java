@@ -2,7 +2,9 @@ package com.su.supplydistributesystem.controller.api.management;
 
 import com.su.supplydistributesystem.context.SessionContext;
 import com.su.supplydistributesystem.interceptor.UserLoginRequired;
+import com.su.supplydistributesystem.service.GoodsSupplyService;
 import com.sug.core.platform.exception.ResourceNotFoundException;
+import com.sug.core.platform.web.rest.exception.InvalidRequestException;
 import com.sug.core.rest.view.ResponseView;
 import com.sug.core.rest.view.SuccessView;
 import com.su.supplydistributesystem.domain.Supplier;
@@ -19,11 +21,13 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 import static com.su.supplydistributesystem.constants.CommonConstants.*;
 
-@RestController
+@RestController("supplierApiController")
 @RequestMapping(value = "/mApi/supplier")
 @UserLoginRequired
 public class SupplierController {
@@ -35,6 +39,9 @@ public class SupplierController {
 
     @Autowired
     private SessionContext sessionContext;
+
+    @Autowired
+    private GoodsSupplyService goodsSupplyService;
 
     @RequestMapping(value = LIST,method = RequestMethod.POST)
     public SupplierListView list(@Valid @RequestBody SupplierListForm form){
@@ -48,6 +55,10 @@ public class SupplierController {
 
     @RequestMapping(value = CREATE,method = RequestMethod.POST)
     public ResponseView create(@Valid @RequestBody SupplierCreateForm form){
+        Supplier sup = supplierService.getByName(form.getName());
+        if(Objects.nonNull(sup)){
+            throw new InvalidRequestException("multipleName","supplier is exists");
+        }
         Supplier supplier = new Supplier();
         BeanUtils.copyProperties(form,supplier);
         supplier.setCreateBy(sessionContext.getUser().getId());
@@ -62,16 +73,28 @@ public class SupplierController {
         if(Objects.isNull(supplier)){
             throw new ResourceNotFoundException("supplier not exists");
         }
-        //检查good_supply是否有此账号
-        //检查orderItem是否有此账号
+        //TODO: 检查orderItem是否有此账号
+        //检查goodsSupply是否有此账号
+        Map<String,Object> query = new HashMap<>();
+        query.put("supplierId",form.getId());
+        if(goodsSupplyService.selectList(query).size()>0){
+            throw new InvalidRequestException("can not change","goodsSupply is use supplier");
+        }
+
         BeanUtils.copyProperties(form,supplier);
         supplierService.update(supplier);
         return new ResponseView();
     }
     @RequestMapping(value = DELETE_BY_ID, method = RequestMethod.DELETE)
     public ResponseView deleteById(@PathVariable Integer id) {
-        //检查good_supply是否有此账号
-        //检查orderItem是否有此账号
+        Supplier supplier = supplierService.getById(id);
+        //TODO: 检查orderItem是否有此账号
+        //检查goodsSupply是否有此账号
+        Map<String,Object> query = new HashMap<>();
+        query.put("supplierId",id);
+        if(goodsSupplyService.selectList(query).size()>0){
+            throw new InvalidRequestException("Can't delete","goodsSupply is use supplier");
+        }
         supplierService.deleteById(id);
         return new ResponseView();
     }

@@ -1,6 +1,9 @@
 package com.su.supplydistributesystem.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.sug.core.util.RegexUtils;
+import com.sug.core.util.jsonFormat.SimpleDateTimeSerializer;
 
 import javax.validation.constraints.Pattern;
 import java.math.BigDecimal;
@@ -18,13 +21,37 @@ public class Distributor {
     private String phone;
 
     @Pattern(regexp=RegexUtils.REGEX_PASSWORD,message =RegexUtils.REGEX_PASSWORD_MESSAGE )
+    @JsonIgnore
     private String password;
+    @JsonSerialize(using = SimpleDateTimeSerializer.class)
     private Date createTime;
+    @JsonIgnore
     private Date updateTime;
+    @JsonIgnore
     private Integer createBy;
+    @JsonIgnore
     private Integer updateBy;
     private Integer status;
+    @JsonIgnore
     private Integer valid;
+    private String contact;
+    private String account;
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
+
+    public String getAccount() {
+        return account;
+    }
+
+    public void setAccount(String account) {
+        this.account = account;
+    }
 
     public Integer getId() {
         return id;

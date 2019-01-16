@@ -12,11 +12,98 @@
             and `id` = #{id}
         </if>
     </select>
-
+    
+    <resultMap id="OrderDetailResult" type="com.su.supplydistributesystem.service.OrderDetailParams">
+        <id column="order_id"/>
+        <association property="order" javaType="com.su.supplydistributesystem.domain.Order">
+            <id property="id" column="order_id"/>
+            <result property="number" column="order_number"/>
+            <result property="goodsNames" column="order_goodsNames"/>
+            <result property="distributorName" column="order_distributorName"/>
+            <result property="distributorPhone" column="order_distributorPhone"/>
+            <result property="customerName" column="order_customerName"/>
+            <result property="customerAddress" column="order_customerAddress"/>
+            <result property="customerPhone" column="order_customerPhone"/>
+            <result property="dispatchCompany" column="order_dispatchCompany"/>
+            <result property="dispatchNumber" column="order_dispatchNumber"/>
+            <result property="count" column="order_count"/>
+            <result property="amount" column="order_amount"/>
+            <result property="profit1" column="order_profit1"/>
+            <result property="profit2" column="order_profit2"/>
+            <result property="profit3" column="order_profit3"/>
+            <result property="createTime" column="order_createTime"/>
+            <result property="remarks" column="order_remarks"/>
+        </association>
+        <collection property="list" javaType="ArrayList" ofType="com.su.supplydistributesystem.domain.OrderItem">
+            <id property="id" column="orderItem_id"/>
+            <result property="goodsName" column="orderItem_goodsName"/>
+            <result property="supplierName" column="orderItem_supplierName"/>
+            <result property="taobaoPrice" column="orderItem_taobaoPrice"/>
+            <result property="jdPrice" column="orderItem_jdPrice"/>
+            <result property="price" column="orderItem_price"/>
+            <result property="supplyPrice" column="orderItem_supplyPrice"/>
+            <result property="count" column="orderItem_count"/>
+            <result property="amount" column="orderItem_amount"/>
+            <result property="profit1" column="orderItem_profit1"/>
+            <result property="profit2" column="orderItem_profit2"/>
+            <result property="profit3" column="orderItem_profit3"/>
+        </collection>
+    </resultMap>
+    
+    <select id="selectOrderDetailParamsList" resultMap="OrderDetailResult" parameterType="java.util.Map">
+        select
+        o.`id` as order_id,
+        o.number as order_number,
+        o.goodsNames as order_goodsNames,
+        o.distributorName as order_distributorName,
+        o.distributorPhone as order_distributorPhone,
+        o.customerName as order_customerName,
+        o.customerAddress as order_customerAddress,
+        o.customerPhone as order_customerPhone,
+        o.dispatchCompany as order_dispatchCompany,
+        o.dispatchNumber as order_dispatchNumber,
+        o.count as order_count,
+        o.amount as order_amount,
+        o.profit1 as order_profit1,
+        o.profit2 as order_profit2,
+        o.profit3 as order_profit3,
+        o.createTime as order_createTime,
+        o.remarks as order_remarks,
+        i.`id` as orderItem_id,
+        i.goodsName as orderItem_goodsName,
+        i.supplierName as orderItem_supplierName,
+        i.taobaoPrice as orderItem_taobaoPrice,
+        i.jdPrice as orderItem_jdPrice,
+        i.price as orderItem_price,
+        i.supplyPrice as orderItem_supplyPrice,
+        i.count as orderItem_count,
+        i.amount as orderItem_amount,
+        i.profit1 as orderItem_profit1,
+        i.profit2 as orderItem_profit2,
+        i.profit3 as orderItem_profit3
+        from `order` o LEFT join order_item i on o.id = i.orderId and i.valid = 1
+        where o.`valid` = 1
+        <if test="content!=null">
+            and (o.goodsNames like concat ('%',#{content},'%') or o.number like concat ('%',#{content},'%'))
+        </if>
+        <if test="date!=null">
+            and date(o.createTime) = #{date}
+        </if>
+        <if test="status!=null">
+            and o.status = #{status}
+        </if>
+    </select>
+    
     <select id="selectList" resultType="com.su.supplydistributesystem.domain.Order" parameterType="java.util.Map">
-        select * from `order` where `valid` = 1
-        <if test="id!=null">
-
+        select `id`,`number`,`goodsNames`,`distributorName`,`distributorPhone`,`status` from `order` where `valid` = 1
+        <if test="date!=null">
+            and date(createTime) = #{date}
+        </if>
+        <if test="content!=null">
+            and (goodsNames like concat ('%',#{content},'%') or `number` like concat ('%',#{content},'%'))
+        </if>
+        <if test="status!=null">
+            and status = #{status}
         </if>
         <if test="startIndex != null and pageSize != null">
             limit #{startIndex},#{pageSize}
@@ -25,19 +112,25 @@
 
     <select id="selectCount" resultType="java.lang.Integer" parameterType="java.util.Map">
         select count(*) from `order` where `valid` = 1
-        <if test="id!=null">
-
+        <if test="date!=null">
+            and date(createTime) = #{date}
+        </if>
+        <if test="content!=null">
+            and (goodsNames like concat ('%',#{content},'%') or number like concat ('%',#{content},'%'))
+        </if>
+        <if test="status!=null">
+            and status = #{status}
         </if>
     </select>
 
     <insert id="insert" parameterType="com.su.supplydistributesystem.domain.Order" useGeneratedKeys="true" keyProperty="id">
         insert into `order`
         (
+        `goodsNames`,
         `number`,
         `distributorId`,
         `distributorName`,
         `distributorPhone`,
-        `cancelReason`,
         `customerName`,
         `customerAddress`,
         `customerPhone`,
@@ -51,14 +144,15 @@
         `createBy`,
         `updateBy`,
         `status`,
+        `remarks`
         )
         values
         (
+        #{goodsNames},
         #{number},
         #{distributorId},
         #{distributorName},
         #{distributorPhone},
-        #{cancelReason},
         #{customerName},
         #{customerAddress},
         #{customerPhone},
@@ -72,16 +166,16 @@
         #{createBy},
         #{createBy},
         #{status},
+        #{remarks}
         )
     </insert>
 
     <update id="update" parameterType="com.su.supplydistributesystem.domain.Order">
         update `order` set
-        `number` = #{number},
+        `goodsNames` = #{goodsNames},
         `distributorId` = #{distributorId},
         `distributorName` = #{distributorName},
         `distributorPhone` = #{distributorPhone},
-        `cancelReason` = #{cancelReason},
         `customerName` = #{customerName},
         `customerAddress` = #{customerAddress},
         `customerPhone` = #{customerPhone},
@@ -93,11 +187,21 @@
         `profit2` = #{profit2},
         `profit3` = #{profit3},
         `updateBy` = #{updateBy},
-        `status` = #{status},
+        `remarks` = #{remarks},
         `updateTime` = now()
         where `id` = #{id}
     </update>
-
+    
+    <update id="updateStatus" parameterType="com.su.supplydistributesystem.domain.Order">
+        update `order` set
+        `cancelReason` = #{cancelReason},
+        `status` = #{status},
+        `updateBy` = #{updateBy},
+        `remarks` = #{remarks},
+        `updateTime` = now()
+        where `id` = #{id}
+    </update>
+    
     <delete id="deleteById" parameterType="java.lang.Integer">
         update `order` set valid = 0 where `id` = #{id}
     </delete>

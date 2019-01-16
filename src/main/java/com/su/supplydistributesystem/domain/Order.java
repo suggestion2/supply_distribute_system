@@ -1,11 +1,16 @@
 package com.su.supplydistributesystem.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.sug.core.util.jsonFormat.SimpleDateTimeSerializer;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
 public class Order {
 
     private Integer id;
+    private String goodsNames;
     private String number;
     private Integer distributorId;
     private String distributorName;
@@ -18,15 +23,24 @@ public class Order {
     private String dispatchNumber;
     private Integer count;
     private BigDecimal amount;
+    @JsonIgnore
     private BigDecimal profit1;
+    @JsonIgnore
     private BigDecimal profit2;
+    @JsonIgnore
     private BigDecimal profit3;
+    @JsonSerialize(using = SimpleDateTimeSerializer.class)
     private Date createTime;
+    @JsonIgnore
     private Date updateTime;
+    @JsonIgnore
     private Integer createBy;
+    @JsonIgnore
     private Integer updateBy;
     private Integer status;
+    @JsonIgnore
     private Integer valid;
+    private String remarks;
 
     public Integer getId() {
         return id;
@@ -34,6 +48,13 @@ public class Order {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+    public String getGoodsNames() {
+        return goodsNames;
+    }
+
+    public void setGoodsNames(String goodsNames) {
+        this.goodsNames = goodsNames;
     }
     public String getNumber() {
         return number;
@@ -181,6 +202,13 @@ public class Order {
 
     public void setValid(Integer valid) {
         this.valid = valid;
+    }
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
     }
 
 }

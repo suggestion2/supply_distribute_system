@@ -6,6 +6,14 @@
         select * from `distributor` where id= #{id} and `valid` = 1
     </select>
 
+    <select id="selectByNameOrAccount" resultType="com.su.supplydistributesystem.domain.Distributor" parameterType="java.util.Map">
+        select * from `distributor` where (name= #{name} or account=#{account} or phone=#{phone}) and `valid` = 1
+    </select>
+
+    <select id="selectByAccount" resultType="com.su.supplydistributesystem.domain.Distributor" parameterType="java.util.Map">
+        select * from `distributor` where  account=#{account}  and `valid` = 1
+    </select>
+
     <select id="select" resultType="com.su.supplydistributesystem.domain.Distributor" parameterType="java.util.Map">
         select * from `distributor` where `valid` = 1
         <if test="id!=null">
@@ -15,8 +23,11 @@
 
     <select id="selectList" resultType="com.su.supplydistributesystem.domain.Distributor" parameterType="java.util.Map">
         select * from `distributor` where `valid` = 1
-        <if test="id!=null">
-
+        <if test="content!=null">
+            and (`name` like concat ('%',#{content},'%'))
+        </if>
+        <if test="status!=null">
+            and `status` = #{status}
         </if>
         <if test="startIndex != null and pageSize != null">
             limit #{startIndex},#{pageSize}
@@ -25,8 +36,11 @@
 
     <select id="selectCount" resultType="java.lang.Integer" parameterType="java.util.Map">
         select count(*) from `distributor` where `valid` = 1
-        <if test="id!=null">
-
+        <if test="content!=null">
+            and (`name` like concat ('%',#{content},'%'))
+        </if>
+        <if test="status!=null">
+            and `status` = #{status}
         </if>
     </select>
 
@@ -38,7 +52,8 @@
         `password`,
         `createBy`,
         `updateBy`,
-        `status`,
+        `contact`,
+        `account`
         )
         values
         (
@@ -46,8 +61,9 @@
         #{phone},
         #{password},
         #{createBy},
-        #{createBy},
-        #{status},
+        #{updateBy},
+        #{contact},
+        #{account}
         )
     </insert>
 
@@ -55,10 +71,11 @@
         update `distributor` set
         `name` = #{name},
         `phone` = #{phone},
-        `password` = #{password},
         `updateBy` = #{updateBy},
         `status` = #{status},
-        `updateTime` = now()
+        `updateTime` = now(),
+        `contact`= #{contact},
+        `account`= #{account}
         where `id` = #{id}
     </update>
 

@@ -203,7 +203,9 @@ var supplierModule = {
             url: "/mApi/supplier/create",
             dataType: "json",
             data: JSON.stringify({
-                "name": $("#supplier-create-name").val()
+                "name": $("#supplier-create-name").val(),
+                "contact": $("#supplier-create-contact").val(),
+                "phone": $("#supplier-create-phone").val()
             })
         };
         showResult(settings);
@@ -223,7 +225,9 @@ var supplierModule = {
             dataType: "json",
             data: JSON.stringify({
                 "id": $("#supplier-update-id").val(),
-                "name": $("#supplier-update-name").val()
+                "name": $("#supplier-update-name").val(),
+                "phone": $("#supplier-update-phone").val(),
+                "contact": $("#supplier-update-contact").val()
             })
         };
         showResult(settings);
@@ -237,6 +241,81 @@ var supplierModule = {
                 "content": $("#supplier-list-name").val(),
                 "pageIndex": $("#supplier-list-startIndex").val(),
                 "pageSize": $("#supplier-list-pageSize").val()
+            })
+        };
+        showResult(settings);
+    }
+};
+var distributorModule = {
+    create: function () {
+        var settings = {
+            type: "POST",
+            url: "/mApi/distributor/create",
+            dataType: "json",
+            data: JSON.stringify({
+                "name": $("#distributor-create-name").val(),
+                "phone": $("#distributor-create-phone").val(),
+                "contact": $("#distributor-create-contact").val(),
+                "account": $("#distributor-create-account").val()
+            })
+        };
+        showResult(settings);
+    },
+    updateById: function () {
+        var settings = {
+            type: "PUT",
+            url: "/mApi/distributor/update",
+            dataType: "json",
+            data: JSON.stringify({
+                "id": $("#distributor-update-id").val(),
+                "name": $("#distributor-update-name").val(),
+                "phone": $("#distributor-update-phone").val(),
+                "contact": $("#distributor-update-contact").val(),
+                "account": $("#distributor-update-account").val()
+            })
+        };
+        showResult(settings);
+    },
+    deleteById: function () {
+        var settings = {
+            type: "DELETE",
+            url: "/mApi/distributor/delete/" + $("#distributor-m-delete-id").val(),
+            dataType: "json"
+        };
+        showResult(settings);
+    },
+    resetPasswordById: function () {
+        var settings = {
+            type: "PUT",
+            url: "/mApi/distributor/password",
+            dataType: "json",
+            data: JSON.stringify({
+                "id": $("#distributor-resetPassword-id").val()
+            })
+        };
+        showResult(settings);
+    },
+    list: function () {
+        var settings = {
+            type: "POST",
+            url: "/mApi/distributor/list",
+            dataType: "json",
+            data: JSON.stringify({
+                "content": $("#distributor-list-name").val(),
+                "pageIndex": $("#distributor-list-startIndex").val(),
+                "pageSize": $("#distributor-list-pageSize").val()
+            })
+        };
+        showResult(settings);
+    },
+    resetStatus: function () {
+        var settings = {
+            type: "PUT",
+            url: "/mApi/distributor/resetStatus",
+            dataType: "json",
+            data: JSON.stringify({
+                "id": $("#distributor-m-status-id").val(),
+                "status": $("#distributor-m-status-status").val()
             })
         };
         showResult(settings);
@@ -359,5 +438,217 @@ var goodsModule = {
             dataType: "json"
         };
         showResult(settings);
+    },
+    excel: function () {
+        window.open('/management/excel/goods');
     }
+};
+
+var orderModule = {
+    list: function () {
+        var settings = {
+            type: "POST",
+            url: "/mApi/order/list",
+            dataType: "json",
+            data: JSON.stringify({
+                "content": $("#order-m-list-content").val(),
+                "date": $("#order-m-list-date").val(),
+                "status": $("#order-m-list-status").val(),
+                "pageIndex": $("#order-m-list-startIndex").val(),
+                "pageSize": $("#order-m-list-pageSize").val()
+            })
+        };
+        showResult(settings);
+    },
+    detail: function () {
+        var settings = {
+            type: "GET",
+            url: "/mApi/order/detail/" + $("#order-m-detail-id").val(),
+            dataType: "json"
+        };
+        showResult(settings);
+    },
+    create: function () {
+        var settings = {
+            type: "POST",
+            url: "/mApi/order/create",
+            dataType: "json",
+            data: JSON.stringify({
+                "distributorId": $("#order-m-create-distributorId").val(),
+                "distributorName": $("#order-m-create-distributorName").val(),
+                "distributorPhone": $("#order-m-create-distributorPhone").val(),
+                "customerName": $("#order-m-create-customerName").val(),
+                "customerAddress": $("#order-m-create-customerAddress").val(),
+                "customerPhone": $("#order-m-create-customerPhone").val(),
+                "dispatchCompany": $("#order-m-create-dispatchCompany").val(),
+                "dispatchNumber": $("#order-m-create-dispatchNumber").val(),
+                "status": $("#order-m-create-status").val(),
+                "remarks": $("#order-m-create-remarks").val(),
+                "list": [
+                    {
+                        "goodsId": $("#order-m-create-goodsId1").val(),
+                        "goodSupplyId": $("#order-m-create-goodSupplyId1").val(),
+                        "goodsName": $("#order-m-create-goodsName1").val(),
+                        "supplierName": $("#order-m-create-supplierName1").val(),
+                        "taobaoPrice": $("#order-m-create-taobaoPrice1").val(),
+                        "jdPrice": $("#order-m-create-jdPrice1").val(),
+                        "price": $("#order-m-create-price1").val(),
+                        "supplyPrice": $("#order-m-create-supplyPrice1").val(),
+                        "count": $("#order-m-create-count1").val()
+                    },
+                    {
+                        "goodsId": $("#order-m-create-goodsId2").val(),
+                        "goodSupplyId": $("#order-m-create-goodSupplyId2").val(),
+                        "goodsName": $("#order-m-create-goodsName2").val(),
+                        "supplierName": $("#order-m-create-supplierName2").val(),
+                        "taobaoPrice": $("#order-m-create-taobaoPrice2").val(),
+                        "jdPrice": $("#order-m-create-jdPrice2").val(),
+                        "price": $("#order-m-create-price2").val(),
+                        "supplyPrice": $("#order-m-create-supplyPrice2").val(),
+                        "count": $("#order-m-create-count2").val()
+                    }
+                ]
+            })
+        };
+        showResult(settings);
+    },
+    update: function () {
+        var settings = {
+            type: "PUT",
+            url: "/mApi/order/update",
+            dataType: "json",
+            data: JSON.stringify({
+                "id": $("#order-m-update-id").val(),
+                "distributorId": $("#order-m-update-distributorId").val(),
+                "distributorName": $("#order-m-update-distributorName").val(),
+                "distributorPhone": $("#order-m-update-distributorPhone").val(),
+                "customerName": $("#order-m-update-customerName").val(),
+                "customerAddress": $("#order-m-update-customerAddress").val(),
+                "customerPhone": $("#order-m-update-customerPhone").val(),
+                "dispatchCompany": $("#order-m-update-dispatchCompany").val(),
+                "dispatchNumber": $("#order-m-update-dispatchNumber").val(),
+                "remarks": $("#order-m-update-remarks").val(),
+                "list": [
+                    {
+                        "id": $("#order-m-update-id1").val(),
+                        "goodsId": $("#order-m-update-goodsId1").val(),
+                        "goodSupplyId": $("#order-m-update-goodSupplyId1").val(),
+                        "goodsName": $("#order-m-update-goodsName1").val(),
+                        "supplierName": $("#order-m-update-supplierName1").val(),
+                        "taobaoPrice": $("#order-m-update-taobaoPrice1").val(),
+                        "jdPrice": $("#order-m-update-jdPrice1").val(),
+                        "price": $("#order-m-update-price1").val(),
+                        "supplyPrice": $("#order-m-update-supplyPrice1").val(),
+                        "count": $("#order-m-update-count1").val()
+                    },
+                    {
+                        "goodsId": $("#order-m-update-goodsId2").val(),
+                        "goodSupplyId": $("#order-m-update-goodSupplyId2").val(),
+                        "goodsName": $("#order-m-update-goodsName2").val(),
+                        "supplierName": $("#order-m-update-supplierName2").val(),
+                        "taobaoPrice": $("#order-m-update-taobaoPrice2").val(),
+                        "jdPrice": $("#order-m-update-jdPrice2").val(),
+                        "price": $("#order-m-update-price2").val(),
+                        "supplyPrice": $("#order-m-update-supplyPrice2").val(),
+                        "count": $("#order-m-update-count2").val()
+                    }
+                ]
+            })
+        };
+        showResult(settings);
+    },
+    resetStatus: function () {
+        var settings = {
+            type: "PUT",
+            url: "/mApi/order/resetStatus",
+            dataType: "json",
+            data: JSON.stringify({
+                "id": $("#order-m-status-id").val(),
+                "status": $("#order-m-status-status").val(),
+                "cancelReason": $("#order-m-status-cancelReason").val(),
+                "remarks": $("#order-m-status-remarks").val()
+            })
+        };
+        showResult(settings);
+    },
+    deleteById: function () {
+        var settings = {
+            type: "DELETE",
+            url: "/mApi/order/delete/" + $("#order-m-delete-id").val(),
+            dataType: "json"
+        };
+        showResult(settings);
+    },
+    excel: function () {
+        window.open('/management/excel/order?content='
+            + $("#order-m-excel-content").val()
+            + '&date='
+            + $("#order-m-excel-date").val()
+            + '&status='
+            + $("#order-m-excel-status").val());
+    }
+};
+
+var distributeDistributorModule = {
+    login: function () {
+        var settings = {
+            type: "POST",
+            url: "/dApi/distributor/login",
+            dataType: "json",
+            data: JSON.stringify({
+                "account": $("#login-d-account").val(),
+                "password": $("#login-d-password").val()
+            })
+        };
+        showResult(settings);
+    },
+    resetPwd: function () {
+        var settings = {
+            type: "PUT",
+            url: "/dApi/distributor/password",
+            dataType: "json",
+            data: JSON.stringify({
+                "originPassword": $("#resetPwd-d-originPwd").val(),
+                "newPassword": $("#resetPwd-d-newPwd").val(),
+                "repeatPassword": $("#resetPwd-d-repeatPwd").val()
+            })
+        };
+        showResult(settings);
+    }
+};
+var distributeCategoryModule = {
+    list: function () {
+        var settings = {
+            type: "GET",
+            url: "/dApi/category/list",
+            dataType: "json"
+        };
+        showResult(settings);
+    }
+};
+var distributeGoodsModule = {
+    list: function () {
+        var settings = {
+            type: "POST",
+            url: "/dApi/goods/list",
+            dataType: "json",
+            data: JSON.stringify({
+                "content": $("#goods-d-list-content").val(),
+                "categoryId1": $("#goods-d-list-categoryId1").val(),
+                "categoryId2": $("#goods-d-list-categoryId2").val(),
+                "categoryId3": $("#goods-d-list-categoryId3").val(),
+                "pageIndex": $("#goods-d-list-startIndex").val(),
+                "pageSize": $("#goods-d-list-pageSize").val()
+            })
+        };
+        showResult(settings);
+    },
+    detail: function () {
+        var settings = {
+            type: "GET",
+            url: "/mApi/goods/detail/" + $("#goods-m-detail-id").val(),
+            dataType: "json"
+        };
+        showResult(settings);
+    },
 };

@@ -14,7 +14,7 @@ public class OrderItemUpdateForm {
     @NotNull
     private Integer goodsId;
     @NotNull
-    private Integer goodSuppliyId;
+    private Integer goodSupplyId;
     @NotEmpty
     private String goodsName;
     @NotNull
@@ -35,6 +35,8 @@ public class OrderItemUpdateForm {
     private BigDecimal profit2;
     @NotNull
     private BigDecimal profit3;
+    @NotEmpty
+    private String supplierName;
 
     public Integer getId() {
     return id;
@@ -57,12 +59,12 @@ public class OrderItemUpdateForm {
     public void setGoodsId(Integer goodsId) {
     this.goodsId = goodsId;
     }
-    public Integer getGoodSuppliyId() {
-    return goodSuppliyId;
+    public Integer getGoodSupplyId() {
+    return goodSupplyId;
     }
 
-    public void setGoodSuppliyId(Integer goodSuppliyId) {
-    this.goodSuppliyId = goodSuppliyId;
+    public void setGoodSupplyId(Integer goodSupplyId) {
+    this.goodSupplyId = goodSupplyId;
     }
     public String getGoodsName() {
     return goodsName;
@@ -133,6 +135,13 @@ public class OrderItemUpdateForm {
 
     public void setProfit3(BigDecimal profit3) {
     this.profit3 = profit3;
+    }
+    public String getSupplierName() {
+    return supplierName;
+    }
+
+    public void setSupplierName(String supplierName) {
+    this.supplierName = supplierName;
     }
 
 }

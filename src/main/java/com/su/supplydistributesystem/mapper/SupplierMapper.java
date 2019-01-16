@@ -10,6 +10,8 @@ public interface SupplierMapper {
 
     Supplier selectById(Integer id);
 
+    Supplier selectByName(Map<String, Object> map);
+
     Supplier select(Map<String, Object> map);
 
     List<Supplier> selectList(Map<String, Object> map);

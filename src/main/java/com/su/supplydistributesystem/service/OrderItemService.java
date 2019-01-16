@@ -1,6 +1,7 @@
 package com.su.supplydistributesystem.service;
 
 import com.su.supplydistributesystem.domain.OrderItem;
+import com.su.supplydistributesystem.mapper.OrderItemUpdateParams;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -15,11 +16,13 @@ public interface OrderItemService {
 
     List<OrderItem> selectList(Map<String, Object> map);
 
+    List<OrderItem> getListByOrderId(Integer orderId);
+
     int selectCount(Map<String, Object> map);
 
-    int create(OrderItem orderItem);
+    int batchCreate(List<OrderItem> list);
 
-    int update(OrderItem orderItem);
+    int batchUpdate(OrderItemUpdateParams params);
 
-    int deleteById(Integer id);
+    int deleteByOrderId(Integer id);
 }
