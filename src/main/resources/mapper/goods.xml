@@ -88,6 +88,29 @@
         </if>
     </select>
 
+    <select id="selectViewList" resultType="com.su.supplydistributesystem.response.GoodsDistributeView" parameterType="java.util.Map">
+        select `id`,`number`,`name`,`taobaoPrice`,`jdPrice`,`price`,`lowSupplyPrice`,`profit1`,`profit2`,`profit3`,remarks,`status` from `goods` where `valid` = 1
+        <if test="content!=null">
+            and (`name` like concat ('%',#{content},'%') or `number` like concat ('%',#{content},'%'))
+        </if>
+        <if test="categoryId1!=null">
+            and categoryId1 = #{categoryId1}
+        </if>
+        <if test="categoryId2!=null">
+            and categoryId2 = #{categoryId2}
+        </if>
+        <if test="categoryId3!=null">
+            and categoryId3 = #{categoryId3}
+        </if>
+        <if test="status!=null">
+            and status = #{status}
+        </if>
+        order by updateTime
+        <if test="startIndex != null and pageSize != null">
+            limit #{startIndex},#{pageSize}
+        </if>
+    </select>
+
     <select id="selectCount" resultType="java.lang.Integer" parameterType="java.util.Map">
         select count(*) from `goods` where `valid` = 1
         <if test="content!=null">

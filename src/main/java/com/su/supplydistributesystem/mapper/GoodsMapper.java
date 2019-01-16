@@ -1,6 +1,7 @@
 package com.su.supplydistributesystem.mapper;
 
 import com.su.supplydistributesystem.domain.Goods;
+import com.su.supplydistributesystem.response.GoodsDistributeView;
 import com.su.supplydistributesystem.service.excel.GoodsExcelParams;
 
 import java.util.HashMap;
@@ -14,6 +15,8 @@ public interface GoodsMapper {
     Goods select(Map<String, Object> map);
 
     List<Goods> selectList(Map<String, Object> map);
+
+    List<GoodsDistributeView> selectViewList(Map<String, Object> map);
 
     List<GoodsExcelParams> selectExcelParamsList(Map<String, Object> map);
 

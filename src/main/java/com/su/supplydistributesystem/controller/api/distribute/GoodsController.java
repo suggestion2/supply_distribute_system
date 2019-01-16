@@ -3,6 +3,7 @@ package com.su.supplydistributesystem.controller.api.distribute;
 import com.su.supplydistributesystem.interceptor.DistributorLoginRequired;
 import com.su.supplydistributesystem.request.*;
 import com.su.supplydistributesystem.response.GoodsDetailView;
+import com.su.supplydistributesystem.response.GoodsDistributeListView;
 import com.su.supplydistributesystem.response.GoodsListView;
 import com.su.supplydistributesystem.service.GoodsService;
 import org.slf4j.Logger;
@@ -11,6 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.su.supplydistributesystem.constants.CommonConstants.*;
 
@@ -26,13 +30,15 @@ public class GoodsController {
 
 
     @RequestMapping(value = LIST,method = RequestMethod.POST)
-    public GoodsListView list(@Valid @RequestBody GoodsListForm form){
-        return new GoodsListView(goodsService.selectList(form.getQueryMap()),goodsService.selectCount(form.getQueryMap()));
+    public GoodsDistributeListView list(@Valid @RequestBody GoodsListForm form){
+        Map<String,Object> map = form.getQueryMap();
+        map.put("status",1);
+        return new GoodsDistributeListView(goodsService.selectViewList(map),goodsService.selectCount(map));
     }
 
-    @RequestMapping(value = DETAIL_ID,method = RequestMethod.GET)
-    public GoodsDetailView detail(@PathVariable Integer id){
-        return goodsService.getDetail(id);
-    }
+//    @RequestMapping(value = DETAIL_ID,method = RequestMethod.GET)
+//    public GoodsDetailView detail(@PathVariable Integer id){
+//        return goodsService.getDetail(id);
+//    }
 
 }
