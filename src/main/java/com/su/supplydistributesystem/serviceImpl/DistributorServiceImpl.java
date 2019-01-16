@@ -1,6 +1,7 @@
 package com.su.supplydistributesystem.serviceImpl;
 
 import com.su.supplydistributesystem.domain.Distributor;
+import com.su.supplydistributesystem.request.DistributorCreateForm;
 import com.su.supplydistributesystem.service.DistributorService;
 import com.su.supplydistributesystem.mapper.DistributorMapper;
 import org.springframework.stereotype.Service;
@@ -22,10 +23,15 @@ public class DistributorServiceImpl implements DistributorService{
     }
 
     @Override
-    public Distributor getByName(String name) {
+    public Distributor getByAccount(String account) {
         Map<String,Object> query = new HashMap<>();
-        query.put("name",name);
-        return distributorMapper.selectByName(query);
+        query.put("account",account);
+        return distributorMapper.selectByAccount(query);
+    }
+
+    @Override
+    public List<Distributor> getByNameOrAccount(Map<String, Object> map) {
+        return distributorMapper.selectByNameOrAccount(map);
     }
 
     @Override

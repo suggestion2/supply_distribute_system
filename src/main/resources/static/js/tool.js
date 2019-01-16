@@ -261,6 +261,21 @@ var distributorModule = {
         };
         showResult(settings);
     },
+    updateById: function () {
+        var settings = {
+            type: "PUT",
+            url: "/mApi/distributor/update",
+            dataType: "json",
+            data: JSON.stringify({
+                "id": $("#distributor-update-id").val(),
+                "name": $("#distributor-update-name").val(),
+                "phone": $("#distributor-update-phone").val(),
+                "contact": $("#distributor-update-contact").val(),
+                "account": $("#distributor-update-account").val()
+            })
+        };
+        showResult(settings);
+    },
     deleteById: function () {
         var settings = {
             type: "DELETE",
@@ -581,7 +596,7 @@ var distributeDistributorModule = {
             url: "/dApi/distributor/login",
             dataType: "json",
             data: JSON.stringify({
-                "name": $("#login-d-name").val(),
+                "account": $("#login-d-account").val(),
                 "password": $("#login-d-password").val()
             })
         };
