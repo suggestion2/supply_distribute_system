@@ -39,6 +39,8 @@ public class Goods {
     @JsonIgnore
     private Integer valid;
 
+    private String colour;
+
     public Integer getId() {
         return id;
     }
@@ -208,4 +210,11 @@ public class Goods {
         this.valid = valid;
     }
 
+    public String getColour() {
+        return colour;
+    }
+
+    public void setColour(String colour) {
+        this.colour = colour;
+    }
 }

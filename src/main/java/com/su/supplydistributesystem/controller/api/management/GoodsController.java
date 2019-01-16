@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -115,6 +116,8 @@ public class GoodsController {
         User current = sessionContext.getUser();
 
         List<GoodsSupplyForm> goodsSupplyList = form.getGoodsSupplyList();
+        //reset goods low supply price null to re calculate
+        goods.setLowSupplyPrice(null);
         goodsSupplyList.forEach(g->{
             goods.setLowSupplyPrice(Objects.isNull(goods.getLowSupplyPrice()) || goods.getLowSupplyPrice().compareTo(g.getSupplyPrice()) > 0 ? g.getSupplyPrice() : goods.getLowSupplyPrice());
             g.setGoodsId(goods.getId());

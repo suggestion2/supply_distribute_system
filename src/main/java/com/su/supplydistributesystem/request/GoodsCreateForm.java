@@ -38,6 +38,11 @@ public class GoodsCreateForm {
 
     private String remarks;
 
+    @NotEmpty
+    @Pattern(regexp = RegexUtils.REGEX_CHINESE_ENG_NUM,message = RegexUtils.REGEX_CHINESE_ENG_NUM_MESSAGE)
+    @Size(min = 1,max = 16,message = "size between 1 and 16")
+    private String colour;
+
     @NotNull
     @Size(min = 1,message = "at least 1 item")
     @Valid
@@ -137,5 +142,13 @@ public class GoodsCreateForm {
 
     public void setGoodsSupplyList(List<GoodsSupplyForm> goodsSupplyList) {
         this.goodsSupplyList = goodsSupplyList;
+    }
+
+    public String getColour() {
+        return colour;
+    }
+
+    public void setColour(String colour) {
+        this.colour = colour;
     }
 }

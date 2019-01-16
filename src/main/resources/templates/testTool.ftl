@@ -220,7 +220,9 @@
                 jdPrice:<input class="textbox" type="text" id="goods-m-create-jdPrice" style="width: 100px;"
                                    value=""/><br>
                 price:<input class="textbox" type="text" id="goods-m-create-price" style="width: 100px;"
-                                   value=""/>
+                                   value=""/><br>
+                colour:<input class="textbox" type="text" id="goods-m-create-colour" style="width: 100px;"
+                               value=""/>
                 remarks:<input class="textbox" type="text" id="goods-m-create-remarks" style="width: 100px;"
                              value=""/><br>
                 
@@ -263,7 +265,9 @@
                 jdPrice:<input class="textbox" type="text" id="goods-m-update-jdPrice" style="width: 100px;"
                                value=""/><br>
                 price:<input class="textbox" type="text" id="goods-m-update-price" style="width: 100px;"
-                             value=""/>
+                             value=""/><br>
+                colour:<input class="textbox" type="text" id="goods-m-update-colour" style="width: 100px;"
+                              value=""/>
                 remarks:<input class="textbox" type="text" id="goods-m-update-remarks" style="width: 100px;"
                                value=""/><br>
 
@@ -300,6 +304,10 @@
                 id:<input class="textbox" type="text" id="goods-m-delete-id" style="width: 100px;"
                              value="1"/>
                 <input type="button" value="删除" onclick="goodsModule.deleteById()"/><br>
+            </div>
+            <div>
+                <strong>[导出excel]</strong><br/>
+                <input type="button" value="导出" onclick="goodsModule.excel()"/><br>
             </div>
         </div>
         <div style="float: left; width: 400px;">
