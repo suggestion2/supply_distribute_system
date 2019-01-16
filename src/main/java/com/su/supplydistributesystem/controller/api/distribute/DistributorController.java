@@ -52,6 +52,9 @@ public class DistributorController {
     @RequestMapping(value = "/password", method = RequestMethod.PUT)
     @DistributorLoginRequired
     public ResponseView resetPassword(@Valid @RequestBody ResetPasswordForm form) {
+        if(!Objects.equals(form.getNewPassword(),form.getRepeatPassword())){
+            throw new InvalidRequestException("invalidPassword","Inconsistent password entered twice");
+        }
         Distributor distributor = sessionContext.getDistributor();
         //判断输入的原密码是否正确
         if(!MD5.encrypt(form.getOriginPassword() + MD5_SALT).equalsIgnoreCase(distributor.getPassword())){

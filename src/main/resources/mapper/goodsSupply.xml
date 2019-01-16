@@ -26,6 +26,7 @@
         </if>
     </select>
 
+
     <select id="selectCount" resultType="java.lang.Integer" parameterType="java.util.Map">
         select count(*) from `goods_supply` where `valid` = 1
         <if test="id!=null">

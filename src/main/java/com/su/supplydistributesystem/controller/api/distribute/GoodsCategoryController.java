@@ -24,7 +24,6 @@ public class GoodsCategoryController {
 
     @RequestMapping(value = LIST, method = RequestMethod.GET)
     public GoodsCategoryListView list() {
-        return new GoodsCategoryListView(goodsCategoryService.getAllListView());
+        return new GoodsCategoryListView(goodsCategoryService.getListViewForCreateGoods());
     }
-
 }

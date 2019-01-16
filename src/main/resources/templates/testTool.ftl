@@ -32,36 +32,36 @@
                        value=""/>
             新密码:<input class="textbox" type="text" id="resetPwd-d-newPwd" style="width: 100px;"
                        value=""/>
+            重复密码:<input class="textbox" type="text" id="resetPwd-d-repeatPwd" style="width: 100px;"
+                       value=""/>
             <input type="button" value="修改" onclick="distributeDistributorModule.resetPwd()"/><br>
         </div>
-        <div style="float: left; width: 400px;">
+        <div style="float: blow; width: 400px;">
             <h2>商品品类(category)</h2>
             <div>
                 <strong>[列表]</strong><br/>
-                <input type="button" value="列表" onclick="categoryStoreModule.list()"/><br>
+                <input type="button" value="列表" onclick="distributeCategoryModule.list()"/><br>
             </div>
         </div>
-        <h2>商品(goods)</h2>
-        <div>
-            <strong>[列表]</strong><br/>
-            content:<input class="textbox" type="text" id="goods-d-list-content" style="width: 100px;"
-                           value=""/>
-            categoryId1:<input class="textbox" type="text" id="goods-d-list-categoryId1" style="width: 100px;"
-                               value=""/></br>
-            categoryId2:<input class="textbox" type="text" id="goods-d-list-categoryId2" style="width: 100px;"
+        <div style="float: blow; width: 400px;">
+            <div>
+                <h2>商品(goods)</h2>
+                <strong>[列表]</strong><br/>
+                content:<input class="textbox" type="text" id="goods-d-list-content" style="width: 100px;"
                                value=""/>
-            categoryId3:<input class="textbox" type="text" id="goods-d-list-categoryId3" style="width: 100px;"
-                               value=""/></br>
-            status:<select class="textbox" id="goods-d-list-status" style="width: 100px;">
-            <option value="">all</option>
-            <option value="0">disable</option>
-            <option value="1">enable</option>
-        </select><br>
-            startIndex:<input class="textbox" type="text" id="goods-d-list-startIndex" style="width: 100px;"
-                              value="0"/>
-            pageSize:<input class="textbox" type="text" id="goods-d-list-pageSize" style="width: 100px;"
-                            value="10"/><br>
-            <input type="button" value="列表" onclick="goodsStoreModule.list()"/><br>
+                categoryId1:<input class="textbox" type="text" id="goods-d-list-categoryId1" style="width: 100px;"
+                                   value=""/></br>
+                categoryId2:<input class="textbox" type="text" id="goods-d-list-categoryId2" style="width: 100px;"
+                                   value=""/>
+                categoryId3:<input class="textbox" type="text" id="goods-d-list-categoryId3" style="width: 100px;"
+                                   value=""/></br>
+                </select><br>
+                startIndex:<input class="textbox" type="text" id="goods-d-list-startIndex" style="width: 100px;"
+                                  value="0"/>
+                pageSize:<input class="textbox" type="text" id="goods-d-list-pageSize" style="width: 100px;"
+                                value="10"/><br>
+                <input type="button" value="列表" onclick="distributeGoodsModule.list()"/><br>
+            </div>
         </div>
     </div>
     <div id="tabs-2" style="width: 2000px;display: block">

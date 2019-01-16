@@ -609,13 +609,14 @@ var distributeDistributorModule = {
             dataType: "json",
             data: JSON.stringify({
                 "originPassword": $("#resetPwd-d-originPwd").val(),
-                "newPassword": $("#resetPwd-d-newPwd").val()
+                "newPassword": $("#resetPwd-d-newPwd").val(),
+                "repeatPassword": $("#resetPwd-d-repeatPwd").val()
             })
         };
         showResult(settings);
     }
 };
-var categoryStoreModule = {
+var distributeCategoryModule = {
     list: function () {
         var settings = {
             type: "GET",
@@ -624,4 +625,30 @@ var categoryStoreModule = {
         };
         showResult(settings);
     }
+};
+var distributeGoodsModule = {
+    list: function () {
+        var settings = {
+            type: "POST",
+            url: "/dApi/goods/list",
+            dataType: "json",
+            data: JSON.stringify({
+                "content": $("#goods-d-list-content").val(),
+                "categoryId1": $("#goods-d-list-categoryId1").val(),
+                "categoryId2": $("#goods-d-list-categoryId2").val(),
+                "categoryId3": $("#goods-d-list-categoryId3").val(),
+                "pageIndex": $("#goods-d-list-startIndex").val(),
+                "pageSize": $("#goods-d-list-pageSize").val()
+            })
+        };
+        showResult(settings);
+    },
+    detail: function () {
+        var settings = {
+            type: "GET",
+            url: "/mApi/goods/detail/" + $("#goods-m-detail-id").val(),
+            dataType: "json"
+        };
+        showResult(settings);
+    },
 };
