@@ -58,14 +58,13 @@ public class GoodsServiceImpl implements GoodsService{
     }
 
     @Override
-	@Override
-    public List<GoodsDistributeView> selectViewList(Map<String, Object> map){
+    public List<GoodsDistributeView> selectViewList(Map<String, Object> map) {
         return goodsMapper.selectViewList(map);
+    }
 
 	@Override
     public List<GoodsDetailParams> getDetailParamsList(Map<String, Object> map) {
         return goodsMapper.selectGoodsDetailParamsList(map);
-
     }
 
     @Override

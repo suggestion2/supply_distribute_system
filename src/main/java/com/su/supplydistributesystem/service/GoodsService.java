@@ -23,6 +23,7 @@ public interface GoodsService {
     List<Goods> selectList(Map<String, Object> map);
 
     List<GoodsDistributeView> selectViewList(Map<String, Object> map);
+
     List<GoodsDetailParams> getDetailParamsList(Map<String, Object> map);
 
     List<GoodsDetailParams> getAllEnabledList(Map<String, Object> map);
