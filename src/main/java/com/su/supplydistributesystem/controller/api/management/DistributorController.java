@@ -99,7 +99,7 @@ public class DistributorController {
         if(Objects.isNull(distributor)){
             throw new ResourceNotFoundException("distributor not exists");
         }
-        distributor.setPassword(MD5.encrypt("123456" + MD5_SALT));
+        distributor.setPassword(MD5.encrypt(INIT_PASSWORD + MD5_SALT));
         distributorService.update(distributor);
         return new ResponseView();
     }
@@ -110,7 +110,6 @@ public class DistributorController {
         if(Objects.isNull(distributor)){
             throw new ResourceNotFoundException("distributor not exists");
         }
-        //TODO:判断order里面是否有这个分销商账号
         Map<String,Object> query = new HashMap<>();
         query.put("account",form.getAccount());
         query.put("name",form.getName());
@@ -128,7 +127,6 @@ public class DistributorController {
 
     @RequestMapping(value = DELETE_BY_ID, method = RequestMethod.DELETE)
     public ResponseView deleteById(@PathVariable Integer id) {
-        //TODO:检查order是否有此账号
         distributorService.deleteById(id);
         return new ResponseView();
     }
