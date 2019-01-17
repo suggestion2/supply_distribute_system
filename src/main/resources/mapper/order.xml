@@ -49,6 +49,8 @@
             <result property="profit3" column="orderItem_profit3"/>
         </collection>
     </resultMap>
+
+
     
     <select id="selectOrderDetailParamsList" resultMap="OrderDetailResult" parameterType="java.util.Map">
         select
@@ -94,7 +96,31 @@
         </if>
     </select>
 
-    <select id="selectOrderDetailParamsViewList" resultMap="OrderDetailResult" parameterType="java.util.Map">
+    <resultMap id="OrderDetailViewResult" type="com.su.supplydistributesystem.service.OrderDistributeDetailParams">
+        <id column="order_id"/>
+        <association property="orderDistributeView" javaType="com.su.supplydistributesystem.response.OrderDistributeView">
+            <id property="id" column="order_id"/>
+            <result property="number" column="order_number"/>
+            <result property="goodsNames" column="order_goodsNames"/>
+            <result property="customerName" column="order_customerName"/>
+            <result property="customerAddress" column="order_customerAddress"/>
+            <result property="customerPhone" column="order_customerPhone"/>
+            <result property="dispatchCompany" column="order_dispatchCompany"/>
+            <result property="dispatchNumber" column="order_dispatchNumber"/>
+            <result property="count" column="order_count"/>
+            <result property="amount" column="order_amount"/>
+            <result property="status" column="order_status"/>
+        </association>
+        <collection property="list" javaType="ArrayList" ofType="com.su.supplydistributesystem.response.OrderItemDistributeView">
+            <id property="id" column="orderItem_id"/>
+            <result property="goodsName" column="orderItem_goodsName"/>
+            <result property="price" column="orderItem_price"/>
+            <result property="count" column="orderItem_count"/>
+            <result property="amount" column="orderItem_amount"/>
+        </collection>
+    </resultMap>
+
+    <select id="selectOrderDetailParamsViewList" resultMap="OrderDetailViewResult" parameterType="java.util.Map">
         select
         o.`id` as order_id,
         o.number as order_number,
@@ -104,19 +130,30 @@
         o.customerPhone as order_customerPhone,
         o.dispatchCompany as order_dispatchCompany,
         o.dispatchNumber as order_dispatchNumber,
+        o.status as order_status,
         o.count as order_count,
         o.amount as order_amount,
-        o.createTime as order_createTime,
-        o.remarks as order_remarks,
-        i.`id` as orderItem_id,
+        i.id as orderItem_id,
         i.goodsName as orderItem_goodsName,
         i.price as orderItem_price,
         i.count as orderItem_count,
-        i.amount as orderItem_amount,
-        from `order` o LEFT join order_item i on o.id = i.orderId and i.valid = 1
-        where o.`valid` = 1
+        i.amount as orderItem_amount
+        from  `order` o LEFT JOIN order_item i on o.id = i.orderId where i.valid = 1 and o.valid =1
+        <if test="content!=null">
+            and (o.goodsNames like concat ('%',#{content},'%') or o.number like concat ('%',#{content},'%'))
+        </if>
         <if test="status!=null">
             and o.status = #{status}
+        </if>
+        <if test="distributorId!=null">
+            and o.distributorId = #{distributorId}
+        </if>
+        <if test="date!=null">
+            and date(o.createTime) = #{date}
+        </if>
+        order by o.updateTime desc
+        <if test="startIndex != null and pageSize != null">
+            limit #{startIndex},#{pageSize}
         </if>
     </select>
     
@@ -153,6 +190,9 @@
         </if>
         <if test="status!=null">
             and status = #{status}
+        </if>
+        <if test="distributorId!=null">
+            and distributorId = #{distributorId}
         </if>
     </select>
 

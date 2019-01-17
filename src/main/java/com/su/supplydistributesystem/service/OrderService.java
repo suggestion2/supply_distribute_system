@@ -22,7 +22,7 @@ public interface OrderService {
 
     List<OrderDetailParams> getDetailParamsList(Map<String, Object> map);
 
-    List<OrderDetailParams> selectOrderDetailParamsViewList(Map<String, Object> map);
+    List<OrderDistributeDetailParams> selectOrderDetailParamsViewList(Map<String, Object> map);
 
     int selectCount(Map<String, Object> map);
 

@@ -1,9 +1,8 @@
 package com.su.supplydistributesystem.controller.api.distribute;
 
+import com.su.supplydistributesystem.interceptor.DistributorLoginRequired;
 import com.su.supplydistributesystem.request.OrderListForm;
-import com.su.supplydistributesystem.response.OrderListView;
-import com.su.supplydistributesystem.service.OrderDetailParams;
-import com.su.supplydistributesystem.service.OrderItemService;
+import com.su.supplydistributesystem.response.OrderDetailParamsView;
 import com.su.supplydistributesystem.service.OrderService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,8 +18,9 @@ import java.util.List;
 
 import static com.su.supplydistributesystem.constants.CommonConstants.LIST;
 
-@RestController("orderManagementApiController")
+@RestController("distributeOrderManagementApiController")
 @RequestMapping(value = "/dApi/order")
+@DistributorLoginRequired
 public class OrderController {
 
     private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
@@ -28,13 +28,9 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-
-
-//    @RequestMapping(value = LIST,method = RequestMethod.POST)
-//    public OrderListView list(@Valid @RequestBody OrderListForm form){
-//        List<OrderDetailParams> list = orderService.selectOrderDetailParamsViewList(form.getQueryMap());
-//
-////        return new OrderListView(orderService.selectOrderDetailParamsViewList(form.getQueryMap()),orderService.selectCount(form.getQueryMap()));
-//    }
+    @RequestMapping(value = LIST,method = RequestMethod.POST)
+    public OrderDetailParamsView list(@Valid @RequestBody OrderListForm form){
+        return new OrderDetailParamsView(orderService.selectOrderDetailParamsViewList(form.getQueryMap()),orderService.selectCount(form.getQueryMap()));
+    }
 
 }

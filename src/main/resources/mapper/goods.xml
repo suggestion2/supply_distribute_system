@@ -69,7 +69,7 @@
     </select>
     
     <select id="selectList" resultType="com.su.supplydistributesystem.domain.Goods" parameterType="java.util.Map">
-        select `id`,`number`,`name`,`taobaoPrice`,`jdPrice`,`price`,`lowSupplyPrice`,`profit1`,`profit2`,`profit3`,remarks,`status` from `goods` where `valid` = 1
+        select `id`,`category1`,`category2`,`category3`,`number`,`name`,`colour`,`taobaoPrice`,`jdPrice`,`price`,`lowSupplyPrice`,`profit1`,`profit2`,`profit3`,remarks,`status` from `goods` where `valid` = 1
         <if test="content!=null">
             and (`name` like concat ('%',#{content},'%') or `number` like concat ('%',#{content},'%'))
         </if>
@@ -92,7 +92,7 @@
     </select>
 
     <select id="selectViewList" resultType="com.su.supplydistributesystem.response.GoodsDistributeView" parameterType="java.util.Map">
-        select `id`,`number`,`name`,`taobaoPrice`,`jdPrice`,`price`,`lowSupplyPrice`,`profit1`,`profit2`,`profit3`,remarks,`status` from `goods` where `valid` = 1
+        select `id`,`category1`,`category2`,`category3`,`name`,`colour`,`taobaoPrice`,`jdPrice`,`price`,`profit2`,`profit3`,remarks,`status` from `goods` where `valid` = 1
         <if test="content!=null">
             and (`name` like concat ('%',#{content},'%') or `number` like concat ('%',#{content},'%'))
         </if>

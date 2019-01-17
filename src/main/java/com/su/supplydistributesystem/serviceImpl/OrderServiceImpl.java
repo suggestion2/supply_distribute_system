@@ -4,6 +4,7 @@ import com.su.supplydistributesystem.domain.Order;
 import com.su.supplydistributesystem.domain.OrderItem;
 import com.su.supplydistributesystem.response.OrderDetailView;
 import com.su.supplydistributesystem.service.OrderDetailParams;
+import com.su.supplydistributesystem.service.OrderDistributeDetailParams;
 import com.su.supplydistributesystem.service.OrderItemService;
 import com.su.supplydistributesystem.service.OrderService;
 import com.su.supplydistributesystem.mapper.OrderMapper;
@@ -63,8 +64,8 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public List<OrderDetailParams> selectOrderDetailParamsViewList(Map<String, Object> map) {
-        return orderMapper.selectOrderDetailParamsList(map);
+    public List<OrderDistributeDetailParams> selectOrderDetailParamsViewList(Map<String, Object> map) {
+        return orderMapper.selectOrderDetailParamsViewList(map);
     }
 
     @Override

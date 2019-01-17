@@ -51,7 +51,6 @@
         `phone`,
         `password`,
         `createBy`,
-        `updateBy`,
         `contact`,
         `account`
         )
@@ -61,7 +60,6 @@
         #{phone},
         #{password},
         #{createBy},
-        #{updateBy},
         #{contact},
         #{account}
         )
@@ -76,6 +74,13 @@
         `updateTime` = now(),
         `contact`= #{contact},
         `account`= #{account}
+        where `id` = #{id}
+    </update>
+
+    <update id="updatePassword" parameterType="com.su.supplydistributesystem.domain.Distributor">
+        update `distributor` set
+        `password` = #{password},
+        `updateTime` = now()
         where `id` = #{id}
     </update>
 

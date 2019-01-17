@@ -63,6 +63,34 @@
                 <input type="button" value="列表" onclick="distributeGoodsModule.list()"/><br>
             </div>
         </div>
+        <div style="float: blow; width: 400px;">
+            <div>
+                <h2>订单(order)</h2>
+                    <strong>[列表]</strong><br/>
+                    content:<input class="textbox" type="text" id="order-d-list-content" style="width: 100px;"
+                                   value=""/>
+                    distributorId分销商Id:<input class="textbox" type="text" id="order-d-list-distributorId" style="width: 100px;"
+                                   value="6"/>
+                    date:<input class="textbox" type="text" id="order-d-list-date" style="width: 100px;"
+                                value="" placeholder="2018-12-12"/></br>
+                    status:<select class="textbox" id="order-d-list-status" style="width: 100px;">
+                    <option value="">all</option>
+                    <option value="0">取消</option>
+                    <option value="1">创建</option>
+                    <option value="2">成功下单</option>
+                    <option value="3">提交供应商</option>
+                    <option value="4">已结算</option>
+                    <option value="5">已发货</option>
+                    <option value="6">已收货</option>
+                    <option value="7">售后</option>
+                </select><br>
+                    startIndex:<input class="textbox" type="text" id="order-d-list-startIndex" style="width: 100px;"
+                                      value="0"/>
+                    pageSize:<input class="textbox" type="text" id="order-d-list-pageSize" style="width: 100px;"
+                                    value="10"/><br>
+                <input type="button" value="列表" onclick="distributeOrderModule.list()"/><br>
+            </div>
+        </div>
     </div>
     <div id="tabs-2" style="width: 2000px;display: block">
         <div style="float: left; width: 400px;">
@@ -330,7 +358,7 @@
                              value="1"/></br>
                 分销商名称:<input class="textbox" type="text" id="distributor-update-name" style="width: 100px;"
                              value="1"/></br>
-                分销商联系方式（座机加上区号或手机号码）:<input class="textbox" type="text" id="distributor-update-phone" style="width: 100px;"
+                分销商联系方式:<input class="textbox" type="text" id="distributor-update-phone" style="width: 100px;"
                                             value="1"/></br>
                 分销商联系人:<input class="textbox" type="text" id="distributor-update-contact" style="width: 100px;"
                               value="1"/></br>

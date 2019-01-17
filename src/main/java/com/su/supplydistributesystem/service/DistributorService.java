@@ -28,5 +28,7 @@ public interface DistributorService {
 
     int update(Distributor distributor);
 
+    int updatePassword(Distributor distributor);
+
     int deleteById(Integer id);
 }

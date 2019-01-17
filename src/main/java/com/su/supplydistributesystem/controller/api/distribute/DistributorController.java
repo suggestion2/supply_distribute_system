@@ -61,7 +61,7 @@ public class DistributorController {
             throw new InvalidRequestException("invalidPassword","invalid origin password");
         }
         distributor.setPassword(MD5.encrypt(form.getNewPassword() + MD5_SALT));
-        distributorService.update(distributor);
+        distributorService.updatePassword(distributor);
         return new ResponseView();
     }
 }

@@ -9,9 +9,6 @@ import java.util.Date;
 
 public class GoodsDistributeView {
     private Integer id;
-    private Integer categoryId1;
-    private Integer categoryId2;
-    private Integer categoryId3;
     private String category1;
     private String category2;
     private String category3;
@@ -21,7 +18,6 @@ public class GoodsDistributeView {
     private BigDecimal price;
     private BigDecimal profit2;
     private BigDecimal profit3;
-    private Integer salesVolume;
     private String remarks;
     private String colour;
 
@@ -31,30 +27,6 @@ public class GoodsDistributeView {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Integer getCategoryId1() {
-        return categoryId1;
-    }
-
-    public void setCategoryId1(Integer categoryId1) {
-        this.categoryId1 = categoryId1;
-    }
-
-    public Integer getCategoryId2() {
-        return categoryId2;
-    }
-
-    public void setCategoryId2(Integer categoryId2) {
-        this.categoryId2 = categoryId2;
-    }
-
-    public Integer getCategoryId3() {
-        return categoryId3;
-    }
-
-    public void setCategoryId3(Integer categoryId3) {
-        this.categoryId3 = categoryId3;
     }
 
     public String getCategory1() {
@@ -127,14 +99,6 @@ public class GoodsDistributeView {
 
     public void setProfit3(BigDecimal profit3) {
         this.profit3 = profit3;
-    }
-
-    public Integer getSalesVolume() {
-        return salesVolume;
-    }
-
-    public void setSalesVolume(Integer salesVolume) {
-        this.salesVolume = salesVolume;
     }
 
     public String getRemarks() {

@@ -24,5 +24,7 @@ public interface DistributorMapper {
 
     int update(Distributor distributor);
 
+    int updatePassword(Distributor distributor);
+
     int deleteById(Integer id);
 }

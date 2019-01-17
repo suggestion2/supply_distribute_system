@@ -44,8 +44,6 @@ public class DistributorController {
     @Autowired
     private SessionContext sessionContext;
 
-    @Autowired
-    private OrderService orderService;
 
     @RequestMapping(value = LIST,method = RequestMethod.POST)
     public DistributorListView list(@Valid @RequestBody DistributorListForm form){
@@ -71,9 +69,8 @@ public class DistributorController {
         Distributor distributor = new Distributor();
         //设置默认123456密码
         BeanUtils.copyProperties(form,distributor);
-        distributor.setPassword(MD5.encrypt("123456" + MD5_SALT));
+        distributor.setPassword(MD5.encrypt(INIT_PASSWORD + MD5_SALT));
         distributor.setCreateBy(sessionContext.getUser().getId());
-        distributor.setUpdateBy(sessionContext.getUser().getId());
         distributorService.create(distributor);
         return new ResponseView();
     }
@@ -81,6 +78,7 @@ public class DistributorController {
     @RequestMapping(value = "/resetStatus", method = RequestMethod.PUT)
     public ResponseView resetStatus(@Valid @RequestBody GoodsCategoryStatusForm form) {
         Distributor distributor = distributorService.getById(form.getId());
+        distributor.setUpdateBy(sessionContext.getUser().getId());
         if (Objects.isNull(distributor)) {
             throw new ResourceNotFoundException("distributor not exists");
         }
@@ -103,17 +101,12 @@ public class DistributorController {
         if(Objects.isNull(distributor)){
             throw new ResourceNotFoundException("distributor not exists");
         }
-        distributor.setPassword(MD5.encrypt("123456" + MD5_SALT));
-        distributorService.update(distributor);
+        distributorService.updatePassword(distributor);
         return new ResponseView();
     }
 
     @RequestMapping(value = UPDATE,method = RequestMethod.PUT)
     public ResponseView update(@Valid @RequestBody DistributorUpdateForm form){
-        //判断order里面是否有这个分销商账号
-        if(orderService.selectDistributorList(form.getId()).size()>0){
-            throw new InvalidRequestException("Can't update","order is use");
-        }
         Distributor distributor = distributorService.getById(form.getId());
         if(Objects.isNull(distributor)){
             throw new ResourceNotFoundException("distributor not exists");
@@ -123,8 +116,8 @@ public class DistributorController {
         query.put("name",form.getName());
         query.put("phone",form.getPhone());
         List<Distributor> disList = distributorService.getByNameOrAccount(query);
-        //判断修改的用户名/账号/手机是否存在
-        if(disList.size()>0){
+        //判断用户名/手机/账号有没有重复,有重复判断是不是当前要修改的账号
+        if(disList.size()>1||(disList.size()<2&&!disList.get(0).getId().equals(form.getId()))){
             throw new InvalidRequestException("multipleName","supplier or account or phone exists");
         }
         BeanUtils.copyProperties(form,distributor);
@@ -132,13 +125,8 @@ public class DistributorController {
         return new ResponseView();
     }
 
-
     @RequestMapping(value = DELETE_BY_ID, method = RequestMethod.DELETE)
     public ResponseView deleteById(@PathVariable Integer id) {
-        //判断order里面是否有这个分销商账号
-        if(orderService.selectDistributorList(id).size()>0){
-            throw new InvalidRequestException("Can't update","order is use");
-        }
         distributorService.deleteById(id);
         return new ResponseView();
     }
