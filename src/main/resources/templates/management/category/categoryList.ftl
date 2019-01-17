@@ -2,7 +2,7 @@
 
 <div class="content-wrapper">
     <section class="content-header">
-        <div class="page-pos">当前位置：<span style="color: #ee7b33;">管理中心 > 商品 > 分类管理</span></div>
+        <div class="page-pos">当前位置：<span style="color: #ee7b33;">管理中心 > 分类管理</span></div>
     </section>
     <section class="content">
         <div class="row">
