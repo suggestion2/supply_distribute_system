@@ -40,9 +40,6 @@ public class SupplierController {
     @Autowired
     private SessionContext sessionContext;
 
-    @Autowired
-    private GoodsSupplyService goodsSupplyService;
-
     @RequestMapping(value = LIST,method = RequestMethod.POST)
     public SupplierListView list(@Valid @RequestBody SupplierListForm form){
         return new SupplierListView(supplierService.selectList(form.getQueryMap()),supplierService.selectCount(form.getQueryMap()));
@@ -62,7 +59,6 @@ public class SupplierController {
         Supplier supplier = new Supplier();
         BeanUtils.copyProperties(form,supplier);
         supplier.setCreateBy(sessionContext.getUser().getId());
-        supplier.setUpdateBy(sessionContext.getUser().getId());
         supplierService.create(supplier);
         return new ResponseView();
     }
@@ -73,13 +69,6 @@ public class SupplierController {
         if(Objects.isNull(supplier)){
             throw new ResourceNotFoundException("supplier not exists");
         }
-        //TODO: 检查orderItem是否有此账号
-        //检查goodsSupply是否有此账号
-        Map<String,Object> query = new HashMap<>();
-        query.put("supplierId",form.getId());
-        if(goodsSupplyService.selectList(query).size()>0){
-            throw new InvalidRequestException("can not change","goodsSupply is use supplier");
-        }
 
         BeanUtils.copyProperties(form,supplier);
         supplierService.update(supplier);
@@ -87,14 +76,6 @@ public class SupplierController {
     }
     @RequestMapping(value = DELETE_BY_ID, method = RequestMethod.DELETE)
     public ResponseView deleteById(@PathVariable Integer id) {
-        Supplier supplier = supplierService.getById(id);
-        //TODO: 检查orderItem是否有此账号
-        //检查goodsSupply是否有此账号
-        Map<String,Object> query = new HashMap<>();
-        query.put("supplierId",id);
-        if(goodsSupplyService.selectList(query).size()>0){
-            throw new InvalidRequestException("Can't delete","goodsSupply is use supplier");
-        }
         supplierService.deleteById(id);
         return new ResponseView();
     }
