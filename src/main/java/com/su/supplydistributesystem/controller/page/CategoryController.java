@@ -25,6 +25,6 @@ public class CategoryController {
     @RequestMapping(value = LIST, method = RequestMethod.GET)
     public String list(ModelMap modelMap) {
         modelMap.put("list", goodsCategoryService.getAllListView());
-        return "management/categoryList";
+        return "management/category/categoryList";
     }
 }

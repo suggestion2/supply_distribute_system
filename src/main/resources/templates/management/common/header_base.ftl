@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>橄榄油商城管理中心</title>
+    <title>订单管理系统</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link href="/resources/management/img/fav.png" rel="Shortcut Icon" type="image/x-icon"/>
     <link rel="stylesheet" href="/resources/management/plugins/bootstrap/css/bootstrap.min.css">
