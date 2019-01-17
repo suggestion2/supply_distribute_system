@@ -100,7 +100,6 @@
         };
 
         function loginOut() {
-            alert(1);
             $.ydcAjax("GET", "/mApi/logout", "", "json", "application/json", function (data) {
                 if (data.message == "success") window.location.href = "/management/login"
             }, "");
