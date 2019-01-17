@@ -10,9 +10,15 @@
                 <div class="box zr-box">
                     <div class="box-header">
                         <div class="row" style="padding-bottom: 20px;">
-                            <div class="col-xs-4 pull-right">
+                            <div class="col-xs-5 pull-right">
                                 <div class="input-group input-group-sm">
-                                    <input type="text" placeholder="输入商品名称查询" id="searchName" class="form-control">
+                                    <input type="text" placeholder="输入商品名称查询" style="width: 40%" id="searchName" class="form-control">
+                                    <select class="form-control" style="width: 20%">
+                                        <option value="-1" style="color: #999">选择状态</option>
+                                        <option value="0">下架</option>
+                                        <option value="1">上架</option>
+                                    </select>
+                                    <select class="form-control" id="selectCat" style="width: 40%"></select>
                                     <span class="input-group-btn">
                                         <button class="btn ydcbtn bg-eg" onclick="searchBtn()"><i class="fa fa-search"></i></button>
                                     </span>
@@ -54,8 +60,30 @@
     $(function(){
         //导航
         navcontroller("goods","产品列表");
-
     });
+
+    /*分类*/
+    $.ydcAjax("GET","/mApi/category/list","","json","application/json",function(data){
+        $("#selectCat").append(selectCat(data));
+    },"");
+    function selectCat(data){
+        var str='<option value="">选择类目</option>';
+        $.each(data.list,function(idx,obj){
+            str+='<option data-level="'+obj.level+'" value="'+obj.id+'">'+obj.name+'</option>';
+            if(obj.list.length>0){
+                $.each(obj.list,function(sidx,sobj){
+                    str+='<option data-level="'+sobj.level+'" value="'+sobj.id+'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|--'+sobj.name+'</option>';
+                    if(obj.list[sidx].list.length>0){
+                        $.each(obj.list[sidx].list,function (tidx,tobj) {
+                            str+='<option data-level="'+tobj.level+'" value="'+tobj.id+'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|--'+tobj.name+'</option>';
+                        })
+                    }
+                });
+            };
+        });
+        return str;
+    };
+
 
     var strUrl = window.location.toString();
     if(strUrl.indexOf("status=")<0){
@@ -219,18 +247,7 @@
             var pagingData="";
             firstAjax({"content":$("#searchName").val(),"status":""});
             pagingData={"content":$("#searchName").val(),"status":""};
-        }else if(pageName=="warehouse"){
-            var pagingData="";
-            firstAjax({"content":$("#searchName").val(),"status":0});
-            pagingData={"content":$("#searchName").val(),"status":0};
-        }else if(pageName=="sale"){
-            var pagingData="";
-            firstAjax({"content":$("#searchName").val(),"status":1});
-            pagingData={"content":$("#searchName").val(),"status":1};
-        }else if(pageName=="soldout"){
-            var pagingData="";
-            firstAjax({"content":$("#searchName").val(),"status":3});
-            pagingData={"content":$("#searchName").val(),"status":3};
+
         }
     };
     /*刪除*/
