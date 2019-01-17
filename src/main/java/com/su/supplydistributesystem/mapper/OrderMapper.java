@@ -2,6 +2,7 @@ package com.su.supplydistributesystem.mapper;
 
 import com.su.supplydistributesystem.domain.Order;
 import com.su.supplydistributesystem.service.OrderDetailParams;
+import com.su.supplydistributesystem.service.statistic.OrderStatisticResult;
 
 import java.util.HashMap;
 import java.util.List;
@@ -16,6 +17,8 @@ public interface OrderMapper {
     List<Order> selectList(Map<String, Object> map);
 
     List<OrderDetailParams> selectOrderDetailParamsList(Map<String, Object> map);
+
+    OrderStatisticResult countOrder(Map<String, Object> map);
 
     int selectCount(Map<String, Object> map);
 

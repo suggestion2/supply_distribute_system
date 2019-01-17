@@ -7,6 +7,7 @@ import com.su.supplydistributesystem.service.OrderDetailParams;
 import com.su.supplydistributesystem.service.OrderItemService;
 import com.su.supplydistributesystem.service.OrderService;
 import com.su.supplydistributesystem.mapper.OrderMapper;
+import com.su.supplydistributesystem.service.statistic.OrderStatisticResult;
 import com.sug.core.platform.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
