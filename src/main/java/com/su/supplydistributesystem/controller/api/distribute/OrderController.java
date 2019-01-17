@@ -1,6 +1,7 @@
 package com.su.supplydistributesystem.controller.api.distribute;
 
 import com.su.supplydistributesystem.interceptor.DistributorLoginRequired;
+import com.su.supplydistributesystem.request.OrderDistributeListForm;
 import com.su.supplydistributesystem.request.OrderListForm;
 import com.su.supplydistributesystem.response.OrderDetailParamsView;
 import com.su.supplydistributesystem.service.OrderService;
@@ -29,7 +30,7 @@ public class OrderController {
     private OrderService orderService;
 
     @RequestMapping(value = LIST,method = RequestMethod.POST)
-    public OrderDetailParamsView list(@Valid @RequestBody OrderListForm form){
+    public OrderDetailParamsView list(@Valid @RequestBody OrderDistributeListForm form){
         return new OrderDetailParamsView(orderService.selectOrderDetailParamsViewList(form.getQueryMap()),orderService.selectCount(form.getQueryMap()));
     }
 

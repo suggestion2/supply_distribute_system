@@ -76,7 +76,7 @@ public class DistributorController {
     }
 
     @RequestMapping(value = "/resetStatus", method = RequestMethod.PUT)
-    public ResponseView resetStatus(@Valid @RequestBody GoodsCategoryStatusForm form) {
+    public ResponseView resetStatus(@Valid @RequestBody DistributorStatusForm form) {
         Distributor distributor = distributorService.getById(form.getId());
         distributor.setUpdateBy(sessionContext.getUser().getId());
         if (Objects.isNull(distributor)) {
