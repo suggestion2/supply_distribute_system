@@ -6,6 +6,7 @@ import com.su.supplydistributesystem.domain.Supplier;
 import com.su.supplydistributesystem.domain.User;
 import com.su.supplydistributesystem.interceptor.UserLoginRequired;
 import com.su.supplydistributesystem.request.*;
+import com.su.supplydistributesystem.service.OrderService;
 import com.sug.core.platform.crypto.MD5;
 import com.sug.core.platform.exception.ResourceNotFoundException;
 import com.sug.core.platform.web.rest.exception.InvalidRequestException;
@@ -42,6 +43,9 @@ public class DistributorController {
 
     @Autowired
     private SessionContext sessionContext;
+
+    @Autowired
+    private OrderService orderService;
 
     @RequestMapping(value = LIST,method = RequestMethod.POST)
     public DistributorListView list(@Valid @RequestBody DistributorListForm form){
@@ -105,12 +109,15 @@ public class DistributorController {
     }
 
     @RequestMapping(value = UPDATE,method = RequestMethod.PUT)
-    public SuccessView update(@Valid @RequestBody DistributorUpdateForm form){
+    public ResponseView update(@Valid @RequestBody DistributorUpdateForm form){
+        //判断order里面是否有这个分销商账号
+        if(orderService.selectDistributorList(form.getId()).size()>0){
+            throw new InvalidRequestException("Can't update","order is use");
+        }
         Distributor distributor = distributorService.getById(form.getId());
         if(Objects.isNull(distributor)){
             throw new ResourceNotFoundException("distributor not exists");
         }
-        //TODO:判断order里面是否有这个分销商账号
         Map<String,Object> query = new HashMap<>();
         query.put("account",form.getAccount());
         query.put("name",form.getName());
@@ -122,13 +129,16 @@ public class DistributorController {
         }
         BeanUtils.copyProperties(form,distributor);
         distributorService.update(distributor);
-        return new SuccessView();
+        return new ResponseView();
     }
 
 
     @RequestMapping(value = DELETE_BY_ID, method = RequestMethod.DELETE)
     public ResponseView deleteById(@PathVariable Integer id) {
-        //TODO:检查order是否有此账号
+        //判断order里面是否有这个分销商账号
+        if(orderService.selectDistributorList(id).size()>0){
+            throw new InvalidRequestException("Can't update","order is use");
+        }
         distributorService.deleteById(id);
         return new ResponseView();
     }

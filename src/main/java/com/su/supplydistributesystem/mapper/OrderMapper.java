@@ -15,7 +15,11 @@ public interface OrderMapper {
 
     List<Order> selectList(Map<String, Object> map);
 
+    List<Order> selectDistributorList(Map<String, Object> map);
+
     List<OrderDetailParams> selectOrderDetailParamsList(Map<String, Object> map);
+
+    List<OrderDetailParams> selectOrderDetailParamsViewList(Map<String, Object> map);
 
     int selectCount(Map<String, Object> map);
 

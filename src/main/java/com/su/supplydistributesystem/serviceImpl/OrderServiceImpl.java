@@ -51,7 +51,19 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
+    public List<Order> selectDistributorList(Integer distributorId) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("distributorId",distributorId);
+        return orderMapper.selectDistributorList(map);
+    }
+
+    @Override
     public List<OrderDetailParams> getDetailParamsList(Map<String, Object> map) {
+        return orderMapper.selectOrderDetailParamsList(map);
+    }
+
+    @Override
+    public List<OrderDetailParams> selectOrderDetailParamsViewList(Map<String, Object> map) {
         return orderMapper.selectOrderDetailParamsList(map);
     }
 

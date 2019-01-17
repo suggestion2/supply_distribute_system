@@ -93,6 +93,32 @@
             and o.status = #{status}
         </if>
     </select>
+
+    <select id="selectOrderDetailParamsViewList" resultMap="OrderDetailResult" parameterType="java.util.Map">
+        select
+        o.`id` as order_id,
+        o.number as order_number,
+        o.goodsNames as order_goodsNames,
+        o.customerName as order_customerName,
+        o.customerAddress as order_customerAddress,
+        o.customerPhone as order_customerPhone,
+        o.dispatchCompany as order_dispatchCompany,
+        o.dispatchNumber as order_dispatchNumber,
+        o.count as order_count,
+        o.amount as order_amount,
+        o.createTime as order_createTime,
+        o.remarks as order_remarks,
+        i.`id` as orderItem_id,
+        i.goodsName as orderItem_goodsName,
+        i.price as orderItem_price,
+        i.count as orderItem_count,
+        i.amount as orderItem_amount,
+        from `order` o LEFT join order_item i on o.id = i.orderId and i.valid = 1
+        where o.`valid` = 1
+        <if test="status!=null">
+            and o.status = #{status}
+        </if>
+    </select>
     
     <select id="selectList" resultType="com.su.supplydistributesystem.domain.Order" parameterType="java.util.Map">
         select `id`,`number`,`goodsNames`,`distributorName`,`distributorPhone`,`status` from `order` where `valid` = 1
@@ -107,6 +133,13 @@
         </if>
         <if test="startIndex != null and pageSize != null">
             limit #{startIndex},#{pageSize}
+        </if>
+    </select>
+
+    <select id="selectDistributorList" resultType="com.su.supplydistributesystem.domain.Order" parameterType="java.util.Map">
+        select `distributorId`,`distributorName`,`distributorPhone` from `order` where `valid` = 1
+        <if test="distributorId!=null">
+            and distributorId = #{distributorId}
         </if>
     </select>
 

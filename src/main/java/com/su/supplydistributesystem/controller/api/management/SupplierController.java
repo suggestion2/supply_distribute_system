@@ -89,6 +89,7 @@ public class SupplierController {
     public ResponseView deleteById(@PathVariable Integer id) {
         Supplier supplier = supplierService.getById(id);
         //TODO: 检查orderItem是否有此账号
+
         //检查goodsSupply是否有此账号
         Map<String,Object> query = new HashMap<>();
         query.put("supplierId",id);

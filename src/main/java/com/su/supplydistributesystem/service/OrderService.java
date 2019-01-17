@@ -18,7 +18,11 @@ public interface OrderService {
 
     List<Order> selectList(Map<String, Object> map);
 
+    List<Order> selectDistributorList(Integer distributorId);
+
     List<OrderDetailParams> getDetailParamsList(Map<String, Object> map);
+
+    List<OrderDetailParams> selectOrderDetailParamsViewList(Map<String, Object> map);
 
     int selectCount(Map<String, Object> map);
 
