@@ -6,6 +6,22 @@
         select * from `order` where id= #{id} and `valid` = 1
     </select>
 
+    <select id="countOrder" resultType="com.su.supplydistributesystem.service.statistic.OrderStatisticResult" parameterType="java.util.Map">
+        select count(*) as `count`,sum(amount) as sumAmount,sum(`count`) as sumSalesCount from `order` where `valid` = 1
+        <if test="status!=null">
+            and `status` = #{status}
+        </if>
+        <if test="available!=null">
+            and `status` &gt; 0
+        </if>
+        <if test="beginDate!=null">
+            and date(createTime) &gt;= #{beginDate}
+        </if>
+        <if test="endDate!=null">
+            and date(createTime) &lt;= #{endDate}
+        </if>
+    </select>
+    
     <select id="select" resultType="com.su.supplydistributesystem.domain.Order" parameterType="java.util.Map">
         select * from `order` where `valid` = 1
         <if test="id!=null">
@@ -168,6 +184,7 @@
         <if test="status!=null">
             and status = #{status}
         </if>
+        order by updateTime desc
         <if test="startIndex != null and pageSize != null">
             limit #{startIndex},#{pageSize}
         </if>
@@ -186,6 +203,7 @@
             and date(createTime) = #{date}
         </if>
         <if test="content!=null">
+            and (goodsNames like concat ('%',#{content},'%') or number like concat ('%',#{content},'%'))
             and (goodsNames like concat ('%',#{content},'%') or number like concat ('%',#{content},'%'))
         </if>
         <if test="status!=null">
@@ -266,13 +284,18 @@
     </update>
     
     <update id="updateStatus" parameterType="com.su.supplydistributesystem.domain.Order">
-        update `order` set
-        `cancelReason` = #{cancelReason},
-        `status` = #{status},
-        `updateBy` = #{updateBy},
-        `remarks` = #{remarks},
-        `updateTime` = now()
-        where `id` = #{id}
+        update
+        `order` o left join `orderItem` i on o.id = i.orderId
+        set
+        o.`cancelReason` = #{cancelReason},
+        o.`status` = #{status},
+        o.`updateBy` = #{updateBy},
+        o.`remarks` = #{remarks},
+        o.`updateTime` = now(),
+        i.`status` = #{status},
+        i.`updateBy` = #{updateBy},
+        i.`updateTime` = now()
+        where o.`id` = #{id}
     </update>
     
     <delete id="deleteById" parameterType="java.lang.Integer">

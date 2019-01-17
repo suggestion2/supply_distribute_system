@@ -5,7 +5,7 @@
     <select id="selectById" resultType="com.su.supplydistributesystem.domain.OrderItem" parameterType="java.lang.Integer">
         select * from `order_item` where id= #{id} and `valid` = 1
     </select>
-
+    
     <select id="select" resultType="com.su.supplydistributesystem.domain.OrderItem" parameterType="java.util.Map">
         select * from `order_item` where `valid` = 1
         <if test="id!=null">
@@ -22,7 +22,59 @@
             limit #{startIndex},#{pageSize}
         </if>
     </select>
-
+    
+    <select id="countOrderCount" resultType="com.su.supplydistributesystem.service.statistic.OrderItemDailyCount" parameterType="java.util.Map">
+        select count(DISTINCT orderId) as `count`,date(createTime) as `date`
+        from `order_item`
+        where `valid` = 1
+        <if test="status!=null">
+            and `status` = #{status}
+        </if>
+        <if test="available!=null">
+            and `status` &gt; 0
+        </if>
+        <if test="categoryId1!=null">
+            and categoryId1 = #{categoryId1}
+        </if>
+        <if test="categoryId2!=null">
+            and categoryId2 = #{categoryId2}
+        </if>
+        <if test="categoryId3!=null">
+            and categoryId3 = #{categoryId3}
+        </if>
+        <if test="date!=null">
+            and #{date} &gt;= date(createTime) and DATE_SUB(#{date},INTERVAL 1 MONTH) &lt; date(createTime)
+        </if>
+        group by(date(createTime))
+        order by date(createTime) desc
+    </select>
+    
+    <select id="countSalesCount" resultType="com.su.supplydistributesystem.service.statistic.OrderItemDailyCount" parameterType="java.util.Map">
+        select sum(`count`) as `count`,date(createTime) as `date`
+        from `order_item`
+        where `valid` = 1
+        <if test="status!=null">
+            and `status` = #{status}
+        </if>
+        <if test="available!=null">
+            and `status` &gt; 0
+        </if>
+        <if test="categoryId1!=null">
+            and categoryId1 = #{categoryId1}
+        </if>
+        <if test="categoryId2!=null">
+            and categoryId2 = #{categoryId2}
+        </if>
+        <if test="categoryId3!=null">
+            and categoryId3 = #{categoryId3}
+        </if>
+        <if test="date!=null">
+            and #{date} &gt;= date(createTime) and DATE_SUB(#{date},INTERVAL 7 DAY) &lt; date(createTime)
+        </if>
+        group by(date(createTime))
+        order by date(createTime) asc
+    </select>
+    
     <select id="selectCount" resultType="java.lang.Integer" parameterType="java.util.Map">
         select count(*) from `order_item` where `valid` = 1
         <if test="id!=null">
@@ -36,6 +88,9 @@
         (
         `orderId`,
         `goodsId`,
+        `categoryId1`,
+        `categoryId2`,
+        `categoryId3`,
         `goodSupplyId`,
         `goodsName`,
         `taobaoPrice`,
@@ -56,6 +111,9 @@
             (
             #{item.orderId},
             #{item.goodsId},
+            #{item.categoryId1},
+            #{item.categoryId2},
+            #{item.categoryId3},
             #{item.goodSupplyId},
             #{item.goodsName},
             #{item.taobaoPrice},
@@ -81,6 +139,27 @@
             WHEN id = #{item.id} THEN #{item.goodsId}
         </foreach>
         ELSE `goodsId`
+        END,
+        `categoryId1` =
+        CASE
+        <foreach item="item" index="index" collection="list" >
+            WHEN id = #{item.id} THEN #{item.categoryId1}
+        </foreach>
+        ELSE `categoryId1`
+        END,
+        `categoryId2` =
+        CASE
+        <foreach item="item" index="index" collection="list" >
+            WHEN id = #{item.id} THEN #{item.categoryId2}
+        </foreach>
+        ELSE `categoryId2`
+        END,
+        `categoryId3` =
+        CASE
+        <foreach item="item" index="index" collection="list" >
+            WHEN id = #{item.id} THEN #{item.categoryId3}
+        </foreach>
+        ELSE `categoryId3`
         END,
         `goodSupplyId` =
         CASE

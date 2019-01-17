@@ -1,6 +1,7 @@
 package com.su.supplydistributesystem.mapper;
 
 import com.su.supplydistributesystem.domain.OrderItem;
+import com.su.supplydistributesystem.service.statistic.OrderItemDailyCount;
 
 import java.util.HashMap;
 import java.util.List;
@@ -15,6 +16,10 @@ public interface OrderItemMapper {
     List<OrderItem> selectList(Map<String, Object> map);
 
     int selectCount(Map<String, Object> map);
+
+    List<OrderItemDailyCount> countOrderCount(Map<String, Object> map);
+
+    List<OrderItemDailyCount> countSalesCount(Map<String, Object> map);
 
     int batchInsert(List<OrderItem> list);
 

@@ -18,6 +18,9 @@
         <association property="goods" javaType="com.su.supplydistributesystem.domain.Goods">
             <id property="id" column="goods_id"/>
             <result property="number" column="goods_number"/>
+            <result property="categoryId1" column="goods_categoryId1"/>
+            <result property="categoryId2" column="goods_categoryId2"/>
+            <result property="categoryId3" column="goods_categoryId3"/>
             <result property="category1" column="goods_category1"/>
             <result property="category2" column="goods_category2"/>
             <result property="category3" column="goods_category3"/>
@@ -44,6 +47,9 @@
         select 
         g.`id` as goods_id ,
         g.`number` as goods_number,
+        g.`categoryId1` as goods_categoryId1,
+        g.`categoryId2` as goods_categoryId2,
+        g.`categoryId3` as goods_categoryId3,
         g.`category1` as goods_category1,
         g.`category2` as goods_category2,
         g.`category3` as goods_category3,

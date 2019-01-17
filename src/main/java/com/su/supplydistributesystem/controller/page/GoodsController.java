@@ -36,14 +36,14 @@ public class GoodsController {
     @RequestMapping(value = LIST, method = RequestMethod.GET)
     public String list(ModelMap modelMap) {
         modelMap.put("category",goodsCategoryService.getListViewForCreateGoods());
-        return "management/goodsList";
+        return "management/goods/goodsList";
     }
 
     @RequestMapping(value = CREATE, method = RequestMethod.GET)
     public String create(ModelMap modelMap) {
         modelMap.put("category",goodsCategoryService.getListViewForCreateGoods());
         modelMap.put("supplier",supplierService.selectList(null));
-        return "management/goodsCreate";
+        return "management/goods/goodsCreate";
     }
 
     @RequestMapping(value = DETAIL_ID, method = RequestMethod.GET)
@@ -51,6 +51,6 @@ public class GoodsController {
         modelMap.put("goods",goodsService.getDetail(id));
         modelMap.put("category",goodsCategoryService.getListViewForCreateGoods());
         modelMap.put("supplier",supplierService.selectList(null));
-        return "management/goodsDetail";
+        return "management/goods/goodsDetail";
     }
 }

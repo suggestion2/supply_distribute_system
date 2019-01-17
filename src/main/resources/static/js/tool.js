@@ -487,6 +487,9 @@ var orderModule = {
                 "list": [
                     {
                         "goodsId": $("#order-m-create-goodsId1").val(),
+                        "categoryId1": $("#order-m-create-categoryId11").val(),
+                        "categoryId2": $("#order-m-create-categoryId21").val(),
+                        "categoryId3": $("#order-m-create-categoryId31").val(),
                         "goodSupplyId": $("#order-m-create-goodSupplyId1").val(),
                         "goodsName": $("#order-m-create-goodsName1").val(),
                         "supplierName": $("#order-m-create-supplierName1").val(),
@@ -498,6 +501,9 @@ var orderModule = {
                     },
                     {
                         "goodsId": $("#order-m-create-goodsId2").val(),
+                        "categoryId1": $("#order-m-create-categoryId12").val(),
+                        "categoryId2": $("#order-m-create-categoryId22").val(),
+                        "categoryId3": $("#order-m-create-categoryId32").val(),
                         "goodSupplyId": $("#order-m-create-goodSupplyId2").val(),
                         "goodsName": $("#order-m-create-goodsName2").val(),
                         "supplierName": $("#order-m-create-supplierName2").val(),
@@ -532,6 +538,9 @@ var orderModule = {
                     {
                         "id": $("#order-m-update-id1").val(),
                         "goodsId": $("#order-m-update-goodsId1").val(),
+                        "categoryId1": $("#order-m-update-categoryId11").val(),
+                        "categoryId2": $("#order-m-update-categoryId21").val(),
+                        "categoryId3": $("#order-m-update-categoryId31").val(),
                         "goodSupplyId": $("#order-m-update-goodSupplyId1").val(),
                         "goodsName": $("#order-m-update-goodsName1").val(),
                         "supplierName": $("#order-m-update-supplierName1").val(),
@@ -543,6 +552,9 @@ var orderModule = {
                     },
                     {
                         "goodsId": $("#order-m-update-goodsId2").val(),
+                        "categoryId1": $("#order-m-update-categoryId12").val(),
+                        "categoryId2": $("#order-m-update-categoryId22").val(),
+                        "categoryId3": $("#order-m-update-categoryId32").val(),
                         "goodSupplyId": $("#order-m-update-goodSupplyId2").val(),
                         "goodsName": $("#order-m-update-goodsName2").val(),
                         "supplierName": $("#order-m-update-supplierName2").val(),
@@ -650,7 +662,34 @@ var distributeGoodsModule = {
             dataType: "json"
         };
         showResult(settings);
+    }
+};
+
+var statisticsModule = {
+    all: function () {
+        var settings = {
+            type: "GET",
+            url: "/mApi/statistics/all",
+            dataType: "json"
+        };
+        showResult(settings);
     },
+    sum: function () {
+        var settings = {
+            type: "GET",
+            url: "/mApi/statistics/category/sum?id=" + $("#statistics-sum-categoryId").val(),
+            dataType: "json"
+        };
+        showResult(settings);
+    },
+    weekly: function () {
+        var settings = {
+            type: "GET",
+            url: "/mApi/statistics/category/weekly?id=" + $("#statistics-weekly-categoryId").val(),
+            dataType: "json"
+        };
+        showResult(settings);
+    }
 };
 var distributeOrderModule = {
     list: function () {

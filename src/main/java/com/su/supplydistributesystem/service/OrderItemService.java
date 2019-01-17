@@ -2,6 +2,7 @@ package com.su.supplydistributesystem.service;
 
 import com.su.supplydistributesystem.domain.OrderItem;
 import com.su.supplydistributesystem.mapper.OrderItemUpdateParams;
+import com.su.supplydistributesystem.service.statistic.OrderItemDailyCount;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
