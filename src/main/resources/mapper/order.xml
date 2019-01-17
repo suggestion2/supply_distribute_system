@@ -6,6 +6,22 @@
         select * from `order` where id= #{id} and `valid` = 1
     </select>
 
+    <select id="countOrder" resultType="com.su.supplydistributesystem.service.statistic.OrderStatisticResult" parameterType="java.util.Map">
+        select count(*) as `count`,sum(amount) as sumAmount,sum(`count`) as sumSalesCount from `order` where `valid` = 1
+        <if test="status!=null">
+            and `status` = #{status}
+        </if>
+        <if test="available!=null">
+            and `status` &gt; 0
+        </if>
+        <if test="beginDate!=null">
+            and date(createTime) &gt;= #{beginDate}
+        </if>
+        <if test="endDate!=null">
+            and date(createTime) &lt;= #{endDate}
+        </if>
+    </select>
+    
     <select id="select" resultType="com.su.supplydistributesystem.domain.Order" parameterType="java.util.Map">
         select * from `order` where `valid` = 1
         <if test="id!=null">
@@ -49,6 +65,8 @@
             <result property="profit3" column="orderItem_profit3"/>
         </collection>
     </resultMap>
+
+
     
     <select id="selectOrderDetailParamsList" resultMap="OrderDetailResult" parameterType="java.util.Map">
         select
@@ -93,6 +111,67 @@
             and o.status = #{status}
         </if>
     </select>
+
+    <resultMap id="OrderDetailViewResult" type="com.su.supplydistributesystem.service.OrderDistributeDetailParams">
+        <id column="order_id"/>
+        <association property="orderDistributeView" javaType="com.su.supplydistributesystem.response.OrderDistributeView">
+            <id property="id" column="order_id"/>
+            <result property="number" column="order_number"/>
+            <result property="goodsNames" column="order_goodsNames"/>
+            <result property="customerName" column="order_customerName"/>
+            <result property="customerAddress" column="order_customerAddress"/>
+            <result property="customerPhone" column="order_customerPhone"/>
+            <result property="dispatchCompany" column="order_dispatchCompany"/>
+            <result property="dispatchNumber" column="order_dispatchNumber"/>
+            <result property="count" column="order_count"/>
+            <result property="amount" column="order_amount"/>
+            <result property="status" column="order_status"/>
+        </association>
+        <collection property="list" javaType="ArrayList" ofType="com.su.supplydistributesystem.response.OrderItemDistributeView">
+            <id property="id" column="orderItem_id"/>
+            <result property="goodsName" column="orderItem_goodsName"/>
+            <result property="price" column="orderItem_price"/>
+            <result property="count" column="orderItem_count"/>
+            <result property="amount" column="orderItem_amount"/>
+        </collection>
+    </resultMap>
+
+    <select id="selectOrderDetailParamsViewList" resultMap="OrderDetailViewResult" parameterType="java.util.Map">
+        select
+        o.`id` as order_id,
+        o.number as order_number,
+        o.goodsNames as order_goodsNames,
+        o.customerName as order_customerName,
+        o.customerAddress as order_customerAddress,
+        o.customerPhone as order_customerPhone,
+        o.dispatchCompany as order_dispatchCompany,
+        o.dispatchNumber as order_dispatchNumber,
+        o.status as order_status,
+        o.count as order_count,
+        o.amount as order_amount,
+        i.id as orderItem_id,
+        i.goodsName as orderItem_goodsName,
+        i.price as orderItem_price,
+        i.count as orderItem_count,
+        i.amount as orderItem_amount
+        from  `order` o LEFT JOIN order_item i on o.id = i.orderId where i.valid = 1 and o.valid =1
+        <if test="content!=null">
+            and (o.goodsNames like concat ('%',#{content},'%') or o.number like concat ('%',#{content},'%'))
+        </if>
+        <if test="status!=null">
+            and o.status = #{status}
+        </if>
+        <if test="distributorId!=null">
+            and o.distributorId = #{distributorId}
+        </if>
+        <if test="date!=null">
+            and date(o.createTime) = #{date}
+        </if>
+        order by o.updateTime desc
+        <if test="startIndex != null and pageSize != null">
+            limit #{startIndex},#{pageSize}
+        </if>
+    </select>
     
     <select id="selectList" resultType="com.su.supplydistributesystem.domain.Order" parameterType="java.util.Map">
         select `id`,`number`,`goodsNames`,`distributorName`,`distributorPhone`,`status` from `order` where `valid` = 1
@@ -105,8 +184,16 @@
         <if test="status!=null">
             and status = #{status}
         </if>
+        order by updateTime desc
         <if test="startIndex != null and pageSize != null">
             limit #{startIndex},#{pageSize}
+        </if>
+    </select>
+
+    <select id="selectDistributorList" resultType="com.su.supplydistributesystem.domain.Order" parameterType="java.util.Map">
+        select `distributorId`,`distributorName`,`distributorPhone` from `order` where `valid` = 1
+        <if test="distributorId!=null">
+            and distributorId = #{distributorId}
         </if>
     </select>
 
@@ -117,9 +204,13 @@
         </if>
         <if test="content!=null">
             and (goodsNames like concat ('%',#{content},'%') or number like concat ('%',#{content},'%'))
+            and (goodsNames like concat ('%',#{content},'%') or number like concat ('%',#{content},'%'))
         </if>
         <if test="status!=null">
             and status = #{status}
+        </if>
+        <if test="distributorId!=null">
+            and distributorId = #{distributorId}
         </if>
     </select>
 
@@ -193,13 +284,18 @@
     </update>
     
     <update id="updateStatus" parameterType="com.su.supplydistributesystem.domain.Order">
-        update `order` set
-        `cancelReason` = #{cancelReason},
-        `status` = #{status},
-        `updateBy` = #{updateBy},
-        `remarks` = #{remarks},
-        `updateTime` = now()
-        where `id` = #{id}
+        update
+        `order` o left join `orderItem` i on o.id = i.orderId
+        set
+        o.`cancelReason` = #{cancelReason},
+        o.`status` = #{status},
+        o.`updateBy` = #{updateBy},
+        o.`remarks` = #{remarks},
+        o.`updateTime` = now(),
+        i.`status` = #{status},
+        i.`updateBy` = #{updateBy},
+        i.`updateTime` = now()
+        where o.`id` = #{id}
     </update>
     
     <delete id="deleteById" parameterType="java.lang.Integer">

@@ -1,5 +1,7 @@
 package com.su.supplydistributesystem.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -7,6 +9,7 @@ public class User {
 
     private Integer id;
     private String name;
+    @JsonIgnore
     private String password;
     private Date createTime;
     private Date updateTime;

@@ -68,6 +68,11 @@ public class DistributorServiceImpl implements DistributorService{
     }
 
     @Override
+    public int updatePassword(Distributor distributor) {
+        return distributorMapper.updatePassword(distributor);
+    }
+
+    @Override
     public int deleteById(Integer id){
         return distributorMapper.deleteById(id);
     }

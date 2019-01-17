@@ -18,7 +18,6 @@ public class GoodsDistributeView {
     private BigDecimal price;
     private BigDecimal profit2;
     private BigDecimal profit3;
-    private Integer salesVolume;
     private String remarks;
     private String colour;
 
@@ -100,14 +99,6 @@ public class GoodsDistributeView {
 
     public void setProfit3(BigDecimal profit3) {
         this.profit3 = profit3;
-    }
-
-    public Integer getSalesVolume() {
-        return salesVolume;
-    }
-
-    public void setSalesVolume(Integer salesVolume) {
-        this.salesVolume = salesVolume;
     }
 
     public String getRemarks() {

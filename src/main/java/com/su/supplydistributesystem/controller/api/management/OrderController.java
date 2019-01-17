@@ -98,12 +98,14 @@ public class OrderController {
         });
 
         User current = sessionContext.getUser();
-        order.setCreateBy(current.getId());
+//        order.setCreateBy(current.getId());
+        order.setCreateBy(1);
 
         orderService.create(order);
         orderItemList.forEach(i->{
             i.setOrderId(order.getId());
-            i.setCreateBy(current.getId());
+//            i.setCreateBy(current.getId());
+            i.setCreateBy(1);
         });
 
         orderItemService.batchCreate(orderItemList);

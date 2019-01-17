@@ -4,9 +4,11 @@ import com.su.supplydistributesystem.domain.Order;
 import com.su.supplydistributesystem.domain.OrderItem;
 import com.su.supplydistributesystem.response.OrderDetailView;
 import com.su.supplydistributesystem.service.OrderDetailParams;
+import com.su.supplydistributesystem.service.OrderDistributeDetailParams;
 import com.su.supplydistributesystem.service.OrderItemService;
 import com.su.supplydistributesystem.service.OrderService;
 import com.su.supplydistributesystem.mapper.OrderMapper;
+import com.su.supplydistributesystem.service.statistic.OrderStatisticResult;
 import com.sug.core.platform.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,8 +53,20 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
+    public List<Order> selectDistributorList(Integer distributorId) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("distributorId",distributorId);
+        return orderMapper.selectDistributorList(map);
+    }
+
+    @Override
     public List<OrderDetailParams> getDetailParamsList(Map<String, Object> map) {
         return orderMapper.selectOrderDetailParamsList(map);
+    }
+
+    @Override
+    public List<OrderDistributeDetailParams> selectOrderDetailParamsViewList(Map<String, Object> map) {
+        return orderMapper.selectOrderDetailParamsViewList(map);
     }
 
     @Override

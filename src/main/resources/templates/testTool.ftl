@@ -63,6 +63,34 @@
                 <input type="button" value="列表" onclick="distributeGoodsModule.list()"/><br>
             </div>
         </div>
+        <div style="float: blow; width: 400px;">
+            <div>
+                <h2>订单(order)</h2>
+                    <strong>[列表]</strong><br/>
+                    content:<input class="textbox" type="text" id="order-d-list-content" style="width: 100px;"
+                                   value=""/>
+                    distributorId分销商Id:<input class="textbox" type="text" id="order-d-list-distributorId" style="width: 100px;"
+                                   value="6"/>
+                    date:<input class="textbox" type="text" id="order-d-list-date" style="width: 100px;"
+                                value="" placeholder="2018-12-12"/></br>
+                    status:<select class="textbox" id="order-d-list-status" style="width: 100px;">
+                    <option value="">all</option>
+                    <option value="0">取消</option>
+                    <option value="1">创建</option>
+                    <option value="2">成功下单</option>
+                    <option value="3">提交供应商</option>
+                    <option value="4">已结算</option>
+                    <option value="5">已发货</option>
+                    <option value="6">已收货</option>
+                    <option value="7">售后</option>
+                </select><br>
+                    startIndex:<input class="textbox" type="text" id="order-d-list-startIndex" style="width: 100px;"
+                                      value="0"/>
+                    pageSize:<input class="textbox" type="text" id="order-d-list-pageSize" style="width: 100px;"
+                                    value="10"/><br>
+                <input type="button" value="列表" onclick="distributeOrderModule.list()"/><br>
+            </div>
+        </div>
     </div>
     <div id="tabs-2" style="width: 2000px;display: block">
         <div style="float: left; width: 400px;">
@@ -90,6 +118,24 @@
             <div>
                 <strong>[登出]</strong><br/>
                 <input type="button" value="登出" onclick="commonModule.logout()"/><br>
+            </div>
+
+            <h2>统计(statistics)</h2>
+            <div>
+                <strong>[历史订单统计]</strong><br/>
+                <input type="button" value="统计" onclick="statisticsModule.all()"/><br>
+            </div>
+            <div>
+                <strong>[按品类统计当日/7日内/当月 订单数量]</strong><br/>
+                categoryId:<input class="textbox" type="text" id="statistics-sum-categoryId" style="width: 100px;"
+                                  value="0"/>
+                <input type="button" value="统计" onclick="statisticsModule.sum()"/><br>
+            </div>
+            <div>
+                <strong>[按品类统计7日内销量]</strong><br/>
+                categoryId:<input class="textbox" type="text" id="statistics-weekly-categoryId" style="width: 100px;"
+                                  value="0"/>
+                <input type="button" value="统计" onclick="statisticsModule.weekly()"/><br>
             </div>
 
             <h2>供应商(supplier)</h2>
@@ -330,7 +376,7 @@
                              value="1"/></br>
                 分销商名称:<input class="textbox" type="text" id="distributor-update-name" style="width: 100px;"
                              value="1"/></br>
-                分销商联系方式（座机加上区号或手机号码）:<input class="textbox" type="text" id="distributor-update-phone" style="width: 100px;"
+                分销商联系方式:<input class="textbox" type="text" id="distributor-update-phone" style="width: 100px;"
                                             value="1"/></br>
                 分销商联系人:<input class="textbox" type="text" id="distributor-update-contact" style="width: 100px;"
                               value="1"/></br>
@@ -436,39 +482,51 @@
                 orderItem1:<br>
                 goodsId:<input class="textbox" type="text" id="order-m-create-goodsId1" style="width: 100px;"
                                   value=""/>
-                goodSupplyId:<input class="textbox" type="text" id="order-m-create-goodSupplyId1" style="width: 100px;"
-                                    value=""/></br>
-                goodsName:<input class="textbox" type="text" id="order-m-create-goodsName1" style="width: 100px;"
-                                   value=""/>
-                supplierName:<input class="textbox" type="text" id="order-m-create-supplierName1" style="width: 100px;"
+                categoryId1:<input class="textbox" type="text" id="order-m-create-categoryId11" style="width: 100px;"
                                    value=""/></br>
-                taobaoPrice:<input class="textbox" type="text" id="order-m-create-taobaoPrice1" style="width: 100px;"
-                                 value=""/>
-                jdPrice:<input class="textbox" type="text" id="order-m-create-jdPrice1" style="width: 100px;"
-                                 value=""/></br>
-                price:<input class="textbox" type="text" id="order-m-create-price1" style="width: 100px;"
+                categoryId2:<input class="textbox" type="text" id="order-m-create-categoryId21" style="width: 100px;"
                                    value=""/>
-                supplyPrice:<input class="textbox" type="text" id="order-m-create-supplyPrice1" style="width: 100px;"
+                categoryId3:<input class="textbox" type="text" id="order-m-create-categoryId31" style="width: 100px;"
+                                   value=""/></br>
+                goodSupplyId:<input class="textbox" type="text" id="order-m-create-goodSupplyId1" style="width: 100px;"
+                                    value=""/>
+                goodsName:<input class="textbox" type="text" id="order-m-create-goodsName1" style="width: 100px;"
+                                   value=""/></br>
+                supplierName:<input class="textbox" type="text" id="order-m-create-supplierName1" style="width: 100px;"
+                                   value=""/>
+                taobaoPrice:<input class="textbox" type="text" id="order-m-create-taobaoPrice1" style="width: 100px;"
                                  value=""/></br>
+                jdPrice:<input class="textbox" type="text" id="order-m-create-jdPrice1" style="width: 100px;"
+                                 value=""/>
+                price:<input class="textbox" type="text" id="order-m-create-price1" style="width: 100px;"
+                                   value=""/></br>
+                supplyPrice:<input class="textbox" type="text" id="order-m-create-supplyPrice1" style="width: 100px;"
+                                 value=""/>
                 count:<input class="textbox" type="text" id="order-m-create-count1" style="width: 100px;"
                                    value=""/></br>
                 orderItem2:<br>
                 goodsId:<input class="textbox" type="text" id="order-m-create-goodsId2" style="width: 100px;"
                                value=""/>
-                goodSupplyId:<input class="textbox" type="text" id="order-m-create-goodSupplyId2" style="width: 100px;"
-                                    value=""/></br>
-                goodsName:<input class="textbox" type="text" id="order-m-create-goodsName2" style="width: 100px;"
-                                 value=""/>
-                supplierName:<input class="textbox" type="text" id="order-m-create-supplierName2" style="width: 100px;"
-                                    value=""/></br>
-                taobaoPrice:<input class="textbox" type="text" id="order-m-create-taobaoPrice2" style="width: 100px;"
-                                   value=""/>
-                jdPrice:<input class="textbox" type="text" id="order-m-create-jdPrice2" style="width: 100px;"
-                               value=""/></br>
-                price:<input class="textbox" type="text" id="order-m-create-price2" style="width: 100px;"
-                             value=""/>
-                supplyPrice:<input class="textbox" type="text" id="order-m-create-supplyPrice2" style="width: 100px;"
+                categoryId1:<input class="textbox" type="text" id="order-m-create-categoryId12" style="width: 100px;"
                                    value=""/></br>
+                categoryId2:<input class="textbox" type="text" id="order-m-create-categoryId22" style="width: 100px;"
+                                   value=""/>
+                categoryId3:<input class="textbox" type="text" id="order-m-create-categoryId32" style="width: 100px;"
+                                   value=""/></br>
+                goodSupplyId:<input class="textbox" type="text" id="order-m-create-goodSupplyId2" style="width: 100px;"
+                                    value=""/>
+                goodsName:<input class="textbox" type="text" id="order-m-create-goodsName2" style="width: 100px;"
+                                 value=""/></br>
+                supplierName:<input class="textbox" type="text" id="order-m-create-supplierName2" style="width: 100px;"
+                                    value=""/>
+                taobaoPrice:<input class="textbox" type="text" id="order-m-create-taobaoPrice2" style="width: 100px;"
+                                   value=""/></br>
+                jdPrice:<input class="textbox" type="text" id="order-m-create-jdPrice2" style="width: 100px;"
+                               value=""/>
+                price:<input class="textbox" type="text" id="order-m-create-price2" style="width: 100px;"
+                             value=""/></br>
+                supplyPrice:<input class="textbox" type="text" id="order-m-create-supplyPrice2" style="width: 100px;"
+                                   value=""/>
                 count:<input class="textbox" type="text" id="order-m-create-count2" style="width: 100px;"
                              value=""/></br>
                 <input type="button" value="创建" onclick="orderModule.create()"/><br>
@@ -498,9 +556,15 @@
 
                 orderItem1:
                 id:<input class="textbox" type="text" id="order-m-update-id1" style="width: 100px;"
-                               value=""/></br>
-                goodsId:<input class="textbox" type="text" id="order-m-update-goodsId1" style="width: 100px;"
                                value=""/>
+                goodsId:<input class="textbox" type="text" id="order-m-update-goodsId1" style="width: 100px;"
+                               value=""/></br>
+                categoryId1:<input class="textbox" type="text" id="order-m-update-categoryId11" style="width: 100px;"
+                                   value=""/>
+                categoryId2:<input class="textbox" type="text" id="order-m-update-categoryId21" style="width: 100px;"
+                                   value=""/></br>
+                categoryId3:<input class="textbox" type="text" id="order-m-update-categoryId31" style="width: 100px;"
+                                   value=""/>
                 goodSupplyId:<input class="textbox" type="text" id="order-m-update-goodSupplyId1" style="width: 100px;"
                                     value=""/></br>
                 goodsName:<input class="textbox" type="text" id="order-m-update-goodsName1" style="width: 100px;"
@@ -520,20 +584,26 @@
                 orderItem2:
                 goodsId:<input class="textbox" type="text" id="order-m-update-goodsId2" style="width: 100px;"
                                value=""/>
-                goodSupplyId:<input class="textbox" type="text" id="order-m-update-goodSupplyId2" style="width: 100px;"
-                                    value=""/></br>
-                goodsName:<input class="textbox" type="text" id="order-m-update-goodsName2" style="width: 100px;"
-                                 value=""/>
-                supplierName:<input class="textbox" type="text" id="order-m-update-supplierName2" style="width: 100px;"
-                                    value=""/></br>
-                taobaoPrice:<input class="textbox" type="text" id="order-m-update-taobaoPrice2" style="width: 100px;"
-                                   value=""/>
-                jdPrice:<input class="textbox" type="text" id="order-m-update-jdPrice2" style="width: 100px;"
-                               value=""/></br>
-                price:<input class="textbox" type="text" id="order-m-update-price2" style="width: 100px;"
-                             value=""/>
-                supplyPrice:<input class="textbox" type="text" id="order-m-update-supplyPrice2" style="width: 100px;"
+                categoryId1:<input class="textbox" type="text" id="order-m-update-categoryId12" style="width: 100px;"
                                    value=""/></br>
+                categoryId2:<input class="textbox" type="text" id="order-m-update-categoryId22" style="width: 100px;"
+                                   value=""/>
+                categoryId3:<input class="textbox" type="text" id="order-m-update-categoryId32" style="width: 100px;"
+                                   value=""/></br>
+                goodSupplyId:<input class="textbox" type="text" id="order-m-update-goodSupplyId2" style="width: 100px;"
+                                    value=""/>
+                goodsName:<input class="textbox" type="text" id="order-m-update-goodsName2" style="width: 100px;"
+                                 value=""/></br>
+                supplierName:<input class="textbox" type="text" id="order-m-update-supplierName2" style="width: 100px;"
+                                    value=""/>
+                taobaoPrice:<input class="textbox" type="text" id="order-m-update-taobaoPrice2" style="width: 100px;"
+                                   value=""/></br>
+                jdPrice:<input class="textbox" type="text" id="order-m-update-jdPrice2" style="width: 100px;"
+                               value=""/>
+                price:<input class="textbox" type="text" id="order-m-update-price2" style="width: 100px;"
+                             value=""/></br>
+                supplyPrice:<input class="textbox" type="text" id="order-m-update-supplyPrice2" style="width: 100px;"
+                                   value=""/>
                 count:<input class="textbox" type="text" id="order-m-update-count2" style="width: 100px;"
                              value=""/></br>
                 <input type="button" value="修改" onclick="orderModule.update()"/><br>
