@@ -210,66 +210,28 @@
             $.smallTips("出现异常，请刷新页面或稍后再试！",true,1000);
         });
     };
-    function stocksinput(id,_this){
-        $(_this).parent().append('<span class="input-group-btn"><button type="button" class="btn btn-info btn-flat" onclick="savestocks('+id+',this)"><i class="fa fa-save" style="font-size: 1.6rem;"></i></button></span>');
-    };
-    function stocksinputout(_this){
-        setTimeout(function(){
-            $(_this).parent().find("span").remove();
-        },500);
-    };
-    function savestocks(id,_this){
-        var stocks = $(_this).parents("tr").find("input[data-stocks]").val();
-        var datastocks = $(_this).parents("tr").find("input").attr("data-stocks");
-        if(!(/(^[0-9]\d*$)/.test(stocks))){
-            $.smallTips("只能输入大于0的整数！",true,2000);
-            $(_this).parents("tr").find("input[data-stocks]").val(datastocks);
-            return false;
-        }
-        $.ydcAjax("PUT","/api/goods/updateStocks",JSON.stringify({"id":id,"stocks":stocks}),"json","application/json",function(){
-            $(_this).parent().find("span").remove();
-            $(_this).parents("tr").find("input").attr("data-stocks",stocks);
-            $.smallTips("商品库存修改成功！",true,2000);
-        },function(error){
-            if(error.status=="400"){
-                $.ydcModal("fa fa-warning","提示信息",$.parseJSON(error.responseText).message,"我知道了","");
-                $(_this).parents("tr").find("input[data-stocks]").val(datastocks);
-                return false;
-            }else{
-                $.ydcModal("fa fa-warning","提示信息","出现异常，请刷新页面或稍后再试！","我知道了","");
-                $(_this).parents("tr").find("input[data-stocks]").val(datastocks);
-                return false;
-            }
-        });
-    };
+
+    /*搜索*/
     function searchBtn(){
         if(pageName=="all"){
             var level=$('#selectCat').find('option:selected').attr('data-level');
-
             if(level!=undefined){
                 switch (level) {
                     case '1':
                         var categoryId1=$('#selectCat').val();
-                        var pagingData="";
-                        firstAjax({"content":$("#searchName").val(),"status":$('#status').val(),categoryId1:categoryId1});
-                        pagingData={"content":$("#searchName").val(),"status":$('#status').val(),categoryId1:categoryId1};
                         break;
                     case '2':
                         var categoryId2=$('#selectCat').val();
-                        var pagingData="";
-                        firstAjax({"content":$("#searchName").val(),"status":$('#status').val(),categoryId2:categoryId2});
-                        pagingData={"content":$("#searchName").val(),"status":$('#status').val(),categoryId2:categoryId2};
                         break;
                     case '3':
                         var categoryId3=$('#selectCat').val();
-                        var pagingData="";
-                        firstAjax({"content":$("#searchName").val(),"status":$('#status').val(),categoryId3:categoryId3});
-                        pagingData={"content":$("#searchName").val(),"status":$('#status').val(),categoryId3:categoryId3};
                         break;
                 }
             }
 
-
+            var pagingData="";
+            firstAjax({"content":$("#searchName").val(),"status":$('#status').val(),categoryId1:categoryId1,categoryId2:categoryId2,categoryId3:categoryId3});
+            pagingData={"content":$("#searchName").val(),"status":$('#status').val(),categoryId1:categoryId1,categoryId2:categoryId2,categoryId3:categoryId3};
         }
     };
     /*刪除*/

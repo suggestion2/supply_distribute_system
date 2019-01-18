@@ -41,6 +41,7 @@
                 <li><a href="#goods" data-toggle="tab"><i class="fa fa-diamond"></i> <span>产品管理</span></a></li>
                 <li><a href="#category" data-toggle="tab"><i class="fa fa-diamond"></i> <span>分类管理</span></a></li>
                 <li><a href="#distributor" data-toggle="tab"><i class="fa fa-diamond"></i> <span>分销商管理</span></a></li>
+                <li><a href="#supplier" data-toggle="tab"><i class="fa fa-diamond"></i> <span>供应商管理</span></a></li>
                 <li><a href="#order" data-toggle="tab"><i class="fa fa-diamond"></i> <span>订单管理</span></a></li>
                 <li><a href="#account" data-toggle="tab"><i class="fa fa-diamond"></i> <span>账号管理</span></a></li>
             </ul>
@@ -54,6 +55,7 @@
 
             </ul>
         </section>
+
         <section data-nav="goods" id="goods" class="tab-pane">
             <div class="sidebarname">产品管理</div>
             <ul class="sidebar-menu" data-widget="tree">
@@ -71,13 +73,13 @@
         <section data-nav="distributor" id="distributor" class="tab-pane">
             <div class="sidebarname">分销商管理</div>
             <ul class="sidebar-menu" data-widget="tree">
-                <li data-navname="分销商列表"><a href="/">分销商列表</a></li>
+                <li data-navname="分销商列表"><a href="/management/distributor/list">分销商列表</a></li>
             </ul>
         </section>
-        <section data-nav="provider" id="provider" class="tab-pane">
+        <section data-nav="supplier" id="supplier" class="tab-pane">
             <div class="sidebarname">供应商管理</div>
             <ul class="sidebar-menu" data-widget="tree">
-                <li data-navname="供应商列表"><a href="/">供应商列表</a></li>
+                <li data-navname="供应商列表"><a href="">供应商列表</a></li>
             </ul>
         </section>
         <section data-nav="order" id="order" class="tab-pane">
