@@ -250,7 +250,6 @@
     /*删除供应商*/
     function removeSpec(pid){
         $(".skuitem[data-id="+pid+"]").remove();
-        cookid--;
     }
 
 
