@@ -197,9 +197,9 @@
         var str='';
         $.each(data.list,function (idx,val) {
             if(val.status==0){
-                var opt='<td><a href="javascript:;" onclick="resetPassword('+val.id+')" class="btn bg-olive btn-flat" title="密码重置">密码重置</a><a href="javascript:;" onclick="editBtn('+val.id+')" style="margin-left: 4px" class="btn bg-olive btn-flat" title="编辑"><i class="fa fa-pencil"></i></a><a href="javascript:;" onclick="valid('+val.id+',this)"  style="margin-left: 4px" class="btn bg-olive btn-flat" title="生效">生效</a><a href="javascript:;" onclick="deleteBtn('+val.id+')" style="margin-left: 4px" class="btn btn-danger btn-flat" title="删除">删除</a></td>'
+                var opt='<td><a href="javascript:;" onclick="resetPassword('+val.id+')" class="btn bg-olive btn-flat" title="密码重置">密码重置</a><a href="javascript:;" onclick="editBtn('+JSON.stringify(val).replace(/\"/g,"'")+')" style="margin-left: 4px" class="btn bg-olive btn-flat" title="编辑"><i class="fa fa-pencil"></i></a><a href="javascript:;" onclick="valid('+val.id+',this)"  style="margin-left: 4px" class="btn bg-olive btn-flat" title="生效">生效</a><a href="javascript:;" onclick="deleteBtn('+val.id+')" style="margin-left: 4px" class="btn btn-danger btn-flat" title="删除">删除</a></td>'
             }else if(val.status==1){
-                var opt='<td><a href="javascript:;" onclick="resetPassword('+val.id+')" class="btn bg-olive btn-flat" title="密码重置">密码重置</a><a href="javascript:;" onclick="editBtn('+val.id+')" style="margin-left: 4px" class="btn bg-olive btn-flat" title="编辑"><i class="fa fa-pencil"></i></a><a href="javascript:;" onclick="invalid('+val.id+',this)"  style="margin-left: 4px" class="btn btn-danger btn-flat" title="冻结">冻结</a><a href="javascript:;" onclick="deleteBtn('+val.id+')" style="margin-left: 4px" class="btn btn-danger btn-flat" title="删除">删除</a></td>'
+                var opt='<td><a href="javascript:;" onclick="resetPassword('+val.id+')" class="btn bg-olive btn-flat" title="密码重置">密码重置</a><a href="javascript:;" onclick="editBtn('+JSON.stringify(val).replace(/\"/g,"'")+')" style="margin-left: 4px" class="btn bg-olive btn-flat" title="编辑"><i class="fa fa-pencil"></i></a><a href="javascript:;" onclick="invalid('+val.id+',this)"  style="margin-left: 4px" class="btn btn-danger btn-flat" title="冻结">冻结</a><a href="javascript:;" onclick="deleteBtn('+val.id+')" style="margin-left: 4px" class="btn btn-danger btn-flat" title="删除">删除</a></td>'
             }
             str+='<tr>' +
                     '<td>'+val.name+'</td>' +
@@ -296,11 +296,49 @@
     };
 
     function editBtn(obj) {
-        console.log(obj);
+        $('#editName').val(obj.name);
+        $('#editContact').val(obj.contact);
+        $('#editPhone').val(obj.phone);
+        $('#editAccount').val(obj.account);
+        $('#editSaveBtn').attr('data-id',obj.id);
         $('#editPop').modal('show');
-
     }
-
+    $("#editSaveBtn").bind("click",function(){
+        if($("#editName").val()==""){
+            $.ydcModal("fa fa-warning","提示信息","分类名称不能为空！","我知道了","");
+            return false;
+        }else if($("#editContact").val()==""){
+            $.ydcModal("fa fa-warning","提示信息","联系人不能为空！","我知道了","");
+            return false;
+        }else if($("#editPhone").val()==""){
+            $.ydcModal("fa fa-warning","提示信息","电话不能为空！","我知道了","");
+            return false;
+        }else if($("#editAccount").val()==""){
+            $.ydcModal("fa fa-warning","提示信息","账号不能为空！","我知道了","");
+            return false;
+        };
+        $.ydcAjax("PUT","/mApi/distributor/update",JSON.stringify({
+            "id":$(this).attr('data-id'),
+            "name":$("#editName").val(),
+            "contact":$("#editContact").val(),
+            "phone":$("#editPhone").val(),
+            "account":$("#editAccount").val(),
+        }),"json","application/json",function(){
+            $.smallTips("修改成功！",true,1000);
+            setTimeout(function(){
+                window.location.reload();
+            },1000);
+        },function(error){
+            if(error.status==400){
+                var errorMsg = JSON.parse(error.responseText);
+                $.smallTips(errorMsg.message,true,2000);
+            }else{
+                $.smallTips("发生一些错误，稍后再试！",true,2000);
+            }
+            return false;
+        });
+    });
+    
     /*删除*/
     function deleteBtn(id){
         $.ydcAjax("DELETE","/mApi/distributor/delete/"+id,"","json","application/json",function(data){
