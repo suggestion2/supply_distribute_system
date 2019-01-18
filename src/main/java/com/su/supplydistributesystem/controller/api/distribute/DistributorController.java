@@ -5,6 +5,7 @@ import com.su.supplydistributesystem.context.SessionContext;
 import com.su.supplydistributesystem.domain.Distributor;
 import com.su.supplydistributesystem.interceptor.DistributorLoginRequired;
 import com.su.supplydistributesystem.request.DistributorLoginForm;
+import com.su.supplydistributesystem.request.DistributorUpdatePasswordForm;
 import com.su.supplydistributesystem.request.LoginForm;
 import com.su.supplydistributesystem.request.ResetPasswordForm;
 import com.su.supplydistributesystem.service.DistributorService;
@@ -51,7 +52,7 @@ public class DistributorController {
 
     @RequestMapping(value = "/password", method = RequestMethod.PUT)
     @DistributorLoginRequired
-    public ResponseView resetPassword(@Valid @RequestBody ResetPasswordForm form) {
+    public ResponseView resetPassword(@Valid @RequestBody DistributorUpdatePasswordForm form) {
         if(!Objects.equals(form.getNewPassword(),form.getRepeatPassword())){
             throw new InvalidRequestException("invalidPassword","Inconsistent password entered twice");
         }
