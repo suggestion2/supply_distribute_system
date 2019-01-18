@@ -8,8 +8,8 @@ import javax.validation.constraints.Size;
 
 public class DistributorLoginForm {
     @NotEmpty
-    @Size(min = 1,max = 12,message = "size between 1 and 12")
     @Pattern(regexp=RegexUtils.REGEX_ENGNNUM ,message =RegexUtils.REGEX_ENGNNUM_MESSAGE  )
+    @Size(min=1,max = 32,message = "size between 1 and 32")
     private String account;
     @NotEmpty
     @Pattern(regexp = RegexUtils.REGEX_PASSWORD,message = RegexUtils.REGEX_PASSWORD_MESSAGE)

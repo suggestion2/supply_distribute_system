@@ -101,6 +101,7 @@ public class DistributorController {
         if(Objects.isNull(distributor)){
             throw new ResourceNotFoundException("distributor not exists");
         }
+        distributor.setPassword(MD5.encrypt(INIT_PASSWORD + MD5_SALT));
         distributorService.updatePassword(distributor);
         return new ResponseView();
     }
