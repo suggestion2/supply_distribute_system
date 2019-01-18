@@ -13,8 +13,8 @@
                             <div class="col-xs-5 pull-right">
                                 <div class="input-group input-group-sm">
                                     <input type="text" placeholder="输入商品名称查询" style="width: 40%" id="searchName" class="form-control">
-                                    <select class="form-control" style="width: 20%">
-                                        <option value="-1" style="color: #999">选择状态</option>
+                                    <select class="form-control" id="status" style="width: 20%">
+                                        <option value="" style="color: #999;">选择状态</option>
                                         <option value="0">下架</option>
                                         <option value="1">上架</option>
                                     </select>
@@ -67,7 +67,7 @@
         $("#selectCat").append(selectCat(data));
     },"");
     function selectCat(data){
-        var str='<option value="">选择类目</option>';
+        var str='<option value="" style="color: #999;">选择类目</option>';
         $.each(data.list,function(idx,obj){
             str+='<option data-level="'+obj.level+'" value="'+obj.id+'">'+obj.name+'</option>';
             if(obj.list.length>0){
@@ -244,9 +244,31 @@
     };
     function searchBtn(){
         if(pageName=="all"){
-            var pagingData="";
-            firstAjax({"content":$("#searchName").val(),"status":""});
-            pagingData={"content":$("#searchName").val(),"status":""};
+            var level=$('#selectCat').find('option:selected').attr('data-level');
+
+            if(level!=undefined){
+                switch (level) {
+                    case '1':
+                        var categoryId1=$('#selectCat').val();
+                        var pagingData="";
+                        firstAjax({"content":$("#searchName").val(),"status":$('#status').val(),categoryId1:categoryId1});
+                        pagingData={"content":$("#searchName").val(),"status":$('#status').val(),categoryId1:categoryId1};
+                        break;
+                    case '2':
+                        var categoryId2=$('#selectCat').val();
+                        var pagingData="";
+                        firstAjax({"content":$("#searchName").val(),"status":$('#status').val(),categoryId2:categoryId2});
+                        pagingData={"content":$("#searchName").val(),"status":$('#status').val(),categoryId2:categoryId2};
+                        break;
+                    case '3':
+                        var categoryId3=$('#selectCat').val();
+                        var pagingData="";
+                        firstAjax({"content":$("#searchName").val(),"status":$('#status').val(),categoryId3:categoryId3});
+                        pagingData={"content":$("#searchName").val(),"status":$('#status').val(),categoryId3:categoryId3};
+                        break;
+                }
+            }
+
 
         }
     };
