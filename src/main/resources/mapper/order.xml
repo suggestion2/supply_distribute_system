@@ -204,7 +204,6 @@
         </if>
         <if test="content!=null">
             and (goodsNames like concat ('%',#{content},'%') or number like concat ('%',#{content},'%'))
-            and (goodsNames like concat ('%',#{content},'%') or number like concat ('%',#{content},'%'))
         </if>
         <if test="status!=null">
             and status = #{status}
@@ -285,7 +284,7 @@
     
     <update id="updateStatus" parameterType="com.su.supplydistributesystem.domain.Order">
         update
-        `order` o left join `orderItem` i on o.id = i.orderId
+        `order` o left join `order_item` i on o.id = i.orderId
         set
         o.`cancelReason` = #{cancelReason},
         o.`status` = #{status},
