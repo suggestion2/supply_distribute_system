@@ -15,16 +15,6 @@ public class OrderDistributeListForm extends PaginationForm {
 
     private Integer status;
 
-    private Integer distributorId;
-
-    public Integer getDistributorId() {
-        return distributorId;
-    }
-
-    public void setDistributorId(Integer distributorId) {
-        this.distributorId = distributorId;
-    }
-
     public Date getDate() {
         return date;
     }

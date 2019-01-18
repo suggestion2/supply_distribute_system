@@ -1,5 +1,6 @@
 package com.su.supplydistributesystem.controller.api.distribute;
 
+import com.su.supplydistributesystem.context.SessionContext;
 import com.su.supplydistributesystem.interceptor.DistributorLoginRequired;
 import com.su.supplydistributesystem.request.OrderDistributeListForm;
 import com.su.supplydistributesystem.request.OrderListForm;
@@ -15,7 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.su.supplydistributesystem.constants.CommonConstants.LIST;
 
@@ -29,9 +32,14 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
+    @Autowired
+    private SessionContext sessionContext;
+
     @RequestMapping(value = LIST,method = RequestMethod.POST)
     public OrderDetailParamsView list(@Valid @RequestBody OrderDistributeListForm form){
-        return new OrderDetailParamsView(orderService.selectOrderDetailParamsViewList(form.getQueryMap()),orderService.selectCount(form.getQueryMap()));
+        Map<String,Object> query = form.getQueryMap();
+        query.put("distributorId",sessionContext.getDistributor().getId());
+        return new OrderDetailParamsView(orderService.selectOrderDetailParamsViewList(query),orderService.selectCount(query));
     }
 
 }

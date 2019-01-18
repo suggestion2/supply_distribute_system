@@ -69,8 +69,6 @@
                     <strong>[列表]</strong><br/>
                     content:<input class="textbox" type="text" id="order-d-list-content" style="width: 100px;"
                                    value=""/>
-                    distributorId分销商Id:<input class="textbox" type="text" id="order-d-list-distributorId" style="width: 100px;"
-                                   value="6"/>
                     date:<input class="textbox" type="text" id="order-d-list-date" style="width: 100px;"
                                 value="" placeholder="2018-12-12"/></br>
                     status:<select class="textbox" id="order-d-list-status" style="width: 100px;">

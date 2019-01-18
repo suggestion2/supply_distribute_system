@@ -699,7 +699,6 @@ var distributeOrderModule = {
             dataType: "json",
             data: JSON.stringify({
                 "content": $("#order-d-list-content").val(),
-                "distributorId": $("#order-d-list-distributorId").val(),
                 "date": $("#order-d-list-date").val(),
                 "status": $("#order-d-list-status").val(),
                 "pageIndex": $("#order-d-list-startIndex").val(),
