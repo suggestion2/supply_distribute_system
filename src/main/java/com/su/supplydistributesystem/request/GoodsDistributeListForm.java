@@ -1,22 +1,14 @@
 package com.su.supplydistributesystem.request;
 
+
 import com.sug.core.platform.web.pagination.PaginationForm;
 
-public class GoodsListForm extends PaginationForm{
+public class GoodsDistributeListForm extends PaginationForm {
     private String content;
 
     private Integer categoryId1;
     private Integer categoryId2;
     private Integer categoryId3;
-    private Integer status;
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
 
     public String getContent() {
         return content;
@@ -49,5 +41,4 @@ public class GoodsListForm extends PaginationForm{
     public void setCategoryId3(Integer categoryId3) {
         this.categoryId3 = categoryId3;
     }
-
 }

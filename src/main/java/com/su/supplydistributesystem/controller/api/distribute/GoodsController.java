@@ -30,7 +30,7 @@ public class GoodsController {
 
 
     @RequestMapping(value = LIST,method = RequestMethod.POST)
-    public GoodsDistributeListView list(@Valid @RequestBody GoodsListForm form){
+    public GoodsDistributeListView list(@Valid @RequestBody GoodsDistributeListForm form){
         Map<String,Object> map = form.getQueryMap();
         map.put("status",1);
         return new GoodsDistributeListView(goodsService.selectViewList(map),goodsService.selectCount(map));
