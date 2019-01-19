@@ -26,14 +26,14 @@ public class OrderController {
 
     @RequestMapping(value = LIST, method = RequestMethod.GET)
     public String list() {
-        return "management/orderList";
+        return "management/order/orderList";
     }
 
     @RequestMapping(value = CREATE, method = RequestMethod.GET)
     public String create(ModelMap modelMap) {
         modelMap.put("goods",goodsService.getAllEnabledList());
         modelMap.put("distributor",distributorService.getAllEnabledList());
-        return "management/orderCreate";
+        return "management/order/orderCreate";
     }
 
     @RequestMapping(value = DETAIL_ID, method = RequestMethod.GET)
@@ -41,6 +41,6 @@ public class OrderController {
         modelMap.put("order",orderService.getDetail(id));
         modelMap.put("goods",goodsService.getAllEnabledList());
         modelMap.put("distributor",distributorService.getAllEnabledList());
-        return "management/orderDetail";
+        return "management/order/orderDetail";
     }
 }

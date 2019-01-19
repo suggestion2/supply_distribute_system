@@ -14,6 +14,6 @@ public class SupplierController {
 
     @RequestMapping(value = LIST, method = RequestMethod.GET)
     public String list(){
-        return "management/supplierList";
+        return "management/supplier/supplierList";
     }
 }

@@ -45,11 +45,11 @@ public class CommonController {
     @Autowired
     private GoodsCategoryService goodsCategoryService;
 
-    @RequestMapping(value = "/user", method = RequestMethod.GET)
+    @RequestMapping(value = "/user/resetPwd", method = RequestMethod.GET)
     @UserLoginRequired
     public String user(ModelMap modelMap) {
         modelMap.put("user",sessionContext.getUser());
-        return "management/login";
+        return "management/customer/resetPwd";
     }
 
     @RequestMapping(value = LOGIN, method = RequestMethod.GET)

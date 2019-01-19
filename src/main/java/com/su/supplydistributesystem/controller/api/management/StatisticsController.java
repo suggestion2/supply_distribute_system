@@ -22,10 +22,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 import static com.su.supplydistributesystem.constants.CommonConstants.*;
 
@@ -48,6 +45,9 @@ public class StatisticsController {
     public OrderItemCategoryStatisticsView sum(@RequestParam Integer id) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         List<OrderItemDailyCount> list = statisticsService.countOrderCount(null,id,null,null,simpleDateFormat.format(new Date()));
+        if(Objects.isNull(list) || list.size() == 0){
+            return new OrderItemCategoryStatisticsView(0,0,0,null);
+        }
         int dailyCount = list.get(0).getCount();
         int weeklyCount = 0;
         for(int i =0; i < 7;i ++){
@@ -61,6 +61,9 @@ public class StatisticsController {
     public OrderItemCategoryStatisticsView weekly(@RequestParam Integer id) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         List<OrderItemDailyCount> list = statisticsService.countSalesCount(null,id,null,null,simpleDateFormat.format(new Date()));
+        if(Objects.isNull(list) || list.size() == 0){
+            return new OrderItemCategoryStatisticsView(null,0,null,new ArrayList<>());
+        }
         int weeklyCount = list.stream().mapToInt(OrderItemDailyCount::getCount).sum();
         return new OrderItemCategoryStatisticsView(null,weeklyCount,null,list);
     }

@@ -19,10 +19,10 @@
         </div>
         <#--数量-->
         <div class="row">
-            <div class="col-lg-3 col-xs-6">
+            <div class="col-lg-4 col-xs-6">
                 <div class="small-box bg-aqua">
                     <div class="inner">
-                        <h3><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" id="pendingGoods">0</font></font></h3>
+                        <h3><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" id="pendingGoods">${allOrderCount.count}</font></font></h3>
                         <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">总订单数</font></font></p>
                     </div>
                     <div class="icon">
@@ -30,103 +30,55 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-xs-6">
+            <div class="col-lg-4 col-xs-6">
                 <div class="small-box bg-green">
                     <div class="inner">
-                        <h3><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" id="salesgoods">0</font></font></h3>
-                        <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">总利润</font></font></p>
+                        <h3><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" id="salesgoods">${allOrderCount.sumAmount}</font></font></h3>
+                        <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">总销售额</font></font></p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-stats-bars"></i>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-xs-6">
+            <div class="col-lg-4 col-xs-6">
                 <div class="small-box bg-yellow">
                     <div class="inner">
-                        <h3><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" id="userCount">0</font></font></h3>
-                        <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">今日订单数</font></font></p>
+                        <h3><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" id="userCount">${allOrderCount.sumSalesCount}</font></font></h3>
+                        <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">订单商品数</font></font></p>
                     </div>
                     <div class="icon">
                         <i class="fa fa-first-order"></i>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-xs-6">
-                <div class="small-box bg-red">
-                    <div class="inner">
-                        <h3><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">0</font></font></h3>
-                        <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">今日总利润</font></font></p>
-                    </div>
-                    <div class="icon">
-                        <i class="ion ion-pie-graph"></i>
-                    </div>
-                </div>
-            </div>
         </div>
-
-        <#--销售排行榜-->
+        <#--销售情况分析-->
         <div class="row">
             <div class="col-xs-12">
                 <div class="box box-primary">
-                    <div class="box-header">
+                    <div class="box-header clearfix">
                         <i class="ion ion-clipboard"></i>
-                        <h3 class="box-title">销售排行榜</h3>
+                        <h3 class="box-title">销售情况分析</h3>
+                        <select class="pull-right form-control" id="categoryOne" style="width: 120px;height: 26px;font-size: 12px;padding: 0 6px">
+                            <#list category as item>
+                                <option value="${item.id}">${item.name}</option>
+                            </#list>
+                        </select>
                     </div>
-                    <div class="box-body">
-                        <table class="table table-hover text-center">
-                            <thead>
-                                <tr>
-                                    <th>排名</th>
-                                    <th>产品名称</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>xiaomihehejiade xiaodeng</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>xiaomihehejiade xiaodeng</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>xiaomihehejiade xiaodeng</td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>xiaomihehejiade xiaodeng</td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td>xiaomihehejiade xiaodeng</td>
-                                </tr>
-                                <tr>
-                                    <td>6</td>
-                                    <td>xiaomihehejiade xiaodeng</td>
-                                </tr>
-                                <tr>
-                                    <td>7</td>
-                                    <td>xiaomihehejiade xiaodeng</td>
-                                </tr>
-                                <tr>
-                                    <td>8</td>
-                                    <td>xiaomihehejiade xiaodeng</td>
-                                </tr>
-                                <tr>
-                                    <td>9</td>
-                                    <td>xiaomihehejiade xiaodeng</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="box-footer clearfix text-center no-border">
-
+                    <div class="record" style="min-height: 100px">
+                        <div class="item">
+                            <ul class="clearfix">
+                                <li class="col-xs-3"><label>尽日订单数：</label><span id="day1"></span>单</li>
+                                <li class="col-xs-3"><label>一周订单数：</label><span id="day7"></span>单</li>
+                                <li class="col-xs-3"><label>一月订单数：</label><span id="day30"></span>单</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
         <#--图表-->
         <div class="row">
             <div class="col-xs-12">
@@ -134,6 +86,12 @@
                     <div class="box-header">
                         <i class="ion ion-clipboard"></i>
                         <h3 class="box-title">订单数量统计</h3>
+
+                        <select class="pull-right form-control" id="categoryTwo" style="width: 120px;height: 26px;font-size: 12px;padding: 0 6px">
+                        <#list category as item>
+                            <option value="${item.id}">${item.name}</option>
+                        </#list>
+                        </select>
                     </div>
                     <div id="main" style="width: 100%;height:400px;"></div>
                 </div>
@@ -142,26 +100,113 @@
     </section>
 </div>
 <#include 'common/footer.ftl'>
-<script src="/resources/management/plugins/echarts/echarts.simple.min.js" type="text/javascript"></script>
+<script src="/resources/management/plugins/echarts/dist/echarts.js" type="text/javascript"></script>
 <script type="text/javascript">
-    var myChart = echarts.init(document.getElementById('main'));
-    option = {
-        xAxis: {
-            type: 'category',
-            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-        },
-        yAxis: {
-            type: 'value'
-        },
-        series: [{
-            data: [820, 932, 901, 934, 1290, 1330, 1320],
-            type: 'line'
-        }]
-    };
+    navcontroller('index','数据统计');
 
-    // 使用刚指定的配置项和数据显示图表。
-    myChart.setOption(option);
-    window.onresize =  function () {
-        this.myChart.resize();
-    };
+    /*获得销售数据*/
+    var categoryOne=$('#categoryOne').val();
+    getCateDate(categoryOne);
+    function getCateDate(id) {
+        $.ydcAjax("GET", "/mApi/statistics/category/sum?id="+id, "", "json", "application/json", function (data) {
+            $('#day1').text(data.dailyCount);
+            $('#day7').text(data.weeklyCount);
+            $('#day30').text(data.monthlyCount);
+        }, "");
+    }
+    $('#categoryOne').change(function () {
+        var id=$(this).val();
+        getCateDate(id);
+    })
+
+
+
+
+    require.config({
+        paths: {
+            echarts: '/resources/management/plugins/echarts/dist'
+        }
+    });
+
+    var today = new Date();
+
+    var endDate = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
+
+
+    var categoryTwo=$('#categoryOne').val();
+
+    plain(categoryTwo);
+
+    function plain(id) {
+        $.ydcAjax("GET", "/mApi/statistics/category/weekly?id="+id, "", "json", "application/json", generateFn, "");
+    }
+
+    $('#categoryTwo').change(function () {
+        var id=$(this).val();
+        plain(id);
+    })
+    // 使用
+
+    function generateFn(data){
+        console.log(data);
+        require(
+            [
+                'echarts',
+                'echarts/chart/bar' // 使用柱状图就加载bar模块，按需加载
+            ],
+            function (ec) {
+                // 基于准备好的dom，初始化echarts图表
+                var myChart = ec.init(document.getElementById('main'));
+
+                var dataList = data.list === null?[]:data.list ;
+                var dataArr=[];
+                var dateList = [];
+                for(var i in dataList){
+                    dataArr.push(dataList[i].count);
+                    dateList.push(dataList[i].date);
+                }
+
+                var option = {
+                    title : {
+                        text: '7日订单统计',
+                        x:'center',
+                        y:'top',
+                        textAlign:'center'
+                    },
+                    tooltip : {
+                        trigger: 'axis'
+                    },
+
+                    toolbox: {
+                        show : true,
+                        feature : {
+                            mark : {show: true},
+                            dataView : {show: true, readOnly: false},
+                            magicType : {show: true, type: ['line', 'bar']},
+                            restore : {show: true},
+                            saveAsImage : {show: true}
+                        }
+                    },
+                    xAxis: {
+                        type: 'category',
+                        data: dateList
+                    },
+                    yAxis: {
+                        type: 'value'
+                    },
+                    series: [{
+                        data: dataArr,
+                        type: 'bar',
+                        barWidth:50
+                    }]
+                };
+
+                // 为echarts对象加载数据
+                myChart.setOption(option);
+            }
+        );
+    }
+
+
+
 </script>

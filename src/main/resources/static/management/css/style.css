@@ -244,3 +244,23 @@ input[type=radio].danger:checked:before{border-color:#fff !important;}
 .input-group.inputgroupspc{}
 .input-group.inputgroupspc .form-control{width: 50%;}
 .input-group.inputgroupspc .form-control:nth-child(2){margin-left:-1px;}
+
+.record .item{
+    padding:8px 24px;
+}
+.record .item ul,.record .item li{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.record .item h4{
+    font-size: 14px;
+    color: #666;
+}
+.record .item li{
+    margin-right: 100px;
+}
+.record .item li label{
+    font-weight: normal;
+    color: #666;
+}
