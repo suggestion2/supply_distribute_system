@@ -21,14 +21,6 @@ public class SupplyDistributeSystemApplication {
 	@Autowired
 	private HikariDataSource dataSource;
 
-	@PreDestroy
-	public void disconnect() throws NoSuchFieldException, IllegalAccessException {
-		System.out.println("application exits,disconnect with HikariDataSource");
-		Field pool = HikariDataSource.class.getDeclaredField("pool");
-		pool.setAccessible(true);
-		((HikariPoolMXBean) pool.get(dataSource)).softEvictConnections();
-	}
-
 	public static void main(String[] args) {
 		SpringApplication.run(SupplyDistributeSystemApplication.class, args);
 	}

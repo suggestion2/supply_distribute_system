@@ -25,6 +25,7 @@ import javax.validation.Valid;
 
 import java.util.Objects;
 
+import static com.su.supplydistributesystem.constants.CommonConstants.CURRENT;
 import static com.su.supplydistributesystem.constants.CommonConstants.LOGIN;
 import static com.su.supplydistributesystem.constants.CommonConstants.MD5_SALT;
 
@@ -48,6 +49,13 @@ public class DistributorController {
         }
         sessionContext.setDistributor(distributor);
         return new ResponseView();
+    }
+
+    @RequestMapping(value = CURRENT, method = RequestMethod.GET)
+    @DistributorLoginRequired
+    public Distributor current() {
+        Distributor distributor = sessionContext.getDistributor();
+        return distributor;
     }
 
     @RequestMapping(value = "/password", method = RequestMethod.PUT)
