@@ -25,6 +25,10 @@
             密码:<input class="textbox" type="text" id="login-d-password" style="width: 100px;"
                       value="123456"/>
             <input type="button" value="登录" onclick="distributeDistributorModule.login()"/><br>
+            <div>
+                <strong>[登出]</strong><br/>
+                <input type="button" value="登出" onclick="distributeDistributorModule.logout()"/><br>
+            </div>
         </div>
         <div>
             <strong>[修改密码]</strong><br/>

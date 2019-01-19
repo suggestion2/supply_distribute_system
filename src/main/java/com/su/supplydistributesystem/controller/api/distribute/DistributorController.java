@@ -25,9 +25,7 @@ import javax.validation.Valid;
 
 import java.util.Objects;
 
-import static com.su.supplydistributesystem.constants.CommonConstants.CURRENT;
-import static com.su.supplydistributesystem.constants.CommonConstants.LOGIN;
-import static com.su.supplydistributesystem.constants.CommonConstants.MD5_SALT;
+import static com.su.supplydistributesystem.constants.CommonConstants.*;
 
 @RestController("distributeSupplierApiController")
 @RequestMapping(value = "/dApi/distributor")
@@ -71,6 +69,12 @@ public class DistributorController {
         }
         distributor.setPassword(MD5.encrypt(form.getNewPassword() + MD5_SALT));
         distributorService.updatePassword(distributor);
+        return new ResponseView();
+    }
+
+    @RequestMapping(value = LOGOUT, method = RequestMethod.GET)
+    public ResponseView logout() {
+        sessionContext.logout();
         return new ResponseView();
     }
 }
