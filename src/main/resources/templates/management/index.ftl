@@ -69,9 +69,9 @@
                     <div class="record" style="min-height: 100px">
                         <div class="item">
                             <ul class="clearfix">
-                                <li class="col-xs-3"><label>尽日订单数：</label><span id="day1"></span>单</li>
-                                <li class="col-xs-3"><label>一周订单数：</label><span id="day7"></span>单</li>
-                                <li class="col-xs-3"><label>一月订单数：</label><span id="day30"></span>单</li>
+                                <li class="col-xs-3"><label>今日订单数：</label><span id="day1"></span>单</li>
+                                <li class="col-xs-3"><label>7日订单数：</label><span id="day7"></span>单</li>
+                                <li class="col-xs-3"><label>30日订单数：</label><span id="day30"></span>单</li>
                             </ul>
                         </div>
                     </div>
