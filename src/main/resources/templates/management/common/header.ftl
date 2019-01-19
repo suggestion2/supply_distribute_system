@@ -3,7 +3,7 @@
 <div class="wrapper">
     <header class="main-header">
         <!-- Logo -->
-        <a href="/management" class="logo">
+        <a href="/management/index" class="logo">
             <span class="logo-mini">订单管理系统</span>
             <span class="logo-lg">管理中心</span>
         </a>
