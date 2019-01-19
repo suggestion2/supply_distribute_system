@@ -626,6 +626,14 @@ var distributeDistributorModule = {
             })
         };
         showResult(settings);
+    },
+    logout: function () {
+        var settings = {
+            type: "GET",
+            url: "/dApi/distributor/logout",
+            dataType: "json"
+        };
+        showResult(settings);
     }
 };
 var distributeCategoryModule = {
