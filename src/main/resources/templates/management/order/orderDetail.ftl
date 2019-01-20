@@ -27,12 +27,8 @@
                                                     <td style="background: #f4f4f4;">下单时间</td>
                                                     <td>${order.order.createTime?string("yyyy-MM-dd hh:mm:ss")}</td>
                                                     <td style="background: #f4f4f4;">订单状态</td>
-                                                    <td><#if order.order.status==0>已取消<#elseif order.order.status==1>已创建<#elseif order.order.status==2>下单成功<#elseif order.order.status==3>提交供应商<#elseif order.order.status==4>已结算<#elseif order.order.status==5>已收货<#elseif order.order.status==6>已收货<#elseif order.order.status==7>售后</#if></td>
+                                                    <td><#if order.order.status==1>下单成功<#elseif order.order.status==2>提交供应商<#elseif order.order.status==3>已结算<#elseif order.order.status==4>售后</#if></td>
 
-                                                <#if order.order.status==0>
-                                                    <td style="background: #f4f4f4;">取消原因</td>
-                                                    <td><#if order.order.cancelReason??>${order.order.cancelReason}</#if></td>
-                                                </#if>
                                                 </tr>
 
                                             </table>
@@ -90,35 +86,20 @@
                                 </div>
                                 <div class="row" style="margin-top: 50px;">
                                     <div class="col-xs-2 zr-w150"></div>
-                                    <div class="col-xs-4">
+                                    <div class="col-xs-8">
+                                        <a class="btn btn-danger ydcbtn " style="margin-left: 6px;" data-toggle="modal" data-target="#deletePop">
+                                            <i class="fa fa-trash"></i> &nbsp;删除订单
+                                        </a>
                                         <#if order.order.status==1>
-                                            <a class="btn bg-danger ydcbtn" style="margin-left: 6px;" data-toggle="modal" data-target="#refuseBox">
-                                                取消订单
-                                            </a>
                                             <a class="btn bg-olive ydcbtn" onclick="changeStatus(${order.order.id},2)" style="margin-left: 6px;">
-                                                下单
-                                            </a>
-                                            <a class="btn btn-danger ydcbtn " style="margin-left: 6px;" data-toggle="modal" data-target="#deletePop">
-                                                <i class="fa fa-trash"></i> &nbsp;删除订单
+                                                提交供应商
                                             </a>
                                             <#elseif order.order.status==2>
                                                 <a class="btn bg-olive ydcbtn" onclick="changeStatus(${order.order.id},3)" style="margin-left: 6px;">
-                                                    提交供应商
+                                                    结算
                                                 </a>
                                             <#elseif order.order.status==3>
                                                 <a class="btn bg-olive ydcbtn" onclick="changeStatus(${order.order.id},4)" style="margin-left: 6px;">
-                                                    结算
-                                                </a>
-                                            <#elseif order.order.status==4>
-                                                <a class="btn bg-olive ydcbtn" onclick="changeStatus(${order.order.id},5)" style="margin-left: 6px;">
-                                                    已发货
-                                                </a>
-                                            <#elseif order.order.status==5>
-                                                <a class="btn bg-olive ydcbtn" onclick="changeStatus(${order.order.id},6)" style="margin-left: 6px;">
-                                                    已收货
-                                                </a>
-                                            <#elseif order.order.status==6>
-                                                <a class="btn bg-olive ydcbtn" onclick="changeStatus(${order.order.id},7)" style="margin-left: 6px;">
                                                     售后
                                                 </a>
                                         </#if>
@@ -152,7 +133,7 @@
     </div><!-- /.modal -->
 </div>
 <#--取消订单-->
-<div class="modal fade" id="refuseBox" tabindex="-1" role="dialog">
+<#--<div class="modal fade" id="refuseBox" tabindex="-1" role="dialog">
     <div class="modal-dialog" style="width: 400px;margin-top: 120px;">
         <div class="modal-content">
             <div class="modal-header">
@@ -172,7 +153,7 @@
             </div>
         </div>
     </div>
-</div>
+</div>-->
 
 <#include "../common/footer.ftl">
 <script type="text/javascript">
@@ -180,28 +161,16 @@
     var orderStatus=${order.order.status};
 
     switch(true){
-        case orderStatus==0:
-            navcontroller("order","已取消");
-            break;
         case orderStatus==1:
-            navcontroller("order","已创建");
-            break;
-        case orderStatus==2:
             navcontroller("order","下单成功");
             break;
-        case orderStatus==3:
+        case orderStatus==2:
             navcontroller("order","提交供应商");
             break;
-        case orderStatus==4:
+        case orderStatus==3:
             navcontroller("order","已结算");
             break;
-        case orderStatus==5:
-            navcontroller("order","已发货");
-            break;
-        case orderStatus==6:
-            navcontroller("order","已收货");
-            break;
-        case orderStatus==7:
+        case orderStatus==4:
             navcontroller("order","售后");
             break;
     };
@@ -218,7 +187,7 @@
         });
     }
     /*取消订单*/
-    function refuseModBtn(id) {
+    /*function refuseModBtn(id) {
         $.ydcAjax("PUT", "/mApi/order/resetStatus", JSON.stringify({"id":id,"cancelReason":$("#refuseContent").val(),"status":0}), "json", "application/json", function () {
             $("#refuseBox").modal("hide");
             $.smallTips("取消成功", true, 1000);
@@ -235,22 +204,16 @@
                 return false;
             }
         });
-    }
+    }*/
     /*改变状态*/
     function changeStatus(id,status) {
         $.ydcAjax("PUT", "/mApi/order/resetStatus", JSON.stringify({"id":id,"status":status}), "json", "application/json", function () {
             var tip='';
             if(status==2){
-                tip='下单成功'
-            }else if(status==3){
                 tip='已提交供应商'
-            }else if(status==4){
+            }else if(status==3){
                 tip='结算成功'
-            }else if(status==5){
-                tip='发货成功'
-            }else if(status==6){
-                tip='收货成功'
-            }else if(status==7){
+            }else if(status==4){
                 tip='申请售后成功'
             }
             $.smallTips(tip, true, 1000);

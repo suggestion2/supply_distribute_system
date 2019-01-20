@@ -88,14 +88,10 @@
             <ul class="sidebar-menu" data-widget="tree">
                 <li data-navname="订单录入"><a href="/management/order/create">订单录入</a></li>
                 <li data-navname="全部订单"><a href="/management/order/list?status=all">全部订单</a></li>
-                <li data-navname="已取消"><a href="/management/order/list?status=0">已取消</a></li>
-                <li data-navname="已创建"><a href="/management/order/list?status=1">已创建</a></li>
-                <li data-navname="下单成功"><a href="/management/order/list?status=2">下单成功</a></li>
-                <li data-navname="提交供应商"><a href="/management/order/list?status=3">提交供应商</a></li>
-                <li data-navname="已结算"><a href="/management/order/list?status=4">已结算</a></li>
-                <li data-navname="已发货"><a href="/management/order/list?status=5">已发货</a></li>
-                <li data-navname="已收货"><a href="/management/order/list?status=6">已收货</a></li>
-                <li data-navname="售后"><a href="/management/order/list?status=7">售后</a></li>
+                <li data-navname="下单成功"><a href="/management/order/list?status=1">下单成功</a></li>
+                <li data-navname="提交供应商"><a href="/management/order/list?status=2">提交供应商</a></li>
+                <li data-navname="已结算"><a href="/management/order/list?status=3">已结算</a></li>
+                <li data-navname="售后"><a href="/management/order/list?status=4">售后</a></li>
             </ul>
         </section>
         <section data-nav="account" id="account" class="tab-pane">
