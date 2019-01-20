@@ -81,7 +81,6 @@
     if(strUrl.indexOf("status=")<0){
         strUrl+="?status=all";
     }
-
     var pageName = strUrl.substr(strUrl .lastIndexOf("status")+7,strUrl.length-strUrl.lastIndexOf("status="));
 
     var pagingData;
@@ -95,55 +94,29 @@
                 firstAjax({"content":$("#searchName").val()});
                 pagingData={"content":$("#searchName").val()};
                 break;
-            case pageName=="0":
-                $("#pageName").html("已取消");
-                navcontroller("order","已取消");
-                firstAjax({"content":$("#searchName").val(),"status":0});
-                pagingData={"content":$("#searchName").val(),"status":0};
-                break;
             case pageName=="1":
-                $("#refundListTab").hide();
-                $("#underlinePay").show();
-                $("#pageName").html("已创建");
-                navcontroller("order","已创建");
+                $("#pageName").html("下单成功");
+                navcontroller("order","下单成功");
                 firstAjax({"content":$("#searchName").val(),"status":1});
                 pagingData={"content":$("#searchName").val(),"status":1};
                 break;
             case pageName=="2":
-                $("#pageName").html("下单成功");
-                navcontroller("order","下单成功");
+                $("#pageName").html("提交供应商");
+                navcontroller("order","提交供应商");
                 firstAjax({"content":$("#searchName").val(),"status":2});
                 pagingData={"content":$("#searchName").val(),"status":2};
                 break;
             case pageName=="3":
-                $("#pageName").html("提交供应商");
-                navcontroller("order","提交供应商");
+                $("#pageName").html("已结算");
+                navcontroller("order","已结算");
                 firstAjax({"content":$("#searchName").val(),"status":3});
                 pagingData={"content":$("#searchName").val(),"status":3};
                 break;
             case pageName=="4":
-                $("#pageName").html("已结算");
-                navcontroller("order","已结算");
-                firstAjax({"content":$("#searchName").val(),"status":4});
-                pagingData={"content":$("#searchName").val(),"status":4};
-                break;
-            case pageName=="5":
-                $("#pageName").html("已发货");
-                navcontroller("order","已发货");
-                firstAjax({"content":$("#searchName").val(),"status":5});
-                pagingData={"content":$("#searchName").val(),"status":5};
-                break;
-            case pageName=="6":
-                $("#pageName").html("已收货");
-                navcontroller("order","已收货");
-                firstAjax({"content":$("#searchName").val(),"status":6});
-                pagingData={"content":$("#searchName").val(),"status":6};
-                break;
-            case pageName=="7":
                 $("#pageName").html("售后");
                 navcontroller("order","售后");
-                firstAjax({"content":$("#searchName").val(),"status":7});
-                pagingData={"content":$("#searchName").val(),"status":7};
+                firstAjax({"content":$("#searchName").val(),"status":4});
+                pagingData={"content":$("#searchName").val(),"status":4};
                 break;
         };
     };
@@ -161,20 +134,12 @@
     function strCon(val){
         var str='',status;
         switch (true){
-            case  val.status==0:status='已取消';break;
-            case  val.status==1:status='已创建';break;
-            case  val.status==2:status='下单成功';break;
-            case  val.status==3:status='提交供应商';break;
-            case  val.status==4:status='已结算';break;
-            case  val.status==5:status='已发货';break;
-            case  val.status==6:status='已收货';break;
-            case  val.status==7:status='售后';break;
+            case  val.status==1:status='下单成功';break;
+            case  val.status==2:status='提供供应商';break;
+            case  val.status==3:status='已结算';break;
+            case  val.status==4:status='售后';break;
         };
-        if(val.status==1){
-            var delStr='<a style="margin-left: 4px" title="删除" class="btn btn-danger btn-flat" onclick="deletePop('+val.id+')">删除</a>' ;
-        }else{
-            var delStr='';
-        }
+        var delStr='<a style="margin-left: 4px" title="删除" class="btn btn-danger btn-flat" onclick="deletePop('+val.id+')">删除</a>' ;
         str += '<tr>' +
                 '<td>'+val.number+'</td>'+
                 '<td>'+val.goodsNames+'</td>'+
@@ -235,16 +200,12 @@
         }
     };
 
+    
     function searchBtn(){
         switch(true){
             case pageName=="all":
                 firstAjax({"content":$("#searchName").val()});
                 pagingData={"content":$("#searchName").val()};
-                break;
-
-            case pageName=="0":
-                firstAjax({"content":$("#searchName").val(),"status":0});
-                pagingData={"content":$("#searchName").val(),"status":0};
                 break;
             case pageName=="1":
                 firstAjax({"content":$("#searchName").val(),"status":1});
@@ -261,18 +222,6 @@
             case pageName=="4":
                 firstAjax({"content":$("#searchName").val(),"status":4});
                 pagingData={"content":$("#searchName").val(),"status":4};
-                break;
-            case pageName=="5":
-                firstAjax({"content":$("#searchName").val(),"status":5});
-                pagingData={"content":$("#searchName").val(),"status":5};
-                break;
-            case pageName=="6":
-                firstAjax({"content":$("#searchName").val(),"status":6});
-                pagingData={"content":$("#searchName").val(),"status":6};
-                break;
-            case pageName=="7":
-                firstAjax({"content":$("#searchName").val(),"status":7});
-                pagingData={"content":$("#searchName").val(),"status":7};
                 break;
         };
     };
