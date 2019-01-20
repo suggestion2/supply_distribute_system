@@ -10,6 +10,9 @@
                 <div class="box zr-box">
                     <div class="box-header">
                         <div class="row" style="padding-bottom: 20px;">
+                            <div class="col-xs-4">
+                                <a class="btn ydcbtn bg-olive" href="/management/excel/goods"><i class="fa fa-file-excel-o"></i> 导出全部商品excel</a>
+                            </div>
                             <div class="col-xs-5 pull-right">
                                 <div class="input-group input-group-sm">
                                     <input type="text" placeholder="输入商品名称查询" style="width: 40%" id="searchName" class="form-control">
