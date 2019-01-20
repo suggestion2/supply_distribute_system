@@ -69,9 +69,15 @@
                     <div class="record" style="min-height: 100px">
                         <div class="item">
                             <ul class="clearfix" style="font-size:16px;line-height: 30px;">
+<<<<<<< .mine
                                 <li class="col-xs-3"><label>该品类昨日订单数：</label><span id="day1"></span>单</li>
                                 <li class="col-xs-3"><label>该品类过去7天订单数：</label><span id="day7"></span>单</li>
                                 <li class="col-xs-3"><label>该品类当月订单数：</label><span id="day30"></span>单</li>
+=======
+                                <li class="col-xs-3"><label>该品类昨日订单数：</label><span id="day1" style="font-size: 30px;font-weight: bold;"></span> 单</li>
+                                <li class="col-xs-3"><label>该品类过去7天订单数：</label><span id="day7" style="font-size: 30px;font-weight: bold;"></span> 单</li>
+                                <li class="col-xs-3"><label>该品类当月订单数：</label><span id="day30" style="font-size: 30px;font-weight: bold;"></span> 单</li>
+>>>>>>> .theirs
                             </ul>
                         </div>
                     </div>
@@ -93,7 +99,7 @@
                         </#list>
                         </select>
                     </div>
-                    <div id="main" style="width: 100%;height:400px;"></div>
+                    <div id="main" style="width:96%;height:400px;"></div>
                 </div>
             </div>
         </div>
@@ -148,7 +154,7 @@
     // 使用
 
     function generateFn(data){
-        console.log(data);
+        //console.log(data);
         require(
             [
                 'echarts',
@@ -181,9 +187,9 @@
                         show : true,
                         feature : {
                             mark : {show: true},
-                            dataView : {show: true, readOnly: false},
-                            magicType : {show: true, type: ['line', 'bar']},
-                            restore : {show: true},
+                            //dataView : {show: true, readOnly: false},
+                            //magicType : {show: true, type: ['line', 'bar']},
+                            //restore : {show: true},
                             saveAsImage : {show: true}
                         }
                     },
