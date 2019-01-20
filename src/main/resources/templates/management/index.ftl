@@ -71,7 +71,7 @@
                             <ul class="clearfix" style="font-size:16px;line-height: 30px;">
                                 <li class="col-xs-3"><label>该品类昨日订单数：</label><span id="day1"></span>单</li>
                                 <li class="col-xs-3"><label>该品类过去7天订单数：</label><span id="day7"></span>单</li>
-                                <li class="col-xs-3"><label>该品类上个自然月订单数：</label><span id="day30"></span>单</li>
+                                <li class="col-xs-3"><label>该品类当月订单数：</label><span id="day30"></span>单</li>
                             </ul>
                         </div>
                     </div>
