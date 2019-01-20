@@ -79,13 +79,10 @@
                                                 <div class="col-sm-7">
                                                     <select class="form-control" id="status">
                                                         <option value="">请选择订单状态</option>
-                                                        <option value="1">创建</option>
-                                                        <option value="2">成功下单</option>
-                                                        <option value="3">提交供应商</option>
-                                                        <option value="4">已结算</option>
-                                                        <option value="5">已发货</option>
-                                                        <option value="6">已收货</option>
-                                                        <option value="6">售后</option>
+                                                        <option value="1">成功下单</option>
+                                                        <option value="2">提交供应商</option>
+                                                        <option value="3">已结算</option>
+                                                        <option value="4">售后</option>
                                                     </select>
                                                 </div>
                                             </div>

@@ -38,19 +38,19 @@
     <aside class="main-sidebar">
         <section class="sidebar" style="padding-top: 20px;">
             <ul class="sidebar-menu" data-widget="tree">
-                <li><a href="/management/index"><i class="fa fa-diamond"></i> <span>平台首页</span></a></li>
-                <li><a href="#goods" data-toggle="tab"><i class="fa fa-gift"></i> <span>产品管理</span></a></li>
-                <li><a href="#category" data-toggle="tab"><i class="fa fa-tag"></i> <span>分类管理</span></a></li>
-                <li><a href="#distributor" data-toggle="tab"><i class="fa fa-anchor"></i> <span>分销商管理</span></a></li>
-                <li><a href="#supplier" data-toggle="tab"><i class="fa fa-address-book"></i> <span>供应商管理</span></a></li>
-                <li><a href="#order" data-toggle="tab"><i class="fa fa-book"></i> <span>订单管理</span></a></li>
-                <li><a href="#account" data-toggle="tab"><i class="fa fa-user"></i> <span>账号管理</span></a></li>
+                <li><a href="#index" data-toggle="tab" onclick="window.location.href='/management/index'"><i class="fa fa-diamond"></i> <span>平台首页</span></a></li>
+                <li><a href="#goods" data-toggle="tab" onclick="window.location.href='/management/goods/create'"><i class="fa fa-gift"></i> <span>产品管理</span></a></li>
+                <li><a href="#category" data-toggle="tab" onclick="window.location.href='/management/category/list'"><i class="fa fa-tag"></i> <span>分类管理</span></a></li>
+                <li><a href="#distributor" data-toggle="tab" onclick="window.location.href='/management/distributor/list'"><i class="fa fa-anchor"></i> <span>分销商管理</span></a></li>
+                <li><a href="#supplier" data-toggle="tab" onclick="window.location.href='/management/supplier/list'"><i class="fa fa-address-book"></i> <span>供应商管理</span></a></li>
+                <li><a href="#order" data-toggle="tab" onclick="window.location.href='/management/order/list?status=all'"><i class="fa fa-book"></i> <span>订单管理</span></a></li>
+                <li><a href="#account" data-toggle="tab" onclick="window.location.href='/management/user/resetPwd'"><i class="fa fa-user"></i> <span>账号管理</span></a></li>
             </ul>
         </section>
     </aside>
     <aside class="two-sidebar tab-content">
         <#--首页-->
-        <section data-nav="index" class="tab-pane">
+        <section data-nav="index" id="index" class="tab-pane">
             <div class="sidebarname">快捷导航</div>
             <ul class="sidebar-menu" data-widget="tree">
                 <li data-navname="数据统计"><a href="/management/index">数据统计</a></li>
@@ -88,14 +88,10 @@
             <ul class="sidebar-menu" data-widget="tree">
                 <li data-navname="订单录入"><a href="/management/order/create">订单录入</a></li>
                 <li data-navname="全部订单"><a href="/management/order/list?status=all">全部订单</a></li>
-                <li data-navname="已取消"><a href="/management/order/list?status=0">已取消</a></li>
-                <li data-navname="已创建"><a href="/management/order/list?status=1">已创建</a></li>
-                <li data-navname="下单成功"><a href="/management/order/list?status=2">下单成功</a></li>
-                <li data-navname="提交供应商"><a href="/management/order/list?status=3">提交供应商</a></li>
-                <li data-navname="已结算"><a href="/management/order/list?status=4">已结算</a></li>
-                <li data-navname="已发货"><a href="/management/order/list?status=5">已发货</a></li>
-                <li data-navname="已收货"><a href="/management/order/list?status=6">已收货</a></li>
-                <li data-navname="售后"><a href="/management/order/list?status=7">售后</a></li>
+                <li data-navname="下单成功"><a href="/management/order/list?status=1">下单成功</a></li>
+                <li data-navname="提交供应商"><a href="/management/order/list?status=2">提交供应商</a></li>
+                <li data-navname="已结算"><a href="/management/order/list?status=3">已结算</a></li>
+                <li data-navname="售后"><a href="/management/order/list?status=4">售后</a></li>
             </ul>
         </section>
         <section data-nav="account" id="account" class="tab-pane">

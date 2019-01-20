@@ -49,11 +49,26 @@
             <div class="modal-content">
                 <div class="modal-header"><h4 class="modal-title col-xs-8" style="font-size: 14px;">重置密码</h4><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button></div>
                 <div class="modal-body">
-                    <p>是否重置密码</p>
+                    <p>是否重置密码为123456</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn ydcbtn bg-olive" id="resetBtn"><i class="fa fa-save"></i> 确认</button>
-                    <button type="button" class="btn ydcbtn btn-danger" data-dismiss="modal" aria-hidden="true"><i class="fa fa-save"></i> 取消</button>
+                    <button type="button" class="btn ydcbtn bg-olive" id="resetBtn">确认</button>
+                    <button type="button" class="btn ydcbtn btn-danger" data-dismiss="modal" aria-hidden="true">取消</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+<#--是否删除-->
+    <div class="modal fade" style="z-index: 1041;" id="deleteThis" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" style="width:300px">
+            <div class="modal-content">
+                <div class="modal-header"><h4 class="modal-title col-xs-8" style="font-size: 14px;">确认删除</h4><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button></div>
+                <div class="modal-body">
+                    <p>一旦删除将不可再恢复，请谨慎操作！</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn ydcbtn bg-olive" id="deleteBtn">确定要删</button>
+                    <button type="button" class="btn ydcbtn btn-danger" data-dismiss="modal" aria-hidden="true">点错了</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal -->
@@ -87,6 +102,12 @@
                             <label class="col-sm-2 control-label text-right zr-w150" for="displayOrder">填写账号</label>
                             <div class="col-sm-7">
                                 <input class="form-control" type="text" id="addAccount" placeholder="请输入账号">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label text-right zr-w150">默认密码</label>
+                            <div class="col-sm-7">
+                                <input class="form-control" type="text" value="123456" disabled>
                             </div>
                         </div>
                     </div>
@@ -348,13 +369,15 @@
     
     /*删除*/
     function deleteBtn(id){
-        $.ydcAjax("DELETE","/mApi/distributor/delete/"+id,"","json","application/json",function(data){
-            $.ydcModal("fa fa-warning","操作提示","删除成功!","自动刷新中……","");
-            setTimeout(function(){
-                window.location.reload();
-            },1000);
-        },function (error) {
-            $.ydcModal("fa fa-warning","操作提示","删除失败!"+$.parseJSON(error.responseText).message,"我知道了","");
+        $('#deleteThis').modal('show');
+        $("#deleteBtn").on("click",function(){
+            $.ydcAjax("DELETE","/mApi/distributor/delete/"+id,"","json","application/json",function(data){
+                setTimeout(function(){
+                    window.location.reload();
+                },1000);
+            },function (error) {
+                $.ydcModal("fa fa-warning","操作提示","删除失败!"+$.parseJSON(error.responseText).message,"我知道了","");
+            });
         });
     };
 
