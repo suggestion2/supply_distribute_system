@@ -32,16 +32,22 @@ public class PageInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+
         logger.debug("PageInterceptor ----------preHandle------------, URI=" + request.getRequestURI());
+
 
         if (handler instanceof ResourceHttpRequestHandler) {
             return true;
         }
 
+
         if ((((HandlerMethod) handler).getMethod().isAnnotationPresent(UserLoginRequired.class)
                 || ((HandlerMethod) handler).getBeanType().isAnnotationPresent(UserLoginRequired.class))
                 && Objects.isNull(sessionContext.getUser())) {
             String url = request.getRequestURI();
+            if(url.contains("wap")){
+                response.sendRedirect("/wap/login?redirectUrl=" + url);
+            }
             response.sendRedirect("/management/login?redirectUrl=" + url);
             return false;
         }

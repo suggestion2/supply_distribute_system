@@ -58,6 +58,12 @@ public class CommonController {
         return "management/login";
     }
 
+    @RequestMapping(value = "/wap/login", method = RequestMethod.GET)
+    public String wapLogin(@RequestParam(required = false) String redirectUrl,ModelMap modelMap) {
+        modelMap.put("redirectUrl", StringUtils.hasText(redirectUrl) ? "/wap/index" : redirectUrl);
+        return "management/wapLogin";
+    }
+
     @RequestMapping(value = "/management", method = RequestMethod.GET)
     @UserLoginRequired
     public String index(ModelMap modelMap) {
@@ -87,4 +93,35 @@ public class CommonController {
 
         return "management/index";
     }
+
+    /*手机首页*/
+    @RequestMapping(value = "/wap/index", method = RequestMethod.GET)
+    @UserLoginRequired
+    public String wapIndex(ModelMap modelMap) {
+        modelMap.put("user",sessionContext.getUser());
+        modelMap.put("allOrderCount",statisticsService.countOrder(null,null,null));
+
+        List<GoodsCategoryListItemView> categoryList = goodsCategoryService.getAllListView();
+        if(Objects.nonNull(categoryList) && categoryList.size() > 0){
+            modelMap.put("category",categoryList);
+            int id = categoryList.get(0).getId();
+
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+            List<OrderItemDailyCount> list = statisticsService.countOrderCount(null,id,null,null,simpleDateFormat.format(new Date()));
+            int dailyCount = list.get(0).getCount();
+            int weeklyCount = 0;
+            for(int i =0; i < 7;i ++){
+                weeklyCount += list.get(i).getCount();
+            }
+            int monthlyCount = list.stream().mapToInt(OrderItemDailyCount::getCount).sum();
+            modelMap.put("sumOrderCount",new OrderItemCategoryStatisticsView(dailyCount,weeklyCount,monthlyCount,null));
+
+            List<OrderItemDailyCount> list1 = statisticsService.countSalesCount(null,id,null,null,simpleDateFormat.format(new Date()));
+            int weeklyCount1 = list.stream().mapToInt(OrderItemDailyCount::getCount).sum();
+            modelMap.put("sumSalesCount",new OrderItemCategoryStatisticsView(null,weeklyCount1,null,list1));
+        }
+        return "management/wapIndex";
+    }
+
 }

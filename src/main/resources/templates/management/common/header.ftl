@@ -106,7 +106,6 @@
         if (window.location.pathname == "/management/index") {
             $("section[data-nav='index']").addClass("tab-pane active");
         };
-
         function loginOut() {
             $.ydcAjax("GET", "/mApi/logout", "", "json", "application/json", function (data) {
                 if (data.message == "success") window.location.href = "/management/login"

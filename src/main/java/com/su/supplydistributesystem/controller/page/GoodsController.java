@@ -39,6 +39,13 @@ public class GoodsController {
         return "management/goods/goodsList";
     }
 
+
+    @RequestMapping(value = "/wap/list", method = RequestMethod.GET)
+    public String wapList(ModelMap modelMap) {
+        modelMap.put("category",goodsCategoryService.getListViewForCreateGoods());
+        return "management/wapGoods";
+    }
+
     @RequestMapping(value = CREATE, method = RequestMethod.GET)
     public String create(ModelMap modelMap) {
         modelMap.put("category",goodsCategoryService.getListViewForCreateGoods());
