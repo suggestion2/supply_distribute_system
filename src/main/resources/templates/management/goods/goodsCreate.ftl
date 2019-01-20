@@ -18,7 +18,7 @@
                                     <div class="col-xs-10 gright">
                                         <div class="form-horizontal">
                                             <div class="form-group" style="padding-top: 30px;">
-                                                <label class="col-sm-2 control-label text-right zr-w150" for="name"><span style="color:red">*</span> 产品名称</label>
+                                                <label class="col-sm-2 control-label text-right zr-w150" for="name"><span style="color:red">*</span> 产品名称：</label>
                                                 <div class="col-sm-7">
                                                     <input class="form-control" type="text" id="name" value="" maxlength="50" placeholder="必填项，不能超过50字符或汉字">
                                                     <p class="tips"></p>
@@ -32,7 +32,7 @@
                                     <div class="col-xs-10 gright" style="padding-top: 30px;">
                                         <div class="form-horizontal">
                                             <div class="form-group">
-                                                <label class="col-sm-2 control-label text-right zr-w150"><span style="color:red">*</span> 商品分类</label>
+                                                <label class="col-sm-2 control-label text-right zr-w150"><span style="color:red">*</span> 商品分类：</label>
                                                 <div class="col-sm-7">
                                                     <div class="col-sm-4" style="padding-left: 0">
                                                         <select class="form-control" id="category1"></select>

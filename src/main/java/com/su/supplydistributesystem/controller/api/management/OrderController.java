@@ -120,9 +120,9 @@ public class OrderController {
         if(Objects.isNull(order)){
             throw new ResourceNotFoundException("order not exists");
         }
-        if(!order.getStatus().equals(CREATED) && !order.getStatus().equals(COMMIT)){
-            throw new InvalidRequestException("invalidStatus","invalid order status");
-        }
+//        if(!order.getStatus().equals(CREATED) && !order.getStatus().equals(COMMIT)){
+//            throw new InvalidRequestException("invalidStatus","invalid order status");
+//        }
         BeanUtils.copyProperties(form,order);
         order.setCount(null);
         order.setAmount(null);
@@ -174,7 +174,7 @@ public class OrderController {
         if(Objects.isNull(order)){
             throw new ResourceNotFoundException("order not exists");
         }
-        if(!form.getStatus().equals(CANCELED) && form.getStatus() - order.getStatus() != 1 || form.getStatus() > AFTER_SALE){
+        if(form.getStatus() - order.getStatus() != 1 || form.getStatus() > AFTER_SALE){
             throw new InvalidRequestException("invalidStatus","invalid order status");
         }
         order.setStatus(form.getStatus());
@@ -182,9 +182,9 @@ public class OrderController {
         if(StringUtils.hasText(form.getRemark())){
             order.setRemarks(form.getRemark());
         }
-        if(StringUtils.hasText(form.getCancelReason()) && order.getStatus().equals(CANCELED)){
-            order.setCancelReason(form.getCancelReason());
-        }
+//        if(StringUtils.hasText(form.getCancelReason()) && order.getStatus().equals(CANCELED)){
+//            order.setCancelReason(form.getCancelReason());
+//        }
 
         orderService.updateStatus(order);
 
@@ -198,9 +198,9 @@ public class OrderController {
         if(Objects.isNull(order)){
             throw new ResourceNotFoundException("order not exists");
         }
-        if(!order.getStatus().equals(CREATED)){
-            throw new InvalidRequestException("invalidStatus","invalid order status");
-        }
+//        if(!order.getStatus().equals(CREATED)){
+//            throw new InvalidRequestException("invalidStatus","invalid order status");
+//        }
         orderService.deleteById(order.getId());
         orderItemService.deleteByOrderId(order.getId());
 

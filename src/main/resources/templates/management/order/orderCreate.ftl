@@ -17,7 +17,7 @@
                                     <div class="col-xs-10 gright">
                                         <div class="form-horizontal">
                                             <div class="form-group" style="padding-top: 30px;">
-                                                <label class="col-sm-2 control-label text-right zr-w150" for="name"><span style="color:red">*</span> 分销商</label>
+                                                <label class="col-sm-2 control-label text-right zr-w150" for="name"><span style="color:red">*</span> 分销商：</label>
                                                 <div class="col-sm-7">
                                                     <select class="form-control" id="distributor1">
                                                         <option value="">请选择分销商名称</option>
@@ -35,7 +35,7 @@
                                     <div class="col-xs-10 gright" style="padding-top: 30px;">
                                         <div class="form-horizontal">
                                             <div class="form-group">
-                                                <label class="col-sm-2 control-label text-right zr-w150"><span style="color:red">*</span> 收件人</label>
+                                                <label class="col-sm-2 control-label text-right zr-w150"><span style="color:red">*</span> 收件人：</label>
                                                 <div class="col-sm-7">
                                                     <input class="form-control" type="text" id="customerName" value="" placeholder="收件人">
                                                     <p class="tips"></p>

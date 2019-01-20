@@ -13,7 +13,7 @@
                             <div class="col-xs-5 pull-right">
                                 <div class="input-group input-group-sm">
                                     <input type="text" placeholder="输入商品名称查询" style="width: 40%" id="searchName" class="form-control">
-                                    <select class="form-control" id="status" style="width: 20%">
+                                    <select class="form-control" id="status" style="width: 20%;">
                                         <option value="" style="color: #999;">选择状态</option>
                                         <option value="0">下架</option>
                                         <option value="1">上架</option>
@@ -128,11 +128,11 @@
         str += '<tr>' +
                 '<td style="text-align: left">'+val.name+'</td>'+
                 '<td>'+val.colour+'</td>'+
-                '<td>'+val.price+'</td>' +
-                '<td>'+val.lowSupplyPrice+'</td>' +
-                '<td style="color: #f43838">'+val.profit1+'</td>' +
-                '<td>'+val.taobaoPrice+'<br><span style="color: #f43838">('+val.profit2+')</span></td>' +
-                '<td>'+val.jdPrice+'<br><span style="color: #f43838">('+val.profit3+')</span></td>' +
+                '<td style="color:green;">'+(val.price).toFixed(2)+'</td>' +
+                '<td style="color:orange;">'+(val.lowSupplyPrice).toFixed(2)+'</td>' +
+                '<td style="color: #f43838">'+(val.profit1).toFixed(2)+'</td>' +
+                '<td>'+(val.taobaoPrice).toFixed(2)+'<br><span style="color: orange">('+(val.profit2).toFixed(2)+')</span></td>' +
+                '<td>'+(val.jdPrice).toFixed(2)+'<br><span style="color: orange">('+(val.profit3).toFixed(2)+')</span></td>' +
                 '<td>'+val.remarks+'</td>' +
                 '<td width="115">'+status;
         str+=  '</td></tr>';

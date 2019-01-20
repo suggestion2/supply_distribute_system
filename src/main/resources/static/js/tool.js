@@ -576,9 +576,9 @@ var orderModule = {
             dataType: "json",
             data: JSON.stringify({
                 "id": $("#order-m-status-id").val(),
-                "status": $("#order-m-status-status").val(),
-                "cancelReason": $("#order-m-status-cancelReason").val(),
-                "remarks": $("#order-m-status-remarks").val()
+                "status": $("#order-m-status-status").val()
+                // "cancelReason": $("#order-m-status-cancelReason").val(),
+                // "remarks": $("#order-m-status-remarks").val()
             })
         };
         showResult(settings);

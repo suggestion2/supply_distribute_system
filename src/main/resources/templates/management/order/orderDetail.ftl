@@ -18,16 +18,17 @@
                                                 <tr>
                                                     <td style="background: #f4f4f4;">订单编号</td>
                                                     <td>${order.order.number}</td>
-                                                    <td style="background: #f4f4f4;">用户名</td>
-                                                    <td>${order.order.customerName}</td>
-                                                    <td style="background: #f4f4f4;">手机号</td>
-                                                    <td>${order.order.customerPhone}</td>
+                                                    <td style="background: #f4f4f4;">分销商</td>
+                                                    <td>${order.order.distributorName}</td>
+                                                    <td style="background: #f4f4f4;">分销商手机号</td>
+                                                    <td>${order.order.distributorPhone}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td style="background: #f4f4f4;">订单状态</td>
-                                                    <td><#if order.order.status==0>已取消<#elseif order.order.status==1>已创建<#elseif order.order.status==2>下单成功<#elseif order.order.status==3>提交供应商<#elseif order.order.status==4>已结算<#elseif order.order.status==5>已收货<#elseif order.order.status==6>已收货<#elseif order.order.status==7>售后</#if></td>
                                                     <td style="background: #f4f4f4;">下单时间</td>
                                                     <td>${order.order.createTime?string("yyyy-MM-dd hh:mm:ss")}</td>
+                                                    <td style="background: #f4f4f4;">订单状态</td>
+                                                    <td><#if order.order.status==0>已取消<#elseif order.order.status==1>已创建<#elseif order.order.status==2>下单成功<#elseif order.order.status==3>提交供应商<#elseif order.order.status==4>已结算<#elseif order.order.status==5>已收货<#elseif order.order.status==6>已收货<#elseif order.order.status==7>售后</#if></td>
+
                                                 <#if order.order.status==0>
                                                     <td style="background: #f4f4f4;">取消原因</td>
                                                     <td><#if order.order.cancelReason??>${order.order.cancelReason}</#if></td>
@@ -42,15 +43,15 @@
                                         <div class="col-xs-10">
                                             <table class="table table-bordered text-center">
                                                 <tr style="background: #f4f4f4;">
-                                                   <td>商品名称</td><td>售价</td><td>供应商</td><td>供应价</td><td>淘宝价</td><td>京东价</td><td>数量</td><td>小计</td>
+                                                   <td>商品名称</td><td>售价</td><td>供应商</td><td>供应价</td><td>数量</td><td>小计</td>
                                                 </tr>
                                                 <#list order.list as val>
                                                 <tr>
-                                                    <td style="word-break:break-all;word-wrap: break-word;">${val.goodsName}</td><td>${val.price}</td><td>${val.supplierName}</td><td>${val.supplyPrice}</td><td>${val.taobaoPrice}</td><td>${val.jdPrice}</td><td>${val.count}</td><td>${val.amount}</td>
+                                                    <td style="word-break:break-all;word-wrap: break-word;">${val.goodsName}</td><td>${val.price?string("0.00")}</td><td>${val.supplierName}</td><td>${val.supplyPrice?string("0.00")}</td><td>${val.count}</td><td>${val.amount?string("0.00")}</td>
                                                 </tr>
                                                 </#list>
                                                 <tr>
-                                                    <td colspan="6" style="text-align: right;font-weight: bold;">合计：</td><td id="totlePrice" style="font-weight: bold;" colspan="2">￥ ${order.order.amount}</td>
+                                                    <td colspan="5" style="text-align: right;font-weight: bold;">合计：</td><td id="totlePrice" style="font-weight: bold;color:red;" colspan="1">￥ ${order.order.amount?string("0.00")}</td>
                                                 </tr>
                                             </table>
                                         </div>
