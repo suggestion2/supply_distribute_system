@@ -25,6 +25,8 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static com.su.supplydistributesystem.constants.CommonConstants.*;
+import static com.su.supplydistributesystem.constants.StatisticsConstants.MONTHSUBEND;
+import static com.su.supplydistributesystem.constants.StatisticsConstants.MONTHSUBSTART;
 
 @RestController("statisticsManagementApiController")
 @RequestMapping(value = "/mApi/statistics")
@@ -44,16 +46,26 @@ public class StatisticsController {
     @RequestMapping(value = "/category/sum", method = RequestMethod.GET)
     public OrderItemCategoryStatisticsView sum(@RequestParam Integer id) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String time = simpleDateFormat.format(new Date());
         List<OrderItemDailyCount> list = statisticsService.countOrderCount(null,id,null,null,simpleDateFormat.format(new Date()));
         if(Objects.isNull(list) || list.size() == 0){
             return new OrderItemCategoryStatisticsView(0,0,0,null);
         }
         int dailyCount = list.get(0).getCount();
+        for(int i =0; i < 3;i ++){
+            dailyCount += list.get(i).getCount();
+        }
         int weeklyCount = 0;
         for(int i =0; i < 7;i ++){
             weeklyCount += list.get(i).getCount();
         }
-        int monthlyCount = list.stream().mapToInt(OrderItemDailyCount::getCount).sum();
+        int monthlyCount = 0;
+        for(int i =0; i < list.size();i ++){
+            if(!simpleDateFormat.format(list.get(i).getDate()).substring(MONTHSUBSTART,MONTHSUBEND).equals(time.substring(MONTHSUBSTART,MONTHSUBEND))){
+                break;
+            }
+            monthlyCount += list.get(i).getCount();
+        }
         return new OrderItemCategoryStatisticsView(dailyCount,weeklyCount,monthlyCount,null);
     }
 
