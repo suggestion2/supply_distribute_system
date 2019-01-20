@@ -469,14 +469,10 @@
                 dispatchNumber:<input class="textbox" type="text" id="order-m-create-dispatchNumber" style="width: 100px;"
                                    value=""/></br>
                 status:<select class="textbox" id="order-m-create-status" style="width: 100px;">
-                <option value="0">取消</option>
-                <option value="1" selected>创建</option>
-                <option value="2">成功下单</option>
-                <option value="3">提交供应商</option>
-                <option value="4">已结算</option>
-                <option value="5">已发货</option>
-                <option value="6">已收货</option>
-                <option value="7">售后</option>
+                <option value="1" selected>成功下单</option>
+                <option value="2">提交供应商</option>
+                <option value="3">已结算</option>
+                <option value="4">售后</option>
             </select>
                 remarks:<input class="textbox" type="text" id="order-m-create-remarks" style="width: 100px;"
                                value=""/><br>
@@ -615,17 +611,13 @@
                 id:<input class="textbox" type="text" id="order-m-status-id" style="width: 100px;"
                           value=""/>
                 status:<select class="textbox" id="order-m-status-status" style="width: 100px;">
-                <option value="0">取消</option>
-                <option value="1" selected>创建</option>
-                <option value="2">成功下单</option>
-                <option value="3">提交供应商</option>
-                <option value="4">已结算</option>
-                <option value="5">已发货</option>
-                <option value="6">已收货</option>
-                <option value="7">售后</option>
+                <option value="1" selected>成功下单</option>
+                <option value="2">提交供应商</option>
+                <option value="3">已结算</option>
+                <option value="4">售后</option>
             </select><br>
-                cancelReason:<input class="textbox" type="text" id="order-m-status-cancelReason" style="width: 100px;"
-                          value=""/>
+                <#--cancelReason:<input class="textbox" type="text" id="order-m-status-cancelReason" style="width: 100px;"-->
+                          <#--value=""/>-->
                 remarks:<input class="textbox" type="text" id="order-m-status-remarks" style="width: 100px;"
                           value=""/>
                 <input type="button" value="修改" onclick="orderModule.resetStatus()"/><br>
