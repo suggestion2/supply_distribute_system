@@ -77,14 +77,10 @@
                                 value="" placeholder="2018-12-12"/></br>
                     status:<select class="textbox" id="order-d-list-status" style="width: 100px;">
                     <option value="">all</option>
-                    <option value="0">取消</option>
-                    <option value="1">创建</option>
-                    <option value="2">成功下单</option>
-                    <option value="3">提交供应商</option>
-                    <option value="4">已结算</option>
-                    <option value="5">已发货</option>
-                    <option value="6">已收货</option>
-                    <option value="7">售后</option>
+                    <option value="1" selected>成功下单</option>
+                    <option value="2">提交供应商</option>
+                    <option value="3">已结算</option>
+                    <option value="4">售后</option>
                 </select><br>
                     startIndex:<input class="textbox" type="text" id="order-d-list-startIndex" style="width: 100px;"
                                       value="0"/>
