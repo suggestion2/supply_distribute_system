@@ -76,7 +76,7 @@
 
 <script type="text/javascript">
 
-    navcontroller("order","全部订单");
+//    navcontroller("order","全部订单");
     var strUrl = window.location.toString();
     if(strUrl.indexOf("status=")<0){
         strUrl+="?status=all";

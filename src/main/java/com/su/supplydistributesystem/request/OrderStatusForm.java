@@ -8,8 +8,8 @@ public class OrderStatusForm {
     @NotNull
     private Integer status;
 
-    private String cancelReason;
-
+//    private String cancelReason;
+//
     private String remark;
 
     public Integer getId() {
@@ -28,14 +28,14 @@ public class OrderStatusForm {
         this.status = status;
     }
 
-    public String getCancelReason() {
-        return cancelReason;
-    }
-
-    public void setCancelReason(String cancelReason) {
-        this.cancelReason = cancelReason;
-    }
-
+//    public String getCancelReason() {
+//        return cancelReason;
+//    }
+//
+//    public void setCancelReason(String cancelReason) {
+//        this.cancelReason = cancelReason;
+//    }
+//
     public String getRemark() {
         return remark;
     }
