@@ -38,13 +38,13 @@
     <aside class="main-sidebar">
         <section class="sidebar" style="padding-top: 20px;">
             <ul class="sidebar-menu" data-widget="tree">
-                <li><a href="/management/index"><i class="fa fa-diamond"></i> <span>平台首页</span></a></li>
-                <li><a href="#goods" data-toggle="tab"><i class="fa fa-gift"></i> <span>产品管理</span></a></li>
-                <li><a href="#category" data-toggle="tab"><i class="fa fa-tag"></i> <span>分类管理</span></a></li>
-                <li><a href="#distributor" data-toggle="tab"><i class="fa fa-anchor"></i> <span>分销商管理</span></a></li>
-                <li><a href="#supplier" data-toggle="tab"><i class="fa fa-address-book"></i> <span>供应商管理</span></a></li>
-                <li><a href="#order" data-toggle="tab"><i class="fa fa-book"></i> <span>订单管理</span></a></li>
-                <li><a href="#account" data-toggle="tab"><i class="fa fa-user"></i> <span>账号管理</span></a></li>
+                <li><a href="#index" data-toggle="tab" onclick="window.location.href='/management/index'"><i class="fa fa-diamond"></i> <span>平台首页</span></a></li>
+                <li><a href="#goods" data-toggle="tab" onclick="window.location.href='/management/goods/create'"><i class="fa fa-gift"></i> <span>产品管理</span></a></li>
+                <li><a href="#category" data-toggle="tab" onclick="window.location.href='/management/category/list'"><i class="fa fa-tag"></i> <span>分类管理</span></a></li>
+                <li><a href="#distributor" data-toggle="tab" onclick="window.location.href='/management/distributor/list'"><i class="fa fa-anchor"></i> <span>分销商管理</span></a></li>
+                <li><a href="#supplier" data-toggle="tab" onclick="window.location.href='/management/supplier/list'"><i class="fa fa-address-book"></i> <span>供应商管理</span></a></li>
+                <li><a href="#order" data-toggle="tab" onclick="window.location.href='/management/order/list?status=all'"><i class="fa fa-book"></i> <span>订单管理</span></a></li>
+                <li><a href="#account" data-toggle="tab" onclick="window.location.href='/management/user/resetPwd'"><i class="fa fa-user"></i> <span>账号管理</span></a></li>
             </ul>
         </section>
     </aside>

@@ -12,17 +12,6 @@
                             <div class="col-xs-4">
                                 <a class="btn ydcbtn bg-olive" href="javascript:;" onclick="outputOrder()"><i class="fa fa-file-excel-o"></i> 导出当前结果excel</a>
                             </div>
-                            <div class="col-xs-5 pull-right">
-                                <div class="input-group input-group-sm">
-                                    <input type="text" placeholder="输入商品名称查询" style="width: 60%" id="searchName" class="form-control">
-                                    <input id="datepicker" type="text" class="form-control">
-                                    <span class="input-group-btn">
-                                        <button class="btn ydcbtn bg-eg" onclick="searchBtn()"><i class="fa fa-search"></i></button>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <#--<div class="row" style="padding-bottom: 20px;">
                             <div class="col-xs-4 pull-right">
                                 <div class="input-group input-group-sm">
                                     <input type="text" placeholder="输入订单编号" id="searchName" class="form-control">
@@ -31,7 +20,7 @@
                                     </span>
                                 </div>
                             </div>
-                        </div>-->
+                        </div>
                     </div>
                     <div class="box-body  no-padding">
                         <table id="orderList" class="table table-hover text-center" data-table="orderList">
@@ -242,6 +231,11 @@
     })
 
     function outputOrder(){
-
+        var content=$("#searchName").val();
+        if(pageName=="all"){
+            window.open("/management/excel/order?content="+content);
+        }else{
+            window.open("/management/excel/order?content="+content+"&status="+pageName);
+        };
     };
 </script>
