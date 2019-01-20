@@ -33,7 +33,7 @@ import java.util.Objects;
 import static com.su.supplydistributesystem.constants.CommonConstants.*;
 
 @Controller("commonManagementController")
-@RequestMapping(value = "/management")
+//@RequestMapping(value = "/management")
 public class CommonController {
 
     @Autowired
@@ -45,20 +45,20 @@ public class CommonController {
     @Autowired
     private GoodsCategoryService goodsCategoryService;
 
-    @RequestMapping(value = "/user/resetPwd", method = RequestMethod.GET)
+    @RequestMapping(value = "/management/user/resetPwd", method = RequestMethod.GET)
     @UserLoginRequired
     public String user(ModelMap modelMap) {
         modelMap.put("user",sessionContext.getUser());
         return "management/customer/resetPwd";
     }
 
-    @RequestMapping(value = LOGIN, method = RequestMethod.GET)
+    @RequestMapping(value = "/management/login", method = RequestMethod.GET)
     public String login(@RequestParam(required = false) String redirectUrl,ModelMap modelMap) {
-        modelMap.put("redirectUrl", StringUtils.hasText(redirectUrl) ? "/management/index" : redirectUrl);
+        modelMap.put("redirectUrl", StringUtils.hasText(redirectUrl) ? "/management" : redirectUrl);
         return "management/login";
     }
 
-    @RequestMapping(value = INDEX, method = RequestMethod.GET)
+    @RequestMapping(value = "/management", method = RequestMethod.GET)
     @UserLoginRequired
     public String index(ModelMap modelMap) {
         modelMap.put("user",sessionContext.getUser());

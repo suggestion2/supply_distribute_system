@@ -72,7 +72,7 @@
             }),"json","application/json",function(data){
                 $.smallTips("修改成功！自动跳转...",true,2000);
                 setTimeout(function(){
-                    window.location.href='/management/index';
+                    window.location.href='/management';
                 },500);
             },function(error){
                 if(error.status==400){

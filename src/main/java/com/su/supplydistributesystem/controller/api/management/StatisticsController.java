@@ -16,6 +16,7 @@ import com.sug.core.platform.crypto.MD5;
 import com.sug.core.platform.exception.ResourceNotFoundException;
 import com.sug.core.platform.web.rest.exception.InvalidRequestException;
 import com.sug.core.rest.view.ResponseView;
+import org.codehaus.janino.IClass;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -25,8 +26,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static com.su.supplydistributesystem.constants.CommonConstants.*;
-import static com.su.supplydistributesystem.constants.StatisticsConstants.MONTHSUBEND;
-import static com.su.supplydistributesystem.constants.StatisticsConstants.MONTHSUBSTART;
+import static com.su.supplydistributesystem.constants.StatisticsConstants.*;
 
 @RestController("statisticsManagementApiController")
 @RequestMapping(value = "/mApi/statistics")
@@ -46,13 +46,19 @@ public class StatisticsController {
     @RequestMapping(value = "/category/sum", method = RequestMethod.GET)
     public OrderItemCategoryStatisticsView sum(@RequestParam Integer id) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_MONTH, -1);
+        String beforeOneDay = simpleDateFormat.format(calendar.getTime());
         String time = simpleDateFormat.format(new Date());
         List<OrderItemDailyCount> list = statisticsService.countOrderCount(null,id,null,null,simpleDateFormat.format(new Date()));
         if(Objects.isNull(list) || list.size() == 0){
             return new OrderItemCategoryStatisticsView(0,0,0,null);
         }
-        int dailyCount = list.get(0).getCount();
-        for(int i =0; i < 3;i ++){
+        int dailyCount = 0;
+        for(int i =0; i < 2;i ++){
+            if((i == CURRENTDAY&&!simpleDateFormat.format(list.get(i).getDate()).equals(time))|| (i == BEFOREDAY&&!simpleDateFormat.format(list.get(i).getDate()).equals(beforeOneDay))){
+                break;
+            }
             dailyCount += list.get(i).getCount();
         }
         int weeklyCount = 0;
