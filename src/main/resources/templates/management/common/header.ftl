@@ -50,7 +50,7 @@
     </aside>
     <aside class="two-sidebar tab-content">
         <#--首页-->
-        <section data-nav="index" class="tab-pane">
+        <section data-nav="index" id="index" class="tab-pane">
             <div class="sidebarname">快捷导航</div>
             <ul class="sidebar-menu" data-widget="tree">
                 <li data-navname="数据统计"><a href="/management/index">数据统计</a></li>
