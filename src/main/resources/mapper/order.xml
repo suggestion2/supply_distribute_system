@@ -7,7 +7,7 @@
     </select>
 
     <select id="countOrder" resultType="com.su.supplydistributesystem.service.statistic.OrderStatisticResult" parameterType="java.util.Map">
-        select count(*) as `count`,sum(amount) as sumAmount,sum(`count`) as sumSalesCount from `order` where `valid` = 1
+        select count(*) as `count`,COALESCE(sum(amount), 0)as sumAmount,COALESCE(sum(`count`), 0) as sumSalesCount from `order` where `valid` = 1
         <if test="status!=null">
             and `status` = #{status}
         </if>

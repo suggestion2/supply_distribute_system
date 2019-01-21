@@ -105,7 +105,7 @@
     navcontroller('index','数据统计');
 
     /*获得销售数据*/
-    var categoryOne=$('#categoryOne').val();
+    var categoryOne=$('#categoryOne').val() === null ? 0 : $('#categoryOne').val();
     getCateDate(categoryOne);
     function getCateDate(id) {
         $.ydcAjax("GET", "/mApi/statistics/category/sum?id="+id, "", "json", "application/json", function (data) {
@@ -133,7 +133,7 @@
     var endDate = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
 
 
-    var categoryTwo=$('#categoryOne').val();
+    var categoryTwo=$('#categoryOne').val() === null ? 0 : $('#categoryOne').val();
 
     plain(categoryTwo);
 

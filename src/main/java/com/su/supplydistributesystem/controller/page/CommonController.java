@@ -105,8 +105,11 @@ public class CommonController {
             }
             int weeklyCount1 = list1.stream().mapToInt(OrderItemDailyCount::getCount).sum();
             modelMap.put("sumSalesCount",new OrderItemCategoryStatisticsView(null,weeklyCount1,null,list1));
+        }else {
+            modelMap.put("category",new ArrayList<>());
+            modelMap.put("sumOrderCount",new OrderItemCategoryStatisticsView(0,0,0,null));
+            modelMap.put("sumSalesCount",new OrderItemCategoryStatisticsView(null,0,null,new ArrayList<>()));
         }
-
         return "management/index";
     }
 
