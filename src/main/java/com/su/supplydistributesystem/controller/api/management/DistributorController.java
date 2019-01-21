@@ -78,7 +78,6 @@ public class DistributorController {
     @RequestMapping(value = "/resetStatus", method = RequestMethod.PUT)
     public ResponseView resetStatus(@Valid @RequestBody DistributorStatusForm form) {
         Distributor distributor = distributorService.getById(form.getId());
-        distributor.setUpdateBy(sessionContext.getUser().getId());
         if (Objects.isNull(distributor)) {
             throw new ResourceNotFoundException("distributor not exists");
         }
@@ -118,7 +117,7 @@ public class DistributorController {
         query.put("phone",form.getPhone());
         List<Distributor> disList = distributorService.getByNameOrAccount(query);
         //判断用户名/手机/账号有没有重复,有重复判断是不是当前要修改的账号
-        if(disList.size()>1||(disList.size()<2&&!disList.get(0).getId().equals(form.getId()))){
+        if(disList.size()>1||!disList.get(0).getId().equals(form.getId())){
             throw new InvalidRequestException("multipleName","supplier or account or phone exists");
         }
         BeanUtils.copyProperties(form,distributor);
