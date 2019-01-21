@@ -4,13 +4,14 @@ import com.sug.core.util.RegexUtils;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 public class ResetPasswordForm {
     @NotEmpty
-    @Pattern(regexp = RegexUtils.REGEX_PASSWORD,message = RegexUtils.REGEX_PASSWORD_MESSAGE)
+    @Size(min=1,max = 32)
     private String originPassword;
     @NotEmpty
-    @Pattern(regexp = RegexUtils.REGEX_PASSWORD,message = RegexUtils.REGEX_PASSWORD_MESSAGE)
+    @Size(min=1,max = 32)
     private String newPassword;
 
     public String getOriginPassword() {
