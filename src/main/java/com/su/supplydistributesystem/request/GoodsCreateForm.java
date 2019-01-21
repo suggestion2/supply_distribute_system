@@ -23,7 +23,6 @@ public class GoodsCreateForm {
     @NotEmpty
     private String category3;
     @NotEmpty
-    @Pattern(regexp = RegexUtils.REGEX_CHINESE_ENG_NUM,message = RegexUtils.REGEX_CHINESE_ENG_NUM_MESSAGE)
     @Size(min = 1,max = 64,message = "size between 1 and 64")
     private String name;
     @NotNull
@@ -39,7 +38,6 @@ public class GoodsCreateForm {
     private String remarks;
 
     @NotEmpty
-    @Pattern(regexp = RegexUtils.REGEX_CHINESE_ENG_NUM,message = RegexUtils.REGEX_CHINESE_ENG_NUM_MESSAGE)
     @Size(min = 1,max = 16,message = "size between 1 and 16")
     private String colour;
 

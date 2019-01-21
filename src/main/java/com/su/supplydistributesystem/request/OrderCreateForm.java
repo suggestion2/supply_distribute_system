@@ -20,22 +20,18 @@ public class OrderCreateForm {
     @NotEmpty
     private String distributorPhone;
     @NotEmpty
-    @Pattern(regexp = RegexUtils.REGEX_CHINESE_ENG_NUM,message = RegexUtils.REGEX_CHINESE_ENG_NUM_MESSAGE)
     @Size(min = 1,max = 32,message = "size between 1 and 32")
     private String customerName;
     @NotEmpty
-    @Pattern(regexp = RegexUtils.REGEX_CHINESE_ENG_NUM,message = RegexUtils.REGEX_CHINESE_ENG_NUM_MESSAGE)
     @Size(min = 1,max = 256,message = "size between 1 and 256")
     private String customerAddress;
     @NotEmpty
     @Pattern(regexp = RegexUtils.REGEX_MOBILE,message = RegexUtils.REGEX_MOBILE_MESSAGE)
     private String customerPhone;
     @NotEmpty
-    @Pattern(regexp = RegexUtils.REGEX_CHINESE_ENG_NUM,message = RegexUtils.REGEX_CHINESE_ENG_NUM_MESSAGE)
     @Size(min = 1,max = 256,message = "size between 1 and 256")
     private String dispatchCompany;
     @NotEmpty
-    @Pattern(regexp = RegexUtils.REGEX_ENGNNUM,message = RegexUtils.REGEX_ENGNNUM_MESSAGE)
     @Size(min = 1,max = 256,message = "size between 1 and 256")
     private String dispatchNumber;
     @NotNull
