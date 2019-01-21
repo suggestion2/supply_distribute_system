@@ -10,7 +10,7 @@
 
         <!-- Header Navbar -->
         <nav class="navbar navbar-static-top" role="navigation">
-            <a href="/management/index" class="sidebar-toggle">
+            <a href="/management" class="sidebar-toggle">
                 <span style="padding-left: 10px;">控制台</span>
             </a>
             <div class="navbar-custom-menu">
