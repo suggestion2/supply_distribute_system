@@ -214,6 +214,7 @@
         var id=$(this).val();
         var level=$(this).find('option:selected').attr('data-level');
         $(this).next('.goodsName').html('<option value="">请选择商品</option>');
+        $(this).parent('.inputgroupspc').find('.supplyPrice').html('<option value="">请选择供应商以及对应价格</option>');
         var that=this;
         if(id!=''){
             switch (level) {
