@@ -48,26 +48,29 @@ public class StatisticsController {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
         List<OrderItemDailyCount> list = statisticsService.countOrderCount(null,id,null,null,simpleDateFormat.format(new Date()));
-        if(Objects.isNull(list) || list.size() <= 1){
+        if(Objects.isNull(list)){
             return new OrderItemCategoryStatisticsView(0,0,0,null);
         }
-        int dailyCount = list.get(1).getCount();
+        Calendar calendarDaily = getCalendar();
+        calendarDaily.add(Calendar.DATE,-1);
+        Calendar calendarWeekly = getCalendar();
+        calendarDaily.add(Calendar.DATE,-7);
+        Calendar calendarMonthly = getCalendar();
+        calendarDaily.set(Calendar.DAY_OF_MONTH,1);
+        int dailyCount = 0;
         int weeklyCount = 0;
-        for(int i =0; i < 7;i ++){
-            weeklyCount += list.get(i).getCount();
-        }
         int monthlyCount = 0;
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.DAY_OF_MONTH,1);
-        calendar.set(Calendar.HOUR_OF_DAY,0);
-        calendar.set(Calendar.MINUTE,0);
-        calendar.set(Calendar.SECOND,0);
-        calendar.set(Calendar.MILLISECOND,0);
         for(int i =0; i < list.size();i ++){
-            if(calendar.getTimeInMillis() > list.get(i).getDate().getTime()){
-                break;
+            OrderItemDailyCount count = list.get(i);
+            if(simpleDateFormat.format(calendarDaily.getTime()).equalsIgnoreCase(simpleDateFormat.format(count.getDate()))){
+                dailyCount = count.getCount();
             }
-            monthlyCount += list.get(i).getCount();
+            if(calendarWeekly.getTimeInMillis() < count.getDate().getTime()){
+                weeklyCount += count.getCount();
+            }
+            if(calendarMonthly.getTimeInMillis() < count.getDate().getTime()){
+                monthlyCount += count.getCount();
+            }
         }
         return new OrderItemCategoryStatisticsView(dailyCount,weeklyCount,monthlyCount,null);
     }
@@ -81,5 +84,15 @@ public class StatisticsController {
         }
         int weeklyCount = list.stream().mapToInt(OrderItemDailyCount::getCount).sum();
         return new OrderItemCategoryStatisticsView(null,weeklyCount,null,list);
+    }
+
+    private Calendar getCalendar(){
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY,0);
+        calendar.set(Calendar.MINUTE,0);
+        calendar.set(Calendar.SECOND,0);
+        calendar.set(Calendar.MILLISECOND,0);
+
+        return calendar;
     }
 }
