@@ -144,7 +144,7 @@
     $('#categoryTwo').change(function () {
         var id=$(this).val();
         plain(id);
-    })
+    });
     // 使用
 
     function generateFn(data){
