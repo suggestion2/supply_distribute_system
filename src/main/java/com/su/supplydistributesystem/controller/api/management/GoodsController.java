@@ -109,9 +109,6 @@ public class GoodsController {
         if(Objects.isNull(goods)){
             throw new ResourceNotFoundException("goods not exists");
         }
-        if(goods.getStatus().equals(ENABLE)){
-            throw new InvalidRequestException("invalidStatus","invalid status");
-        }
 
         User current = sessionContext.getUser();
 
@@ -161,17 +158,6 @@ public class GoodsController {
         if(!form.getStatus().equals(ENABLE) && !form.getStatus().equals(DISABLE)){
             throw new InvalidRequestException("invalidStatus","invalid status");
         }
-        if(form.getStatus().equals(ENABLE)){
-            List<GoodsCategory> categoryList = goodsCategoryService.getListByGoodsId(goods.getId());
-            if(categoryList.size() < 3){
-                throw new InvalidRequestException("invalidCategory","goods category not found");
-            }
-            categoryList.forEach(c->{
-                if(c.getStatus().equals(CategoryConstants.DISABLE)){
-                    throw new InvalidRequestException("invalidCategory","goods category is disabled");
-                }
-            });
-        }
 
         if(!goods.getStatus().equals(form.getStatus())){
             goods.setStatus(form.getStatus());
@@ -187,9 +173,6 @@ public class GoodsController {
         Goods goods = goodsService.getById(id);
         if(Objects.isNull(goods)){
             throw new ResourceNotFoundException("goods not exists");
-        }
-        if(!goods.getStatus().equals(DISABLE)){
-            throw new InvalidRequestException("invalidStatus","invalid status");
         }
         goodsService.deleteById(goods.getId());
         goodsSupplyService.deleteByGoodsId(goods.getId());

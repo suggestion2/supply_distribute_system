@@ -88,9 +88,6 @@ public class GoodsCategoryController {
         if (!form.getStatus().equals(ENABLE) && !form.getStatus().equals(DISABLE)){
             throw new InvalidRequestException("invalidStatus","invalid status");
         }
-        if(form.getStatus().equals(DISABLE) && goodsService.selectCountByCategoryId(goodsCategory.getId()) > 0){
-            throw new InvalidRequestException("goodsExists","goods which use this category exists");
-        }
         if (!goodsCategory.getStatus().equals(form.getStatus())){
             goodsCategory.setStatus(form.getStatus());
             goodsCategory.setUpdateBy(sessionContext.getUser().getId());
@@ -104,9 +101,6 @@ public class GoodsCategoryController {
         GoodsCategory goodsCategory = goodsCategoryService.getById(id);
         if (Objects.isNull(goodsCategory)) {
             throw new ResourceNotFoundException("goodsCategory not exists");
-        }
-        if (goodsCategory.getStatus().equals(ENABLE)){
-            throw new InvalidRequestException("invalidStatus","invalid status");
         }
         goodsCategoryService.deleteById(id);
         return new ResponseView();
