@@ -14,18 +14,15 @@ public class DistributorUpdateForm {
     @NotNull
     private Integer id;
     @NotEmpty
-    @Pattern(regexp=RegexUtils.REGEX_CHINESE_ENG_NUM ,message = RegexUtils.REGEX_CHINESE_ENG_NUM_MESSAGE )
     @Size(min=1,max = 32)
     private String name;
     @NotEmpty
     @Pattern(regexp=RegexUtils.REGEX_MOBILE ,message =RegexUtils.REGEX_MOBILE_MESSAGE  )
     private String phone;
     @NotEmpty
-    @Pattern(regexp=RegexUtils.REGEX_CHINESE_ENG_NUM  ,message = RegexUtils.REGEX_CHINESE_ENG_NUM_MESSAGE  )
     @Size(min=1,max = 32)
     private String contact;
     @NotEmpty
-    @Pattern(regexp=RegexUtils.REGEX_ENGNNUM ,message =RegexUtils.REGEX_ENGNNUM_MESSAGE  )
     @Size(min=1,max = 32)
     private String account;
 

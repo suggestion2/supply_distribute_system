@@ -4,14 +4,17 @@ import java.math.BigDecimal;
 import java.util.Date;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 public class UserUpdateForm {
 
     @NotNull
     private Integer id;
     @NotEmpty
+    @Size(min=1,max = 32)
     private String name;
     @NotEmpty
+    @Size(min=1,max = 32)
     private String passwrod;
 
     public Integer getId() {
