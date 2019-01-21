@@ -92,7 +92,7 @@
             };
             $.ydcAjax("POST","/mApi/category/create",JSON.stringify({
                 "name":$("#catName").val(),
-                "parentId":$("#selectCat option:selected").val()
+                "parentId":($("#selectCat option:selected").val() === null || $("#selectCat option:selected").val() === "") ? 0 : $("#selectCat option:selected").val()
             }),"json","application/json",function(){
                 $.smallTips("添加成功！",true,1000);
                 setTimeout(function(){
