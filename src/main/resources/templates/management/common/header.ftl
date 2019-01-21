@@ -38,7 +38,7 @@
     <aside class="main-sidebar">
         <section class="sidebar" style="padding-top: 20px;">
             <ul class="sidebar-menu" data-widget="tree">
-                <li><a href="#index" data-toggle="tab" onclick="window.location.href='/management/index'"><i class="fa fa-diamond"></i> <span>平台首页</span></a></li>
+                <li><a href="#index" data-toggle="tab" onclick="window.location.href='/management'"><i class="fa fa-diamond"></i> <span>平台首页</span></a></li>
                 <li><a href="#goods" data-toggle="tab" onclick="window.location.href='/management/goods/create'"><i class="fa fa-gift"></i> <span>产品管理</span></a></li>
                 <li><a href="#category" data-toggle="tab" onclick="window.location.href='/management/category/list'"><i class="fa fa-tag"></i> <span>分类管理</span></a></li>
                 <li><a href="#distributor" data-toggle="tab" onclick="window.location.href='/management/distributor/list'"><i class="fa fa-anchor"></i> <span>分销商管理</span></a></li>
@@ -53,7 +53,7 @@
         <section data-nav="index" id="index" class="tab-pane">
             <div class="sidebarname">快捷导航</div>
             <ul class="sidebar-menu" data-widget="tree">
-                <li data-navname="数据统计"><a href="/management/index">数据统计</a></li>
+                <li data-navname="数据统计"><a href="/management">数据统计</a></li>
             </ul>
         </section>
 

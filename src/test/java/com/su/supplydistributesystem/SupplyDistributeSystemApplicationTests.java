@@ -15,7 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
@@ -30,6 +32,21 @@ public class SupplyDistributeSystemApplicationTests {
 
 	@Autowired
 	private DistributorService distributorService;
+
+	@Test
+	public void calendarTest(){
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(Calendar.DAY_OF_MONTH,1);
+		calendar.set(Calendar.HOUR_OF_DAY,0);
+		calendar.set(Calendar.MINUTE,0);
+		calendar.set(Calendar.SECOND,0);
+		calendar.set(Calendar.MILLISECOND,0);
+
+		System.out.println("Calendar test:" + new SimpleDateFormat("yyyy-MM-dd kk:mm:ss:SSSS").format(calendar.getTime()) + "," + calendar.getTimeInMillis());
+		calendar.set(Calendar.HOUR_OF_DAY,1);
+		System.out.println("Calendar test:" + new SimpleDateFormat("yyyy-MM-dd kk:mm:ss:SSSS").format(calendar.getTime()) + "," + calendar.getTimeInMillis());
+
+	}
 
 	@Test
 	public void contextLoads() {

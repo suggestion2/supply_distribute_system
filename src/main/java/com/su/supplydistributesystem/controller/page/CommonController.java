@@ -26,9 +26,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 import static com.su.supplydistributesystem.constants.CommonConstants.*;
 
@@ -54,13 +52,13 @@ public class CommonController {
 
     @RequestMapping(value = "/management/login", method = RequestMethod.GET)
     public String login(@RequestParam(required = false) String redirectUrl,ModelMap modelMap) {
-        modelMap.put("redirectUrl", StringUtils.hasText(redirectUrl) ? "/management" : redirectUrl);
+        modelMap.put("redirectUrl", !StringUtils.hasText(redirectUrl) ? "/management" : redirectUrl);
         return "management/login";
     }
 
     @RequestMapping(value = "/wap/login", method = RequestMethod.GET)
     public String wapLogin(@RequestParam(required = false) String redirectUrl,ModelMap modelMap) {
-        modelMap.put("redirectUrl", StringUtils.hasText(redirectUrl) ? "/wap/index" : redirectUrl);
+        modelMap.put("redirectUrl", !StringUtils.hasText(redirectUrl) ? "/wap/index" : redirectUrl);
         return "management/wapLogin";
     }
 
@@ -78,16 +76,34 @@ public class CommonController {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
             List<OrderItemDailyCount> list = statisticsService.countOrderCount(null,id,null,null,simpleDateFormat.format(new Date()));
-            int dailyCount = list.get(0).getCount();
+            if(Objects.isNull(list) || list.size() <= 1){
+                modelMap.put("sumOrderCount",new OrderItemCategoryStatisticsView(0,0,0,null));
+            }
+            int dailyCount = list.get(1).getCount();
             int weeklyCount = 0;
             for(int i =0; i < 7;i ++){
                 weeklyCount += list.get(i).getCount();
             }
-            int monthlyCount = list.stream().mapToInt(OrderItemDailyCount::getCount).sum();
+            int monthlyCount = 0;
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.DAY_OF_MONTH,1);
+            calendar.set(Calendar.HOUR_OF_DAY,0);
+            calendar.set(Calendar.MINUTE,0);
+            calendar.set(Calendar.SECOND,0);
+            calendar.set(Calendar.MILLISECOND,0);
+            for(int i =0; i < list.size();i ++){
+                if(calendar.getTimeInMillis() > list.get(i).getDate().getTime()){
+                    break;
+                }
+                monthlyCount += list.get(i).getCount();
+            }
             modelMap.put("sumOrderCount",new OrderItemCategoryStatisticsView(dailyCount,weeklyCount,monthlyCount,null));
 
             List<OrderItemDailyCount> list1 = statisticsService.countSalesCount(null,id,null,null,simpleDateFormat.format(new Date()));
-            int weeklyCount1 = list.stream().mapToInt(OrderItemDailyCount::getCount).sum();
+            if(Objects.isNull(list1) || list1.size() == 0){
+                modelMap.put("sumSalesCount",new OrderItemCategoryStatisticsView(null,0,null,list1));
+            }
+            int weeklyCount1 = list1.stream().mapToInt(OrderItemDailyCount::getCount).sum();
             modelMap.put("sumSalesCount",new OrderItemCategoryStatisticsView(null,weeklyCount1,null,list1));
         }
 

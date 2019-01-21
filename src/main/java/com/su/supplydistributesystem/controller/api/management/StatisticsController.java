@@ -46,28 +46,25 @@ public class StatisticsController {
     @RequestMapping(value = "/category/sum", method = RequestMethod.GET)
     public OrderItemCategoryStatisticsView sum(@RequestParam Integer id) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.DAY_OF_MONTH, -1);
-        String beforeOneDay = simpleDateFormat.format(calendar.getTime());
-        String time = simpleDateFormat.format(new Date());
+
         List<OrderItemDailyCount> list = statisticsService.countOrderCount(null,id,null,null,simpleDateFormat.format(new Date()));
-        if(Objects.isNull(list) || list.size() == 0){
+        if(Objects.isNull(list) || list.size() <= 1){
             return new OrderItemCategoryStatisticsView(0,0,0,null);
         }
-        int dailyCount = 0;
-        for(int i =0; i < 2;i ++){
-            if((i == CURRENTDAY&&!simpleDateFormat.format(list.get(i).getDate()).equals(time))|| (i == BEFOREDAY&&!simpleDateFormat.format(list.get(i).getDate()).equals(beforeOneDay))){
-                break;
-            }
-            dailyCount += list.get(i).getCount();
-        }
+        int dailyCount = list.get(1).getCount();
         int weeklyCount = 0;
         for(int i =0; i < 7;i ++){
             weeklyCount += list.get(i).getCount();
         }
         int monthlyCount = 0;
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DAY_OF_MONTH,1);
+        calendar.set(Calendar.HOUR_OF_DAY,0);
+        calendar.set(Calendar.MINUTE,0);
+        calendar.set(Calendar.SECOND,0);
+        calendar.set(Calendar.MILLISECOND,0);
         for(int i =0; i < list.size();i ++){
-            if(!simpleDateFormat.format(list.get(i).getDate()).substring(MONTHSUBSTART,MONTHSUBEND).equals(time.substring(MONTHSUBSTART,MONTHSUBEND))){
+            if(calendar.getTimeInMillis() > list.get(i).getDate().getTime()){
                 break;
             }
             monthlyCount += list.get(i).getCount();

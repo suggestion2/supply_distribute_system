@@ -69,15 +69,9 @@
                     <div class="record" style="min-height: 100px">
                         <div class="item">
                             <ul class="clearfix" style="font-size:16px;line-height: 30px;">
-<<<<<<< .mine
-                                <li class="col-xs-3"><label>该品类昨日订单数：</label><span id="day1"></span>单</li>
-                                <li class="col-xs-3"><label>该品类过去7天订单数：</label><span id="day7"></span>单</li>
-                                <li class="col-xs-3"><label>该品类当月订单数：</label><span id="day30"></span>单</li>
-=======
                                 <li class="col-xs-3"><label>该品类昨日订单数：</label><span id="day1" style="font-size: 30px;font-weight: bold;"></span> 单</li>
                                 <li class="col-xs-3"><label>该品类过去7天订单数：</label><span id="day7" style="font-size: 30px;font-weight: bold;"></span> 单</li>
                                 <li class="col-xs-3"><label>该品类当月订单数：</label><span id="day30" style="font-size: 30px;font-weight: bold;"></span> 单</li>
->>>>>>> .theirs
                             </ul>
                         </div>
                     </div>

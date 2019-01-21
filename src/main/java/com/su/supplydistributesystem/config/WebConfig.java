@@ -65,12 +65,12 @@ public class WebConfig implements WebMvcConfigurer{
     public void addInterceptors(InterceptorRegistry registry){
 
         registry.addInterceptor(sessionInterceptor())
-                .addPathPatterns("/mApi/**")
+                .addPathPatterns("/mApi/**","/dApi/**")
                 .excludePathPatterns("/resources/**","/test/**","/404","/500");
 
         registry.addInterceptor(pageInterceptor())
                 .addPathPatterns("/**")
-                .excludePathPatterns("/mApi/**”,”resources/**","/test/**","/404","/500");
+                .excludePathPatterns("/mApi/**","/dApi/**","resources/**","/test/**","/404","/500");
     }
 
     @Bean
