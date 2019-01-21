@@ -45,9 +45,6 @@ public class GoodsController {
     private static final Logger logger = LoggerFactory.getLogger(GoodsController.class);
 
     @Autowired
-    private GoodsCategoryService goodsCategoryService;
-
-    @Autowired
     private GoodsService goodsService;
 
     @Autowired
