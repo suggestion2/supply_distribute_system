@@ -67,9 +67,9 @@ public class GoodsController {
     @Transactional
     public ResponseView create(@Valid @RequestBody GoodsCreateForm form){
         Goods goods = new Goods();
-        if(Objects.nonNull(goodsService.getByName(form.getName()))){
-            throw new InvalidRequestException("duplicateName","duplicate goods name");
-        }
+//        if(Objects.nonNull(goodsService.getByName(form.getName()))){
+//            throw new InvalidRequestException("duplicateName","duplicate goods name");
+//        }
         BeanUtils.copyProperties(form,goods);
         goods.setNumber(UUIDUtils.random());
 
@@ -100,9 +100,9 @@ public class GoodsController {
     public ResponseView update(@Valid @RequestBody GoodsUpdateForm form){
         Goods goods = goodsService.getById(form.getId());
         Goods existGoods;
-        if(Objects.nonNull(existGoods = goodsService.getByName(form.getName())) && !existGoods.getId().equals(form.getId())){
-            throw new InvalidRequestException("duplicateName","duplicate goods name");
-        }
+//        if(Objects.nonNull(existGoods = goodsService.getByName(form.getName())) && !existGoods.getId().equals(form.getId())){
+//            throw new InvalidRequestException("duplicateName","duplicate goods name");
+//        }
         if(Objects.isNull(goods)){
             throw new ResourceNotFoundException("goods not exists");
         }
