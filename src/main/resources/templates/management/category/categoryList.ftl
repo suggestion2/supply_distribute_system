@@ -172,12 +172,16 @@
         $.each(data.list,function(idx,obj){
             $("#categoryArea").append(firstLev(obj));
         });
+
+
         //收缩菜单
         $('.categoryTree li:has(ul)').addClass('parent_li');
         $('.no_parent_li').each(function(){
-            if($(this).siblings('ul').length<1)
+            if($(this).siblings('ul').length<1){
                 $(this).find('.no_icon').hide()
+            }
         });
+
         $('.categoryTree li.parent_li > span').on('click', function (e) {
             var children = $(this).parent('li.parent_li').find(' > ul > li');
             if (children.is(":visible")) {
@@ -196,21 +200,21 @@
     function firstLev(obj){
         // 一级菜单
         var str='<li>'+
-                '<span><i class="fa fa-minus" style="margin-right: 6px;"></i> '+obj.name+' <a class="btn btn-danger btn-flat deleteBtn" onclick="deleteBtn('+obj.id+')"><i class="fa fa-trash"></i></a><a class="btn btn-success btn-flat " onclick="editBtn('+obj.id+',this)" data-name="'+obj.name+'" title="编辑"><i class="fa fa-pencil"></i></a>' +
-                statusFn(obj.status,obj.id);
+                '<span><i class="fa fa-plus" style="margin-right: 6px;"></i>'+obj.name+'<a class="btn btn-danger btn-flat deleteBtn" onclick="deleteBtn('+obj.id+')"><i class="fa fa-trash"></i></a><a class="btn btn-success btn-flat " onclick="editBtn('+obj.id+',this)" data-name="'+obj.name+'" title="编辑"><i class="fa fa-pencil"></i></a>' +
+                statusFn(obj.status,obj.id)+'</span>';
         //二级菜单
         if(obj.list.length>0){
             str+='<ul>';
             $.each(obj.list,function(sidx,sobj){
-                str+='<li>'+
-                        '<span class="no_parent_li"><i class="fa fa-minus no_icon" style="margin-right: 6px;"></i> '+sobj.name+' <a class="btn btn-danger btn-flat deleteBtn" onclick="deleteBtn('+sobj.id+')"><i class="fa fa-trash"></i></a><a class="btn btn-success btn-flat editBtn" onclick="editBtn('+sobj.id+',this)" data-name="'+sobj.name+'" title="编辑"><i class="fa fa-pencil"></i></a>' +
+                str+='<li style="display: none">'+
+                        '<span class="no_parent_li"><i class="fa fa-plus no_icon" style="margin-right: 6px;"></i> '+sobj.name+' <a class="btn btn-danger btn-flat deleteBtn" onclick="deleteBtn('+sobj.id+')"><i class="fa fa-trash"></i></a><a class="btn btn-success btn-flat editBtn" onclick="editBtn('+sobj.id+',this)" data-name="'+sobj.name+'" title="编辑"><i class="fa fa-pencil"></i></a>' +
                         statusFn(sobj.status,sobj.id)+'</span>';
                 // 三级菜单
                 if(sobj.list.length>0){
                     str+='<ul>';
                     $.each(sobj.list,function(tidx,tobj){
-                        str+='<li>'+
-                                '<span class="no_parent_li"><i class="fa fa-minus no_icon" style="margin-right: 6px;"></i> '+tobj.name+' <a class="btn btn-danger btn-flat deleteBtn" onclick="deleteBtn('+tobj.id+')"><i class="fa fa-trash"></i></a><a class="btn btn-success btn-flat editBtn" onclick="editBtn('+tobj.id+',this)" data-name="'+tobj.name+'" title="编辑"><i class="fa fa-pencil"></i></a>' +
+                        str+='<li style="display: none">'+
+                                '<span class="no_parent_li"><i class="fa fa-plus no_icon" style="margin-right: 6px;"></i> '+tobj.name+' <a class="btn btn-danger btn-flat deleteBtn" onclick="deleteBtn('+tobj.id+')"><i class="fa fa-trash"></i></a><a class="btn btn-success btn-flat editBtn" onclick="editBtn('+tobj.id+',this)" data-name="'+tobj.name+'" title="编辑"><i class="fa fa-pencil"></i></a>' +
                                 statusFn(tobj.status,tobj.id)+'</span></li>';
                     });
                     str+='</ul>';
