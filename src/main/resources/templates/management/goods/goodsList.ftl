@@ -12,6 +12,8 @@
                         <div class="row" style="padding-bottom: 20px;">
                             <div class="col-xs-4">
                                 <a class="btn ydcbtn bg-olive" href="/management/excel/goods"><i class="fa fa-file-excel-o"></i> 导出全部商品excel</a>
+                                <a href="javascript:;" class="btn ydcbtn bg-olive btn-flat" onclick="checkallup()">批量上架</a>
+                                <a href="javascript:;" class="btn ydcbtn btn-danger btn-flat" onclick="checkalldown()">批量下架</a>
                             </div>
                             <div class="col-xs-5 pull-right">
                                 <div class="input-group input-group-sm">
@@ -33,7 +35,12 @@
                         <table id="brandList" class="table table-hover text-center" data-table="brandList">
                             <thead>
                                 <tr>
-                                    <th style="text-align: left;width: 200px">产品名称</th>
+                                    <th style="text-align: left;width: 40px">
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="all" class="selectAll" style="margin-top: -10px">
+                                        </label>
+                                    </th>
+                                    <th style="text-align: left;width: 270px">产品名称</th>
                                     <th>颜色</th>
                                     <th>售价(￥)</th>
                                     <th>成本价(￥)</th>
@@ -63,6 +70,31 @@
     $(function(){
         //导航
         navcontroller("goods","产品列表");
+
+        /*全选*/
+        $('.selectAll').click(function(){
+            var flag = $(this).prop("checked");
+            $('.checkbtn').each(function(){
+                if($(this).prop('disabled')==false){
+                    $(this).prop("checked", flag);
+                }
+            });
+        });
+        $(document).on('click','table tbody .checkbtn',function () {
+            var flag=false;
+            $('.checkbtn').each(function(){
+                if($(this).prop("checked")==false){
+                    $('.selectAll').prop("checked",false);
+                    flag=false;
+                    return false;
+                }else{
+                    flag=true;
+                }
+            });
+            if(flag){
+                $('.selectAll').prop("checked",true);
+            }
+        })
     });
 
     /*分类*/
@@ -115,6 +147,7 @@
     function firstAjax(data){
         $("#pages").html("");
         $("#pages").parent().find(".pagesTotle").remove();
+
         data.pageIndex=0;
         data.pageSize=10;
         $.ydcAjax("POST","/mApi/goods/list",JSON.stringify(data),"json","application/json",goodsListFn,"");
@@ -129,6 +162,11 @@
         };
 
         str += '<tr>' +
+                '<td style="text-align: left">' +
+                '<label class="checkbox-inline">' +
+                '    <input type="checkbox" name="check" class="checkbtn" data-id="'+val.id+'" style="margin-top: -10px">' +
+                '</label>' +
+                '</td>'+
                 '<td style="text-align: left">'+val.name+'</td>'+
                 '<td>'+val.colour+'</td>'+
                 '<td style="color:green;">'+(val.price).toFixed(2)+'</td>' +
@@ -170,6 +208,7 @@
                 pagingData.pageSize=10;
                 var data = JSON.stringify(pagingData);
                 $.ydcAjax("POST","/mApi/goods/list",data,"json","application/json",function(newjson){
+                    $('.selectAll').prop('checked',false);
                     $('[data-table] tbody').html('');
                     $.each(newjson.list,function(idx,val){
                         $('[data-table] tbody').append(strCon(val));
@@ -247,5 +286,48 @@
         },function (error) {
             $.ydcModal("fa fa-warning","操作提示","删除失败!"+$.parseJSON(error.responseText).message,"我知道了","");
         });
-    }
+    };
+
+    /*批量上架*/
+    function checkallup(){
+        var list=[];
+        $('.checkbtn').each(function(){
+            if($(this).prop("checked")==true){
+                list.push($(this).attr('data-id'));
+            }
+        });
+        if(list.length==0){
+            $.smallTips("请勾选要上架的商品",true,1000);
+            return false;
+        }
+        $.ydcAjax("PUT","/mApi/goods/batchStatus",JSON.stringify({"list":list,"status":1}),"json","application/json",function(){
+            $.smallTips("商品批量上架成功！",true,1000);
+            setTimeout(function(){
+                window.location.reload();
+            },1000);
+        },function(){
+            $.smallTips("出现异常，请刷新页面或稍后再试！",true,1000);
+        });
+    };
+    /*批量下架*/
+    function checkalldown(){
+        var list=[];
+        $('.checkbtn').each(function(){
+            if($(this).prop("checked")==true){
+                list.push($(this).attr('data-id'));
+            }
+        });
+        if(list.length==0){
+            $.smallTips("请勾选要下架的商品",true,1000);
+            return false;
+        }
+        $.ydcAjax("PUT","/mApi/goods/batchStatus",JSON.stringify({"list":list,"status":0}),"json","application/json",function(){
+            $.smallTips("商品批量下架成功！",true,1000);
+            setTimeout(function(){
+                window.location.reload();
+            },1000);
+        },function(){
+            $.smallTips("出现异常，请刷新页面或稍后再试！",true,1000);
+        });
+    };
 </script>
