@@ -1,6 +1,7 @@
 package com.su.supplydistributesystem.service;
 
 import com.su.supplydistributesystem.domain.Goods;
+import com.su.supplydistributesystem.request.GoodsBatchStatusForm;
 import com.su.supplydistributesystem.response.GoodsDetailView;
 import com.su.supplydistributesystem.response.GoodsDistributeView;
 import com.su.supplydistributesystem.service.GoodsDetailParams;
@@ -37,6 +38,8 @@ public interface GoodsService {
     int update(Goods goods);
 
     int updateStatus(Goods goods);
+
+    int batchUpdateStatus(List<Integer> idList,int status,int updateBy);
 
     int deleteById(Integer id);
 }

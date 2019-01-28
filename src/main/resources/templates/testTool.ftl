@@ -344,6 +344,16 @@
                 <input type="button" value="修改" onclick="goodsModule.resetStatus()"/><br>
             </div>
             <div>
+                <strong>[批量上架/下架]</strong><br/>
+                list:<input class="textbox" type="text" id="goods-m-batchStatus-id" style="width: 100px;"
+                          placeholder="1,2,3"/>
+                status:<select class="textbox" id="goods-m-batchStatus-status" style="width: 100px;">
+                <option value="0">disable</option>
+                <option value="1">enable</option>
+            </select><br>
+                <input type="button" value="修改" onclick="goodsModule.batchStatus()"/><br>
+            </div>
+            <div>
                 <strong>[删除]</strong><br/>
                 id:<input class="textbox" type="text" id="goods-m-delete-id" style="width: 100px;"
                              value="1"/>

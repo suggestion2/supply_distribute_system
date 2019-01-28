@@ -17,6 +17,7 @@ public interface GoodsMapper {
     List<Goods> selectList(Map<String, Object> map);
 
     List<GoodsDistributeView> selectViewList(Map<String, Object> map);
+
     List<GoodsDetailParams> selectGoodsDetailParamsList(Map<String, Object> map);
 
     int selectCount(Map<String, Object> map);
@@ -26,6 +27,8 @@ public interface GoodsMapper {
     int update(Goods goods);
 
     int updateStatus(Goods goods);
+
+    int batchUpdateStatus(Map<String, Object> map);
 
     int deleteById(Integer id);
 }

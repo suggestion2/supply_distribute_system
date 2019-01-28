@@ -164,6 +164,12 @@ public class GoodsController {
         return new ResponseView();
     }
 
+    @RequestMapping(value = "/batchStatus",method = RequestMethod.PUT)
+    public ResponseView batchStatus(@Valid @RequestBody GoodsBatchStatusForm form){
+        goodsService.batchUpdateStatus(form.getList(),form.getStatus(),sessionContext.getUser().getId());
+        return new ResponseView();
+    }
+
     @RequestMapping(value = DELETE_BY_ID,method = RequestMethod.DELETE)
     @Transactional
     public ResponseView deleteById(@PathVariable Integer id){

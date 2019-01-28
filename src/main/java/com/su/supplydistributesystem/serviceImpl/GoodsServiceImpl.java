@@ -2,6 +2,7 @@ package com.su.supplydistributesystem.serviceImpl;
 
 import com.su.supplydistributesystem.domain.Goods;
 import com.su.supplydistributesystem.domain.GoodsSupply;
+import com.su.supplydistributesystem.request.GoodsBatchStatusForm;
 import com.su.supplydistributesystem.response.GoodsDetailView;
 import com.su.supplydistributesystem.response.GoodsDistributeView;
 import com.su.supplydistributesystem.service.GoodsDetailParams;
@@ -98,6 +99,15 @@ public class GoodsServiceImpl implements GoodsService{
     @Override
     public int updateStatus(Goods goods) {
         return goodsMapper.updateStatus(goods);
+    }
+
+    @Override
+    public int batchUpdateStatus(List<Integer> idList,int status,int updateBy) {
+        Map<String,Object> query = new HashMap<>();
+        query.put("list",idList);
+        query.put("status",status);
+        query.put("updateBy",updateBy);
+        return goodsMapper.batchUpdateStatus(query);
     }
 
     @Override

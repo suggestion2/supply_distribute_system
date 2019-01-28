@@ -222,6 +222,17 @@
         where `id` = #{id}
     </update>
     
+    <update id="batchUpdateStatus" parameterType="java.util.Map">
+        update `goods` set
+        `status` = #{status},
+        `updateBy` = #{updateBy},
+        `updateTime` = now()
+        where `id` IN
+        <foreach item="item" open="(" close=")" index="index" collection="list" separator=",">
+            #{item}
+        </foreach>
+    </update>
+    
     <delete id="deleteById" parameterType="java.lang.Integer">
         update `goods` set valid = 0 where `id` = #{id}
     </delete>

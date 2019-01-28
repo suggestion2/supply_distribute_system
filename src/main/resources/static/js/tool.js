@@ -431,6 +431,18 @@ var goodsModule = {
         };
         showResult(settings);
     },
+    batchStatus: function () {
+        var settings = {
+            type: "PUT",
+            url: "/mApi/goods/batchStatus",
+            dataType: "json",
+            data: JSON.stringify({
+                "list": $("#goods-m-batchStatus-id").val().split(","),
+                "status": $("#goods-m-batchStatus-status").val()
+            })
+        };
+        showResult(settings);
+    },
     deleteById: function () {
         var settings = {
             type: "DELETE",

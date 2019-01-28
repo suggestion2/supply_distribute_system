@@ -18,9 +18,6 @@ import java.lang.reflect.Field;
 })
 public class SupplyDistributeSystemApplication {
 
-	@Autowired
-	private HikariDataSource dataSource;
-
 	public static void main(String[] args) {
 		SpringApplication.run(SupplyDistributeSystemApplication.class, args);
 	}
